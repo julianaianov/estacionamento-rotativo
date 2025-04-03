@@ -1,7 +1,14 @@
 import Navbar from "@/components/navbar"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import Link from "next/link"
-import { MapPin, CheckSquare, Search, Activity, Thermometer, Grid, MonitorSmartphone, AlertOctagon } from "lucide-react"
+import {
+  Map,
+  CheckCircle,
+  ClipboardList,
+  Users,
+  Activity,
+  MonitorIcon,
+} from "lucide-react"
 
 export default function TempoRealPage() {
   return (
@@ -16,11 +23,11 @@ export default function TempoRealPage() {
           <Link href="/tempo-real/mapa-ocupacao-vagas">
             <Card className="hover:shadow-md transition-shadow cursor-pointer">
               <CardHeader className="flex flex-row items-center space-x-2">
-                <MapPin className="h-6 w-6 text-blue-600" />
+                <Map className="h-6 w-6 text-blue-600" />
                 <CardTitle>Mapa Ocupação Vagas</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-sm text-gray-500">Visualização em tempo real da ocupação de vagas</p>
+                <p className="text-sm text-gray-500">Visualização em tempo real da ocupação das vagas</p>
               </CardContent>
             </Card>
           </Link>
@@ -28,11 +35,11 @@ export default function TempoRealPage() {
           <Link href="/tempo-real/mapa-ocupacao-vagas-gerente">
             <Card className="hover:shadow-md transition-shadow cursor-pointer">
               <CardHeader className="flex flex-row items-center space-x-2">
-                <MapPin className="h-6 w-6 text-blue-600" />
+                <Map className="h-6 w-6 text-blue-600" />
                 <CardTitle>Mapa Ocupação Vagas - Gerente</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-sm text-gray-500">Visualização gerencial da ocupação de vagas</p>
+                <p className="text-sm text-gray-500">Visualização gerencial da ocupação das vagas</p>
               </CardContent>
             </Card>
           </Link>
@@ -40,11 +47,11 @@ export default function TempoRealPage() {
           <Link href="/tempo-real/fechamento-sessao-setores">
             <Card className="hover:shadow-md transition-shadow cursor-pointer">
               <CardHeader className="flex flex-row items-center space-x-2">
-                <CheckSquare className="h-6 w-6 text-blue-600" />
+                <CheckCircle className="h-6 w-6 text-blue-600" />
                 <CardTitle>Fechamento Sessão Setores</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-sm text-gray-500">Gerenciamento de fechamento de sessão por setores</p>
+                <p className="text-sm text-gray-500">Gerenciamento de fechamento de sessões por setor</p>
               </CardContent>
             </Card>
           </Link>
@@ -52,11 +59,11 @@ export default function TempoRealPage() {
           <Link href="/tempo-real/consulta-quadra-setor">
             <Card className="hover:shadow-md transition-shadow cursor-pointer">
               <CardHeader className="flex flex-row items-center space-x-2">
-                <Search className="h-6 w-6 text-blue-600" />
+                <ClipboardList className="h-6 w-6 text-blue-600" />
                 <CardTitle>Consulta Por Quadra/Setor</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-sm text-gray-500">Consulta de informações por quadra ou setor</p>
+                <p className="text-sm text-gray-500">Consulta detalhada por quadra e setor</p>
               </CardContent>
             </Card>
           </Link>
@@ -64,11 +71,11 @@ export default function TempoRealPage() {
           <Link href="/tempo-real/mapa-movimentacao-operadores">
             <Card className="hover:shadow-md transition-shadow cursor-pointer">
               <CardHeader className="flex flex-row items-center space-x-2">
-                <Activity className="h-6 w-6 text-blue-600" />
+                <Users className="h-6 w-6 text-blue-600" />
                 <CardTitle>Mapa Movimentação Operadores</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-sm text-gray-500">Visualização da movimentação dos operadores em tempo real</p>
+                <p className="text-sm text-gray-500">Acompanhamento da movimentação dos operadores</p>
               </CardContent>
             </Card>
           </Link>
@@ -76,8 +83,8 @@ export default function TempoRealPage() {
           <Link href="/tempo-real/mapa-incidencia-estacionamento">
             <Card className="hover:shadow-md transition-shadow cursor-pointer">
               <CardHeader className="flex flex-row items-center space-x-2">
-                <Thermometer className="h-6 w-6 text-blue-600" />
-                <CardTitle>Mapa Incidência Estacionamento(Calor)</CardTitle>
+                <Activity className="h-6 w-6 text-blue-600" />
+                <CardTitle>Mapa Incidência Estacionamento</CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-sm text-gray-500">Mapa de calor mostrando incidência de estacionamento</p>
@@ -85,11 +92,11 @@ export default function TempoRealPage() {
             </Card>
           </Link>
 
-          <Link href="/tempo-real/mapa-exibicao-vagas-cadastradas">
+          <Link href="/tempo-real/mapa-exibicao-vagas">
             <Card className="hover:shadow-md transition-shadow cursor-pointer">
               <CardHeader className="flex flex-row items-center space-x-2">
-                <Grid className="h-6 w-6 text-blue-600" />
-                <CardTitle>Mapa de Exibição de Vagas Cadastradas</CardTitle>
+                <Map className="h-6 w-6 text-blue-600" />
+                <CardTitle>Mapa de Exibição de Vagas</CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-sm text-gray-500">Visualização das vagas cadastradas no sistema</p>
@@ -100,8 +107,8 @@ export default function TempoRealPage() {
           <Link href="/tempo-real/mapa-monitoramento-parquimetro">
             <Card className="hover:shadow-md transition-shadow cursor-pointer">
               <CardHeader className="flex flex-row items-center space-x-2">
-                <MonitorSmartphone className="h-6 w-6 text-blue-600" />
-                <CardTitle>Mapa Monitoramento Parquímetro/Fiscaliz</CardTitle>
+                <MonitorIcon className="h-6 w-6 text-blue-600" />
+                <CardTitle>Monitoramento Parquímetro/Fiscaliz</CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-sm text-gray-500">Monitoramento de parquímetros e fiscalização</p>
@@ -112,11 +119,11 @@ export default function TempoRealPage() {
           <Link href="/tempo-real/devedores-estacionados">
             <Card className="hover:shadow-md transition-shadow cursor-pointer">
               <CardHeader className="flex flex-row items-center space-x-2">
-                <AlertOctagon className="h-6 w-6 text-blue-600" />
+                <ClipboardList className="h-6 w-6 text-blue-600" />
                 <CardTitle>Devedores estacionados</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-sm text-gray-500">Lista de devedores que estão atualmente estacionados</p>
+                <p className="text-sm text-gray-500">Lista de devedores atualmente estacionados</p>
               </CardContent>
             </Card>
           </Link>

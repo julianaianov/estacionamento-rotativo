@@ -32,6 +32,13 @@ import {
   PercentSquare,
   Smartphone,
   CheckCircle,
+  Link2,
+  Briefcase,
+  ParkingCircle,
+  Mail,
+  Users,
+  MonitorIcon,
+  ClipboardList,
 } from "lucide-react"
 
 export default function Navbar() {
@@ -123,13 +130,53 @@ export default function Navbar() {
                 onClick={() => toggleDropdown("tempo-real")}
                 className="flex items-center px-3 py-2 text-sm font-medium text-blue-600 rounded hover:bg-gray-100"
               >
-                <Clock className="w-4 h-4 mr-1" />
+                <Activity className="w-4 h-4 mr-1" />
                 Tempo Real
                 <ChevronDown className="w-4 h-4 ml-1" />
               </button>
               {activeDropdown === "tempo-real" && (
-                <div className="absolute left-0 z-10 w-64 mt-2 bg-white border rounded shadow-lg">
-                  {/* Itens de tempo real... */}
+                <div 
+                  className="absolute left-0 z-10 w-64 mt-2 bg-white border rounded shadow-lg"
+                  role="menu"
+                  aria-orientation="vertical"
+                  aria-labelledby="tempo-real-menu"
+                >
+                  <Link href="/tempo-real/mapa-ocupacao-vagas" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">
+                    <Map className="inline-block w-4 h-4 mr-2" />
+                    Mapa Ocupação Vagas
+                  </Link>
+                  <Link href="/tempo-real/mapa-ocupacao-vagas-gerente" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">
+                    <Map className="inline-block w-4 h-4 mr-2" />
+                    Mapa Ocupação Vagas - Gerente
+                  </Link>
+                  <Link href="/tempo-real/fechamento-sessao-setores" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">
+                    <CheckCircle className="inline-block w-4 h-4 mr-2" />
+                    Fechamento Sessão Setores
+                  </Link>
+                  <Link href="/tempo-real/consulta-quadra-setor" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">
+                    <ClipboardList className="inline-block w-4 h-4 mr-2" />
+                    Consulta Por Quadra/Setor
+                  </Link>
+                  <Link href="/tempo-real/mapa-movimentacao-operadores" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">
+                    <Users className="inline-block w-4 h-4 mr-2" />
+                    Mapa Movimentação Operadores
+                  </Link>
+                  <Link href="/tempo-real/mapa-incidencia-estacionamento" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">
+                    <Activity className="inline-block w-4 h-4 mr-2" />
+                    Mapa Incidência Estacionamento(Calor)
+                  </Link>
+                  <Link href="/tempo-real/mapa-exibicao-vagas" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">
+                    <Map className="inline-block w-4 h-4 mr-2" />
+                    Mapa de Exibição de Vagas Cadastradas
+                  </Link>
+                  <Link href="/tempo-real/mapa-monitoramento-parquimetro" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">
+                    <MonitorIcon className="inline-block w-4 h-4 mr-2" />
+                    Mapa Monitoramento Parquímetro/Fiscaliz
+                  </Link>
+                  <Link href="/tempo-real/devedores-estacionados" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                    <ClipboardList className="inline-block w-4 h-4 mr-2" />
+                    Devedores estacionados
+                  </Link>
                 </div>
               )}
             </div>
