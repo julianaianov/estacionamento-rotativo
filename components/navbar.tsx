@@ -2,7 +2,7 @@
 
 import Link from "next/link"
 import { useState, useEffect, useRef } from "react"
-import { usePathname } from "next/navigation"
+import { usePathname, useRouter } from "next/navigation"
 import {
   CheckCircle,
   FileText,
@@ -58,10 +58,11 @@ export default function Navbar() {
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null)
   const dropdownRef = useRef<HTMLDivElement>(null)
   const pathname = usePathname()
+  const router = useRouter()
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+      if (!(event.target as Element).closest('.dropdown-container')) {
         setActiveDropdown(null)
       }
     }
@@ -102,12 +103,13 @@ export default function Navbar() {
             <Link
               href="/"
               className="flex items-center px-3 py-2 text-sm font-medium text-white bg-blue-600 rounded hover:bg-blue-700"
+              onClick={() => setActiveDropdown(null)}
             >
               <Home className="w-4 h-4 mr-1" />
               Home
             </Link>
 
-            <div className="relative" ref={dropdownRef}>
+            <div className="relative dropdown-container">
               <button
                 onClick={() => toggleDropdown("cadastros")}
                 className="flex items-center px-3 py-2 text-sm font-medium text-blue-600 rounded hover:bg-gray-100"
@@ -125,75 +127,147 @@ export default function Navbar() {
                   aria-orientation="vertical"
                   aria-labelledby="cadastros-menu"
                 >
-                  <Link href="/cadastros/usuarios" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">
-                    <Users className="inline-block w-4 h-4 mr-2" />
+                  <Link
+                    href="/cadastros/usuarios"
+                    className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                    onClick={() => setActiveDropdown(null)}
+                  >
+                    <Users className="w-4 h-4 mr-2" />
                     Usuários
                   </Link>
-                  <Link href="/cadastros/clientes" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">
+                  <Link 
+                    href="/cadastros/clientes" 
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
+                    onClick={() => setActiveDropdown(null)}
+                  >
                     <UserCircle className="inline-block w-4 h-4 mr-2" />
                     Clientes
                   </Link>
-                  <Link href="/cadastros/parquimetros" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">
+                  <Link 
+                    href="/cadastros/parquimetros" 
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
+                    onClick={() => setActiveDropdown(null)}
+                  >
                     <Parking className="inline-block w-4 h-4 mr-2" />
                     Parquímetros
                   </Link>
-                  <Link href="/cadastros/ruas-setores" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">
+                  <Link 
+                    href="/cadastros/ruas-setores" 
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
+                    onClick={() => setActiveDropdown(null)}
+                  >
                     <Road className="inline-block w-4 h-4 mr-2" />
                     Ruas/Setores
                   </Link>
-                  <Link href="/cadastros/isentos-pos-pago" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">
+                  <Link 
+                    href="/cadastros/isentos-pos-pago" 
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
+                    onClick={() => setActiveDropdown(null)}
+                  >
                     <CreditCard className="inline-block w-4 h-4 mr-2" />
                     Isentos/Pós-Pago
                   </Link>
-                  <Link href="/cadastros/feriados" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">
+                  <Link 
+                    href="/cadastros/feriados" 
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
+                    onClick={() => setActiveDropdown(null)}
+                  >
                     <Calendar className="inline-block w-4 h-4 mr-2" />
                     Feriados
                   </Link>
-                  <Link href="/cadastros/sac-motivos" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">
+                  <Link 
+                    href="/cadastros/sac-motivos" 
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
+                    onClick={() => setActiveDropdown(null)}
+                  >
                     <Info className="inline-block w-4 h-4 mr-2" />
                     SAC - Motivos
                   </Link>
-                  <Link href="/cadastros/tabelas-valores" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">
+                  <Link 
+                    href="/cadastros/tabelas-valores" 
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
+                    onClick={() => setActiveDropdown(null)}
+                  >
                     <Table className="inline-block w-4 h-4 mr-2" />
                     Tabelas e Valores
                   </Link>
-                  <Link href="/cadastros/tipo-advertencias" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">
+                  <Link 
+                    href="/cadastros/tipo-advertencias" 
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
+                    onClick={() => setActiveDropdown(null)}
+                  >
                     <AlertTriangle className="inline-block w-4 h-4 mr-2" />
                     Tipo Advertências
                   </Link>
-                  <Link href="/cadastros/turnos" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">
+                  <Link 
+                    href="/cadastros/turnos" 
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
+                    onClick={() => setActiveDropdown(null)}
+                  >
                     <Watch className="inline-block w-4 h-4 mr-2" />
                     Turnos
                   </Link>
-                  <Link href="/cadastros/manutencao-veiculos" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">
+                  <Link 
+                    href="/cadastros/manutencao-veiculos" 
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
+                    onClick={() => setActiveDropdown(null)}
+                  >
                     <Car className="inline-block w-4 h-4 mr-2" />
                     Manutenção Veículo/Placa
                   </Link>
-                  <Link href="/cadastros/veiculos-marca-modelo" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">
+                  <Link 
+                    href="/cadastros/veiculos-marca-modelo" 
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
+                    onClick={() => setActiveDropdown(null)}
+                  >
                     <Car className="inline-block w-4 h-4 mr-2" />
                     Veículos (Marca/Modelo)
                   </Link>
-                  <Link href="/cadastros/impostos" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">
+                  <Link 
+                    href="/cadastros/impostos" 
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
+                    onClick={() => setActiveDropdown(null)}
+                  >
                     <DollarSign className="inline-block w-4 h-4 mr-2" />
                     Impostos
                   </Link>
-                  <Link href="/cadastros/isentos-vaga-setor" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">
+                  <Link 
+                    href="/cadastros/isentos-vaga-setor" 
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
+                    onClick={() => setActiveDropdown(null)}
+                  >
                     <Ban className="inline-block w-4 h-4 mr-2" />
                     Isento por Vaga/Setor
                   </Link>
-                  <Link href="/cadastros/rotas" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">
+                  <Link 
+                    href="/cadastros/rotas" 
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
+                    onClick={() => setActiveDropdown(null)}
+                  >
                     <Route className="inline-block w-4 h-4 mr-2" />
                     Rotas
                   </Link>
-                  <Link href="/cadastros/operacoes-parquimetro" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">
+                  <Link 
+                    href="/cadastros/operacoes-parquimetro" 
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
+                    onClick={() => setActiveDropdown(null)}
+                  >
                     <Cog className="inline-block w-4 h-4 mr-2" />
                     Operações de Parquímetro
                   </Link>
-                  <Link href="/cadastros/motivos-baixa-ai" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">
+                  <Link 
+                    href="/cadastros/motivos-baixa-ai" 
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
+                    onClick={() => setActiveDropdown(null)}
+                  >
                     <ClipboardCheck className="inline-block w-4 h-4 mr-2" />
                     Motivos de baixa de AI
                   </Link>
-                  <Link href="/cadastros/dispositivos" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                  <Link 
+                    href="/cadastros/dispositivos" 
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                    onClick={() => setActiveDropdown(null)}
+                  >
                     <Tablet className="inline-block w-4 h-4 mr-2" />
                     Dispositivos
                   </Link>
@@ -201,7 +275,7 @@ export default function Navbar() {
               )}
             </div>
 
-            <div className="relative" ref={dropdownRef}>
+            <div className="relative dropdown-container">
               <button
                 onClick={() => toggleDropdown("operacional")}
                 className="flex items-center px-3 py-2 text-sm font-medium text-blue-600 rounded hover:bg-gray-100"
@@ -279,7 +353,7 @@ export default function Navbar() {
               )}
             </div>
 
-            <div className="relative">
+            <div className="relative dropdown-container">
               <button
                 onClick={() => toggleDropdown("fiscalizacao")}
                 className="flex items-center px-3 py-2 text-sm font-medium text-blue-600 rounded hover:bg-gray-100"
@@ -295,7 +369,7 @@ export default function Navbar() {
               )}
             </div>
 
-            <div className="relative">
+            <div className="relative dropdown-container">
               <button
                 onClick={() => toggleDropdown("tempo-real")}
                 className="flex items-center px-3 py-2 text-sm font-medium text-blue-600 rounded hover:bg-gray-100"
@@ -306,12 +380,35 @@ export default function Navbar() {
               </button>
               {activeDropdown === "tempo-real" && (
                 <div className="absolute left-0 z-10 w-64 mt-2 bg-white border rounded shadow-lg">
-                  {/* Itens de tempo real... */}
+                  <Link 
+                    href="/tempo-real/mapa-ocupacao-vagas" 
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
+                    onClick={() => setActiveDropdown(null)}
+                  >
+                    <Map className="inline-block w-4 h-4 mr-2" />
+                    Mapa de Ocupação de Vagas
+                  </Link>
+                  <Link 
+                    href="/tempo-real/fiscalizacao" 
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
+                    onClick={() => setActiveDropdown(null)}
+                  >
+                    <BarChart2 className="inline-block w-4 h-4 mr-2" />
+                    Fiscalização
+                  </Link>
+                  <Link 
+                    href="/tempo-real/parquimetro" 
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                    onClick={() => setActiveDropdown(null)}
+                  >
+                    <Parking className="inline-block w-4 h-4 mr-2" />
+                    Parquímetro
+                  </Link>
                 </div>
               )}
             </div>
 
-            <div className="relative">
+            <div className="relative dropdown-container">
               <button
                 onClick={() => toggleDropdown("pdv")}
                 className="flex items-center px-3 py-2 text-sm font-medium text-blue-600 rounded hover:bg-gray-100"
@@ -327,7 +424,7 @@ export default function Navbar() {
               )}
             </div>
 
-            <div className="relative">
+            <div className="relative dropdown-container">
               <button
                 onClick={() => toggleDropdown("relatorios")}
                 className="flex items-center px-3 py-2 text-sm font-medium text-blue-600 rounded hover:bg-gray-100"
@@ -640,7 +737,7 @@ export default function Navbar() {
               )}
             </div>
 
-            <div className="relative">
+            <div className="relative dropdown-container">
               <button
                 onClick={() => toggleDropdown("manutencao")}
                 className="flex items-center px-3 py-2 text-sm font-medium text-blue-600 rounded hover:bg-gray-100"

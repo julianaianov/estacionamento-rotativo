@@ -1,10 +1,8 @@
-import Navbar from "@/components/navbar"
 import MapWrapper from "@/components/maps/MapWrapper"
 
 export default function MapaOcupacaoVagas() {
   return (
     <main className="min-h-screen bg-gray-100">
-      <Navbar />
       <div className="container mx-auto py-6">
         <div className="flex justify-between items-center mb-6">
           <h1 className="text-2xl font-bold">Mapa de Ocupação de Vagas</h1>

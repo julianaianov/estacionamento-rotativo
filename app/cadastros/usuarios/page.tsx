@@ -26,8 +26,8 @@ export default function CadastroUsuarios() {
   }
 
   return (
-    <div className="bg-white max-w-6xl mx-auto">
-      <div className="bg-blue-600 text-white p-3 flex justify-between items-center">
+    <div className="bg-white rounded-lg shadow">
+      <div className="bg-blue-600 text-white p-3 flex justify-between items-center rounded-t-lg">
         <div className="flex items-center gap-2">
           <span className="text-xl">👤</span>
           <h1 className="text-xl font-semibold">Cadastro de Usuários</h1>
@@ -37,7 +37,7 @@ export default function CadastroUsuarios() {
         </button>
       </div>
 
-      <div className="p-4 border border-gray-300">
+      <div className="p-4">
         <div className="mb-4">
           <label htmlFor="codigo" className="block mb-1 font-medium">
             Código Usuário
