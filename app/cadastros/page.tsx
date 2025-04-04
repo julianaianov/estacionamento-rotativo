@@ -4,7 +4,6 @@ import Link from "next/link"
 import {
   Users,
   UserCircle,
-  ParkingMeterIcon as Parking,
   RouteIcon as Road,
   CreditCard,
   Calendar,
@@ -51,18 +50,6 @@ export default function CadastrosPage() {
               </CardHeader>
               <CardContent>
                 <p className="text-sm text-gray-500">Cadastro e gerenciamento de clientes</p>
-              </CardContent>
-            </Card>
-          </Link>
-
-          <Link href="/cadastros/parquimetros">
-            <Card className="hover:shadow-md transition-shadow cursor-pointer">
-              <CardHeader className="flex flex-row items-center space-x-2">
-                <Parking className="h-6 w-6 text-blue-600" />
-                <CardTitle>Parquímetros</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-sm text-gray-500">Gerenciamento de parquímetros</p>
               </CardContent>
             </Card>
           </Link>
@@ -207,18 +194,6 @@ export default function CadastrosPage() {
               </CardHeader>
               <CardContent>
                 <p className="text-sm text-gray-500">Gerenciamento de rotas</p>
-              </CardContent>
-            </Card>
-          </Link>
-
-          <Link href="/cadastros/operacoes-parquimetro">
-            <Card className="hover:shadow-md transition-shadow cursor-pointer">
-              <CardHeader className="flex flex-row items-center space-x-2">
-                <Cog className="h-6 w-6 text-blue-600" />
-                <CardTitle>Operações de Parquímetro</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-sm text-gray-500">Gerenciamento de operações de parquímetro</p>
               </CardContent>
             </Card>
           </Link>
