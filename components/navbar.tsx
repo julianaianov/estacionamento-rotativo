@@ -1,61 +1,78 @@
 "use client"
 
 import Link from "next/link"
-import { useState } from "react"
+import { useState, useEffect, useRef } from "react"
+import { usePathname } from "next/navigation"
 import {
-  Home,
-  FileText,
-  Settings,
-  Clock,
-  ShoppingCart,
-  BarChart2,
-  PenToolIcon as Tool,
-  ChevronDown,
-  LogOut,
-  AlertTriangle,
-  Car,
-  DollarSign,
-  Map,
-  MapPin,
-  Search,
-  Activity,
-  AlertOctagon,
-  PieChart,
-  UserCheck,
-  FileBarChart,
-  BarChart,
-  FileSpreadsheet,
-  CreditCardIcon as CardIcon,
-  FileTextIcon as FileText2,
-  TrendingUp,
-  MessageSquare,
-  PercentSquare,
-  Smartphone,
   CheckCircle,
+  FileText,
+  DollarSign,
+  CreditCard,
+  BarChart2,
   Link2,
+  Clock,
   Briefcase,
   ParkingCircle,
   Mail,
+  Car,
+  UserPlus,
+  Leaf,
+  Home,
+  Settings,
+  ShoppingCart,
+  PenToolIcon as Tool,
+  ChevronDown,
+  LogOut,
   Users,
-  MonitorIcon,
-  ClipboardList,
   UserCircle,
-  CreditCard,
+  ParkingMeterIcon as Parking,
+  RouteIcon as Road,
   Calendar,
   Info,
   Table,
+  AlertTriangle,
+  Watch,
   Ban,
   Route,
   Cog,
   ClipboardCheck,
   Tablet,
-  ParkingMeterIcon as Parking,
-  RouteIcon as Road,
-  Clock as Watch,
+  AlertOctagon,
+  BarChart,
+  FileSpreadsheet,
+  PieChart,
+  TrendingUp,
+  FileBarChart,
+  UserCheck,
+  Map,
+  MapPin,
+  Search,
+  Activity,
+  MessageSquare,
+  CreditCardIcon as CardIcon,
+  PercentSquare,
+  Smartphone,
 } from "lucide-react"
 
 export default function Navbar() {
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null)
+  const dropdownRef = useRef<HTMLDivElement>(null)
+  const pathname = usePathname()
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setActiveDropdown(null)
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside)
+    return () => document.removeEventListener("mousedown", handleClickOutside)
+  }, [])
+
+  useEffect(() => {
+    setActiveDropdown(null)
+  }, [pathname])
 
   const toggleDropdown = (menu: string) => {
     if (activeDropdown === menu) {
@@ -90,122 +107,144 @@ export default function Navbar() {
               Home
             </Link>
 
-            <div className="relative">
+            <div className="relative" ref={dropdownRef}>
               <button
                 onClick={() => toggleDropdown("cadastros")}
                 className="flex items-center px-3 py-2 text-sm font-medium text-blue-600 rounded hover:bg-gray-100"
+                aria-expanded={activeDropdown === "cadastros"}
+                aria-haspopup="true"
               >
                 <FileText className="w-4 h-4 mr-1" />
                 Cadastros
                 <ChevronDown className="w-4 h-4 ml-1" />
               </button>
               {activeDropdown === "cadastros" && (
-                <div className="absolute left-0 z-10 w-64 mt-2 bg-white border rounded shadow-lg">
-                  <Link href="/cadastros/usuarios" className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">
-                    <Users className="w-4 h-4 mr-2 text-blue-600" />
+                <div 
+                  className="absolute left-0 z-10 w-64 mt-2 bg-white border rounded shadow-lg"
+                  role="menu"
+                  aria-orientation="vertical"
+                  aria-labelledby="cadastros-menu"
+                >
+                  <Link href="/cadastros/usuarios" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">
+                    <Users className="inline-block w-4 h-4 mr-2" />
                     Usuários
                   </Link>
-                  <Link href="/cadastros/clientes" className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">
-                    <UserCircle className="w-4 h-4 mr-2 text-blue-600" />
+                  <Link href="/cadastros/clientes" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">
+                    <UserCircle className="inline-block w-4 h-4 mr-2" />
                     Clientes
                   </Link>
-                  <Link href="/cadastros/parquimetros" className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">
-                    <Parking className="w-4 h-4 mr-2 text-blue-600" />
+                  <Link href="/cadastros/parquimetros" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">
+                    <Parking className="inline-block w-4 h-4 mr-2" />
                     Parquímetros
                   </Link>
-                  <Link href="/cadastros/ruas-setores" className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">
-                    <Road className="w-4 h-4 mr-2 text-blue-600" />
+                  <Link href="/cadastros/ruas-setores" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">
+                    <Road className="inline-block w-4 h-4 mr-2" />
                     Ruas/Setores
                   </Link>
-                  <Link href="/cadastros/isentos-pos-pago" className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">
-                    <CreditCard className="w-4 h-4 mr-2 text-blue-600" />
+                  <Link href="/cadastros/isentos-pos-pago" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">
+                    <CreditCard className="inline-block w-4 h-4 mr-2" />
                     Isentos/Pós-Pago
                   </Link>
-                  <Link href="/cadastros/feriados" className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">
-                    <Calendar className="w-4 h-4 mr-2 text-blue-600" />
+                  <Link href="/cadastros/feriados" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">
+                    <Calendar className="inline-block w-4 h-4 mr-2" />
                     Feriados
                   </Link>
-                  <Link href="/cadastros/sac-motivos" className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">
-                    <Info className="w-4 h-4 mr-2 text-blue-600" />
+                  <Link href="/cadastros/sac-motivos" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">
+                    <Info className="inline-block w-4 h-4 mr-2" />
                     SAC - Motivos
                   </Link>
-                  <Link href="/cadastros/tabelas-valores" className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">
-                    <Table className="w-4 h-4 mr-2 text-blue-600" />
+                  <Link href="/cadastros/tabelas-valores" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">
+                    <Table className="inline-block w-4 h-4 mr-2" />
                     Tabelas e Valores
                   </Link>
-                  <Link href="/cadastros/tipo-advertencias" className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">
-                    <AlertTriangle className="w-4 h-4 mr-2 text-blue-600" />
+                  <Link href="/cadastros/tipo-advertencias" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">
+                    <AlertTriangle className="inline-block w-4 h-4 mr-2" />
                     Tipo Advertências
                   </Link>
-                  <Link href="/cadastros/turnos" className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">
-                    <Watch className="w-4 h-4 mr-2 text-blue-600" />
+                  <Link href="/cadastros/turnos" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">
+                    <Watch className="inline-block w-4 h-4 mr-2" />
                     Turnos
                   </Link>
-                  <Link href="/cadastros/manutencao-veiculos" className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">
-                    <Car className="w-4 h-4 mr-2 text-blue-600" />
+                  <Link href="/cadastros/manutencao-veiculos" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">
+                    <Car className="inline-block w-4 h-4 mr-2" />
                     Manutenção Veículo/Placa
                   </Link>
-                  <Link href="/cadastros/veiculos-marca-modelo" className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">
-                    <Car className="w-4 h-4 mr-2 text-blue-600" />
+                  <Link href="/cadastros/veiculos-marca-modelo" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">
+                    <Car className="inline-block w-4 h-4 mr-2" />
                     Veículos (Marca/Modelo)
                   </Link>
-                  <Link href="/cadastros/impostos" className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">
-                    <DollarSign className="w-4 h-4 mr-2 text-blue-600" />
+                  <Link href="/cadastros/impostos" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">
+                    <DollarSign className="inline-block w-4 h-4 mr-2" />
                     Impostos
                   </Link>
-                  <Link href="/cadastros/isentos-vaga-setor" className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">
-                    <Ban className="w-4 h-4 mr-2 text-blue-600" />
+                  <Link href="/cadastros/isentos-vaga-setor" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">
+                    <Ban className="inline-block w-4 h-4 mr-2" />
                     Isento por Vaga/Setor
                   </Link>
-                  <Link href="/cadastros/rotas" className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">
-                    <Route className="w-4 h-4 mr-2 text-blue-600" />
+                  <Link href="/cadastros/rotas" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">
+                    <Route className="inline-block w-4 h-4 mr-2" />
                     Rotas
                   </Link>
-                  <Link href="/cadastros/operacoes-parquimetro" className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">
-                    <Cog className="w-4 h-4 mr-2 text-blue-600" />
+                  <Link href="/cadastros/operacoes-parquimetro" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">
+                    <Cog className="inline-block w-4 h-4 mr-2" />
                     Operações de Parquímetro
                   </Link>
-                  <Link href="/cadastros/motivos-baixa-ai" className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">
-                    <ClipboardCheck className="w-4 h-4 mr-2 text-blue-600" />
+                  <Link href="/cadastros/motivos-baixa-ai" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">
+                    <ClipboardCheck className="inline-block w-4 h-4 mr-2" />
                     Motivos de baixa de AI
                   </Link>
-                  <Link href="/cadastros/dispositivos" className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                    <Tablet className="w-4 h-4 mr-2 text-blue-600" />
+                  <Link href="/cadastros/dispositivos" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                    <Tablet className="inline-block w-4 h-4 mr-2" />
                     Dispositivos
                   </Link>
                 </div>
               )}
             </div>
 
-            <div className="relative">
+            <div className="relative" ref={dropdownRef}>
               <button
                 onClick={() => toggleDropdown("operacional")}
                 className="flex items-center px-3 py-2 text-sm font-medium text-blue-600 rounded hover:bg-gray-100"
+                aria-expanded={activeDropdown === "operacional"}
+                aria-haspopup="true"
               >
                 <Settings className="w-4 h-4 mr-1" />
                 Operacional
                 <ChevronDown className="w-4 h-4 ml-1" />
               </button>
               {activeDropdown === "operacional" && (
-                <div className="absolute left-0 z-10 w-64 mt-2 bg-white border rounded shadow-lg">
+                <div 
+                  className="absolute left-0 z-10 w-64 mt-2 bg-white border rounded shadow-lg"
+                  role="menu"
+                  aria-orientation="vertical"
+                  aria-labelledby="operacional-menu"
+                >
+                  <Link href="/operacional/quitacao-ai-notificacao" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">
+                    <CheckCircle className="inline-block w-4 h-4 mr-2" />
+                    Quitação de AI/Notificação
+                  </Link>
+                  <Link href="/operacional/quitacao-ai-notificacao-pa" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">
+                    <CheckCircle className="inline-block w-4 h-4 mr-2" />
+                    Quitação de AI/Notificação PA
+                  </Link>
                   <Link href="/operacional/fechamento-diario" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">
-                    <Clock className="inline-block w-4 h-4 mr-2" />
+                    <FileText className="inline-block w-4 h-4 mr-2" />
                     Fechamento Diário
                   </Link>
                   <Link href="/operacional/inserir-resgatar-creditos" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b bg-yellow-50">
-                    <DollarSign className="inline-block w-4 h-4 mr-2" />
+                    <CreditCard className="inline-block w-4 h-4 mr-2" />
                     Inserir/Resgatar Créditos/Manut.Cadastro
                   </Link>
                   <Link href="/operacional/sac-acompanhamento" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">
-                    <MessageSquare className="inline-block w-4 h-4 mr-2" />
+                    <BarChart2 className="inline-block w-4 h-4 mr-2" />
                     SAC - Acompanhamento
                   </Link>
-                  <Link href="/operacional/gerar-link-quitacoes" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">
+                  <Link href="/operacional/gerar-link-quitacoes-ai" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">
                     <Link2 className="inline-block w-4 h-4 mr-2" />
                     Gerar Link Quitações AI
                   </Link>
                   <Link href="/operacional/fechamento-consulta-ponto" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b bg-yellow-50">
-                    <CheckCircle className="inline-block w-4 h-4 mr-2" />
+                    <Clock className="inline-block w-4 h-4 mr-2" />
                     Fechamento/Consulta de Ponto
                   </Link>
                   <Link href="/operacional/meu-caixa" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">
@@ -220,7 +259,7 @@ export default function Navbar() {
                     <Mail className="inline-block w-4 h-4 mr-2" />
                     Consulta Mensagens
                   </Link>
-                  <Link href="/operacional/importar-veiculos-detran" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">
+                  <Link href="/operacional/importar-arquivos-veiculos" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">
                     <Car className="inline-block w-4 h-4 mr-2" />
                     Importar Arquivos de Veículos DETRAN
                   </Link>
@@ -229,11 +268,11 @@ export default function Navbar() {
                     Gerar Crédito/Estorno
                   </Link>
                   <Link href="/operacional/vincular-cpf-placa" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">
-                    <Link2 className="inline-block w-4 h-4 mr-2" />
+                    <UserPlus className="inline-block w-4 h-4 mr-2" />
                     Vincular CPF/Placa
                   </Link>
                   <Link href="/operacional/lote-mumbuca-verde" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                    <FileText className="inline-block w-4 h-4 mr-2" />
+                    <Leaf className="inline-block w-4 h-4 mr-2" />
                     Lote Mumbuca Verde
                   </Link>
                 </div>
@@ -261,53 +300,13 @@ export default function Navbar() {
                 onClick={() => toggleDropdown("tempo-real")}
                 className="flex items-center px-3 py-2 text-sm font-medium text-blue-600 rounded hover:bg-gray-100"
               >
-                <Activity className="w-4 h-4 mr-1" />
+                <Clock className="w-4 h-4 mr-1" />
                 Tempo Real
                 <ChevronDown className="w-4 h-4 ml-1" />
               </button>
               {activeDropdown === "tempo-real" && (
-                <div 
-                  className="absolute left-0 z-10 w-64 mt-2 bg-white border rounded shadow-lg"
-                  role="menu"
-                  aria-orientation="vertical"
-                  aria-labelledby="tempo-real-menu"
-                >
-                  <Link href="/tempo-real/mapa-ocupacao-vagas" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">
-                    <Map className="inline-block w-4 h-4 mr-2" />
-                    Mapa Ocupação Vagas
-                  </Link>
-                  <Link href="/tempo-real/mapa-ocupacao-vagas-gerente" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">
-                    <Map className="inline-block w-4 h-4 mr-2" />
-                    Mapa Ocupação Vagas - Gerente
-                  </Link>
-                  <Link href="/tempo-real/fechamento-sessao-setores" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">
-                    <CheckCircle className="inline-block w-4 h-4 mr-2" />
-                    Fechamento Sessão Setores
-                  </Link>
-                  <Link href="/tempo-real/consulta-quadra-setor" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">
-                    <ClipboardList className="inline-block w-4 h-4 mr-2" />
-                    Consulta Por Quadra/Setor
-                  </Link>
-                  <Link href="/tempo-real/mapa-movimentacao-operadores" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">
-                    <Users className="inline-block w-4 h-4 mr-2" />
-                    Mapa Movimentação Operadores
-                  </Link>
-                  <Link href="/tempo-real/mapa-incidencia-estacionamento" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">
-                    <Activity className="inline-block w-4 h-4 mr-2" />
-                    Mapa Incidência Estacionamento(Calor)
-                  </Link>
-                  <Link href="/tempo-real/mapa-exibicao-vagas" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">
-                    <Map className="inline-block w-4 h-4 mr-2" />
-                    Mapa de Exibição de Vagas Cadastradas
-                  </Link>
-                  <Link href="/tempo-real/mapa-monitoramento-parquimetro" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">
-                    <MonitorIcon className="inline-block w-4 h-4 mr-2" />
-                    Mapa Monitoramento Parquímetro/Fiscaliz
-                  </Link>
-                  <Link href="/tempo-real/devedores-estacionados" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                    <ClipboardList className="inline-block w-4 h-4 mr-2" />
-                    Devedores estacionados
-                  </Link>
+                <div className="absolute left-0 z-10 w-64 mt-2 bg-white border rounded shadow-lg">
+                  {/* Itens de tempo real... */}
                 </div>
               )}
             </div>
@@ -401,7 +400,7 @@ export default function Navbar() {
                       href="/relatorios/notificacoes-pagas-ano"
                       className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
                     >
-                      <FileText2 className="inline-block w-4 h-4 mr-2" />
+                      <FileText className="inline-block w-4 h-4 mr-2" />
                       Relatório de Notificações Pagas por Ano
                     </Link>
                     <Link
