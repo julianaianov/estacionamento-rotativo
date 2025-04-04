@@ -39,6 +39,19 @@ import {
   Users,
   MonitorIcon,
   ClipboardList,
+  UserCircle,
+  CreditCard,
+  Calendar,
+  Info,
+  Table,
+  Ban,
+  Route,
+  Cog,
+  ClipboardCheck,
+  Tablet,
+  ParkingMeterIcon as Parking,
+  RouteIcon as Road,
+  Clock as Watch,
 } from "lucide-react"
 
 export default function Navbar() {
@@ -88,7 +101,78 @@ export default function Navbar() {
               </button>
               {activeDropdown === "cadastros" && (
                 <div className="absolute left-0 z-10 w-64 mt-2 bg-white border rounded shadow-lg">
-                  {/* Itens de cadastro... */}
+                  <Link href="/cadastros/usuarios" className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">
+                    <Users className="w-4 h-4 mr-2 text-blue-600" />
+                    Usuários
+                  </Link>
+                  <Link href="/cadastros/clientes" className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">
+                    <UserCircle className="w-4 h-4 mr-2 text-blue-600" />
+                    Clientes
+                  </Link>
+                  <Link href="/cadastros/parquimetros" className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">
+                    <Parking className="w-4 h-4 mr-2 text-blue-600" />
+                    Parquímetros
+                  </Link>
+                  <Link href="/cadastros/ruas-setores" className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">
+                    <Road className="w-4 h-4 mr-2 text-blue-600" />
+                    Ruas/Setores
+                  </Link>
+                  <Link href="/cadastros/isentos-pos-pago" className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">
+                    <CreditCard className="w-4 h-4 mr-2 text-blue-600" />
+                    Isentos/Pós-Pago
+                  </Link>
+                  <Link href="/cadastros/feriados" className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">
+                    <Calendar className="w-4 h-4 mr-2 text-blue-600" />
+                    Feriados
+                  </Link>
+                  <Link href="/cadastros/sac-motivos" className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">
+                    <Info className="w-4 h-4 mr-2 text-blue-600" />
+                    SAC - Motivos
+                  </Link>
+                  <Link href="/cadastros/tabelas-valores" className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">
+                    <Table className="w-4 h-4 mr-2 text-blue-600" />
+                    Tabelas e Valores
+                  </Link>
+                  <Link href="/cadastros/tipo-advertencias" className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">
+                    <AlertTriangle className="w-4 h-4 mr-2 text-blue-600" />
+                    Tipo Advertências
+                  </Link>
+                  <Link href="/cadastros/turnos" className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">
+                    <Watch className="w-4 h-4 mr-2 text-blue-600" />
+                    Turnos
+                  </Link>
+                  <Link href="/cadastros/manutencao-veiculos" className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">
+                    <Car className="w-4 h-4 mr-2 text-blue-600" />
+                    Manutenção Veículo/Placa
+                  </Link>
+                  <Link href="/cadastros/veiculos-marca-modelo" className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">
+                    <Car className="w-4 h-4 mr-2 text-blue-600" />
+                    Veículos (Marca/Modelo)
+                  </Link>
+                  <Link href="/cadastros/impostos" className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">
+                    <DollarSign className="w-4 h-4 mr-2 text-blue-600" />
+                    Impostos
+                  </Link>
+                  <Link href="/cadastros/isentos-vaga-setor" className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">
+                    <Ban className="w-4 h-4 mr-2 text-blue-600" />
+                    Isento por Vaga/Setor
+                  </Link>
+                  <Link href="/cadastros/rotas" className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">
+                    <Route className="w-4 h-4 mr-2 text-blue-600" />
+                    Rotas
+                  </Link>
+                  <Link href="/cadastros/operacoes-parquimetro" className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">
+                    <Cog className="w-4 h-4 mr-2 text-blue-600" />
+                    Operações de Parquímetro
+                  </Link>
+                  <Link href="/cadastros/motivos-baixa-ai" className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">
+                    <ClipboardCheck className="w-4 h-4 mr-2 text-blue-600" />
+                    Motivos de baixa de AI
+                  </Link>
+                  <Link href="/cadastros/dispositivos" className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                    <Tablet className="w-4 h-4 mr-2 text-blue-600" />
+                    Dispositivos
+                  </Link>
                 </div>
               )}
             </div>
@@ -104,7 +188,54 @@ export default function Navbar() {
               </button>
               {activeDropdown === "operacional" && (
                 <div className="absolute left-0 z-10 w-64 mt-2 bg-white border rounded shadow-lg">
-                  {/* Itens operacionais... */}
+                  <Link href="/operacional/fechamento-diario" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">
+                    <Clock className="inline-block w-4 h-4 mr-2" />
+                    Fechamento Diário
+                  </Link>
+                  <Link href="/operacional/inserir-resgatar-creditos" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b bg-yellow-50">
+                    <DollarSign className="inline-block w-4 h-4 mr-2" />
+                    Inserir/Resgatar Créditos/Manut.Cadastro
+                  </Link>
+                  <Link href="/operacional/sac-acompanhamento" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">
+                    <MessageSquare className="inline-block w-4 h-4 mr-2" />
+                    SAC - Acompanhamento
+                  </Link>
+                  <Link href="/operacional/gerar-link-quitacoes" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">
+                    <Link2 className="inline-block w-4 h-4 mr-2" />
+                    Gerar Link Quitações AI
+                  </Link>
+                  <Link href="/operacional/fechamento-consulta-ponto" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b bg-yellow-50">
+                    <CheckCircle className="inline-block w-4 h-4 mr-2" />
+                    Fechamento/Consulta de Ponto
+                  </Link>
+                  <Link href="/operacional/meu-caixa" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">
+                    <Briefcase className="inline-block w-4 h-4 mr-2" />
+                    Meu Caixa
+                  </Link>
+                  <Link href="/operacional/reserva-vaga" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">
+                    <ParkingCircle className="inline-block w-4 h-4 mr-2" />
+                    Reserva de Vaga
+                  </Link>
+                  <Link href="/operacional/consulta-mensagens" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">
+                    <Mail className="inline-block w-4 h-4 mr-2" />
+                    Consulta Mensagens
+                  </Link>
+                  <Link href="/operacional/importar-veiculos-detran" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">
+                    <Car className="inline-block w-4 h-4 mr-2" />
+                    Importar Arquivos de Veículos DETRAN
+                  </Link>
+                  <Link href="/operacional/gerar-credito-estorno" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">
+                    <DollarSign className="inline-block w-4 h-4 mr-2" />
+                    Gerar Crédito/Estorno
+                  </Link>
+                  <Link href="/operacional/vincular-cpf-placa" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">
+                    <Link2 className="inline-block w-4 h-4 mr-2" />
+                    Vincular CPF/Placa
+                  </Link>
+                  <Link href="/operacional/lote-mumbuca-verde" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                    <FileText className="inline-block w-4 h-4 mr-2" />
+                    Lote Mumbuca Verde
+                  </Link>
                 </div>
               )}
             </div>
