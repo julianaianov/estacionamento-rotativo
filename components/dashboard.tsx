@@ -9,13 +9,35 @@ export default function Dashboard() {
   const pagamentoChart = useRef<HTMLCanvasElement | null>(null)
   const horaChart = useRef<HTMLCanvasElement | null>(null)
   const diasChart = useRef<HTMLCanvasElement | null>(null)
+  
+  // Refs para armazenar as instâncias dos gráficos
+  const tempoChartInstance = useRef<Chart | null>(null)
+  const pagamentoChartInstance = useRef<Chart | null>(null)
+  const horaChartInstance = useRef<Chart | null>(null)
+  const diasChartInstance = useRef<Chart | null>(null)
 
   useEffect(() => {
+    // Função para destruir os gráficos existentes
+    const destroyCharts = () => {
+      if (tempoChartInstance.current) {
+        tempoChartInstance.current.destroy()
+      }
+      if (pagamentoChartInstance.current) {
+        pagamentoChartInstance.current.destroy()
+      }
+      if (horaChartInstance.current) {
+        horaChartInstance.current.destroy()
+      }
+      if (diasChartInstance.current) {
+        diasChartInstance.current.destroy()
+      }
+    }
+
     // Dados para o gráfico de Estacionamentos P/Tempo Adquirido
     if (tempoChart.current) {
       const ctx = tempoChart.current.getContext("2d")
       if (ctx) {
-        new Chart(ctx, {
+        tempoChartInstance.current = new Chart(ctx, {
           type: "pie",
           data: {
             labels: ["2H MARICÁ", "4H MARICÁ", "DIÁRIA", "PERÍODO 2H", "PERÍODO 4H"],
@@ -48,7 +70,7 @@ export default function Dashboard() {
     if (pagamentoChart.current) {
       const ctx = pagamentoChart.current.getContext("2d")
       if (ctx) {
-        new Chart(ctx, {
+        pagamentoChartInstance.current = new Chart(ctx, {
           type: "pie",
           data: {
             labels: ["C.DÉBITO", "USO DE SALDO", "C.LAPAZA", "PIX"],
@@ -80,7 +102,7 @@ export default function Dashboard() {
     if (horaChart.current) {
       const ctx = horaChart.current.getContext("2d")
       if (ctx) {
-        new Chart(ctx, {
+        horaChartInstance.current = new Chart(ctx, {
           type: "line",
           data: {
             labels: ["8h", "9h", "10h", "11h", "12h", "13h", "14h", "15h", "16h", "17h", "18h"],
@@ -118,7 +140,7 @@ export default function Dashboard() {
     if (diasChart.current) {
       const ctx = diasChart.current.getContext("2d")
       if (ctx) {
-        new Chart(ctx, {
+        diasChartInstance.current = new Chart(ctx, {
           type: "line",
           data: {
             labels: ["01/04", "02/04", "03/04", "04/04", "05/04", "06/04", "07/04", "08/04", "09/04", "10/04"],
@@ -151,7 +173,12 @@ export default function Dashboard() {
         })
       }
     }
-  }, [])
+
+    // Cleanup function
+    return () => {
+      destroyCharts()
+    }
+  }, []) // Empty dependency array means this effect runs once on mount
 
   return (
     <div className="container mx-auto py-6">
