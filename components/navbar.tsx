@@ -298,57 +298,33 @@ export default function Navbar() {
                       <CheckCircle className="inline-block w-4 h-4 mr-2" />
                       Quitação de AI/Notificação
                     </Link>
-                    <Link href="/operacional/quitacao-ai-notificacao-pa" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">
-                      <CheckCircle className="inline-block w-4 h-4 mr-2" />
-                      Quitação de AI/Notificação PA
-                    </Link>
                     <Link href="/operacional/fechamento-diario" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">
                       <FileText className="inline-block w-4 h-4 mr-2" />
                       Fechamento Diário
                     </Link>
-                    <Link href="/operacional/inserir-resgatar-creditos" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b bg-yellow-50">
+                    <Link href="/operacional/inserir-resgatar-creditos" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">
                       <CreditCard className="inline-block w-4 h-4 mr-2" />
                       Inserir/Resgatar Créditos/Manut.Cadastro
                     </Link>
-                    <Link href="/operacional/sac-acompanhamento" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">
-                      <BarChart2 className="inline-block w-4 h-4 mr-2" />
-                      SAC - Acompanhamento
-                    </Link>
-                    <Link href="/operacional/gerar-link-quitacoes-ai" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">
-                      <Link2 className="inline-block w-4 h-4 mr-2" />
-                      Gerar Link Quitações AI
-                    </Link>
-                    <Link href="/operacional/fechamento-consulta-ponto" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b bg-yellow-50">
+                    <Link href="/operacional/fechamento-consulta-ponto" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">
                       <Clock className="inline-block w-4 h-4 mr-2" />
                       Fechamento/Consulta de Ponto
-                    </Link>
-                    <Link href="/operacional/meu-caixa" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">
-                      <Briefcase className="inline-block w-4 h-4 mr-2" />
-                      Meu Caixa
-                    </Link>
-                    <Link href="/operacional/reserva-vaga" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">
-                      <ParkingCircle className="inline-block w-4 h-4 mr-2" />
-                      Reserva de Vaga
-                    </Link>
-                    <Link href="/operacional/consulta-mensagens" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">
-                      <Mail className="inline-block w-4 h-4 mr-2" />
-                      Consulta Mensagens
-                    </Link>
-                    <Link href="/operacional/importar-arquivos-veiculos" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">
-                      <Car className="inline-block w-4 h-4 mr-2" />
-                      Importar Arquivos de Veículos DETRAN
                     </Link>
                     <Link href="/operacional/gerar-credito-estorno" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">
                       <DollarSign className="inline-block w-4 h-4 mr-2" />
                       Gerar Crédito/Estorno
                     </Link>
-                    <Link href="/operacional/vincular-cpf-placa" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">
-                      <UserPlus className="inline-block w-4 h-4 mr-2" />
-                      Vincular CPF/Placa
-                    </Link>
-                    <Link href="/operacional/lote-mumbuca-verde" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                    <Link href="/operacional/lote-mumbuca-verde" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">
                       <Leaf className="inline-block w-4 h-4 mr-2" />
                       Lote Mumbuca Verde
+                    </Link>
+                    <Link href="/operacional/reserva-vaga" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">
+                      <ParkingCircle className="inline-block w-4 h-4 mr-2" />
+                      Reserva de Vaga
+                    </Link>
+                    <Link href="/operacional/meu-caixa" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                      <Briefcase className="inline-block w-4 h-4 mr-2" />
+                      Meu Caixa
                     </Link>
                   </div>
                 )}
