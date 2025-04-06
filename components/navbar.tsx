@@ -56,6 +56,7 @@ import {
 
 export default function Navbar() {
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null)
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const dropdownRef = useRef<HTMLDivElement>(null)
   const pathname = usePathname()
   const router = useRouter()
@@ -100,11 +101,25 @@ export default function Navbar() {
               </Link>
             </div>
 
-            <nav className="flex space-x-1">
+            {/* Botão do menu mobile */}
+            <button
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className="lg:hidden ml-2 p-2 text-white hover:bg-blue-700 rounded"
+            >
+              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16m-7 6h7" />
+              </svg>
+            </button>
+
+            {/* Menu de navegação */}
+            <nav className={`${isMobileMenuOpen ? 'flex' : 'hidden'} lg:flex absolute lg:relative top-full left-0 right-0 lg:top-auto flex-col lg:flex-row w-full lg:w-auto bg-[#0093FF] lg:bg-transparent z-50 lg:space-x-1`}>
               <Link
                 href="/"
                 className="flex items-center px-3 py-2 text-sm font-medium text-white hover:bg-blue-700 rounded"
-                onClick={() => setActiveDropdown(null)}
+                onClick={() => {
+                  setActiveDropdown(null)
+                  setIsMobileMenuOpen(false)
+                }}
               >
                 <Home className="w-4 h-4 mr-1" />
                 Home
@@ -404,311 +419,167 @@ export default function Navbar() {
               <div className="relative dropdown-container">
                 <button
                   onClick={() => toggleDropdown("relatorios")}
-                  className="flex items-center px-3 py-2 text-sm font-medium text-white rounded hover:bg-blue-700"
+                  className="flex items-center px-3 py-2 text-sm font-medium text-white rounded hover:bg-blue-700 w-full lg:w-auto"
                 >
                   <BarChart2 className="w-4 h-4 mr-1" />
                   Relatórios/Consultas
                   <ChevronDown className="w-4 h-4 ml-1" />
                 </button>
                 {activeDropdown === "relatorios" && (
-                  <div className="absolute left-0 z-10 w-[800px] mt-2 bg-white border rounded shadow-lg grid grid-cols-3 gap-0">
-                    {/* Coluna 1 */}
-                    <div className="border-r">
-                      <Link
-                        href="/relatorios/arrecadacao-diaria-resumida"
-                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b bg-yellow-50"
-                      >
-                        <DollarSign className="inline-block w-4 h-4 mr-2" />
-                        Arrecadação Diária Resumida
-                      </Link>
-                      <Link
-                        href="/relatorios/arrecadacao-por-operador"
-                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
-                      >
-                        <DollarSign className="inline-block w-4 h-4 mr-2" />
-                        Arrecadação por Operador
-                      </Link>
-                      <Link
-                        href="/relatorios/consulta-maiores-devedores"
-                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b bg-yellow-50"
-                      >
-                        <AlertOctagon className="inline-block w-4 h-4 mr-2" />
-                        Consulta Maiores Devedores
-                      </Link>
-                      <Link
-                        href="/relatorios/estatisticas-irregularidades"
-                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b bg-yellow-50"
-                      >
-                        <BarChart className="inline-block w-4 h-4 mr-2" />
-                        Estatísticas de Irregularidades
-                      </Link>
-                      <Link
-                        href="/relatorios/faturamento-periodo"
-                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
-                      >
-                        <FileSpreadsheet className="inline-block w-4 h-4 mr-2" />
-                        Faturamento Período
-                      </Link>
-                      <Link
-                        href="/relatorios/graficos-ai"
-                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
-                      >
-                        <PieChart className="inline-block w-4 h-4 mr-2" />
-                        Gráficos AI
-                      </Link>
-                      <Link
-                        href="/relatorios/indicativos-metas"
-                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
-                      >
-                        <TrendingUp className="inline-block w-4 h-4 mr-2" />
-                        Indicativos das Metas
-                      </Link>
-                      <Link
-                        href="/relatorios/movimentacao-veiculo"
-                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b bg-yellow-50"
-                      >
-                        <Car className="inline-block w-4 h-4 mr-2" />
-                        Movimentação Veículo
-                      </Link>
-                      <Link
-                        href="/relatorios/notificacoes-pagas-ano"
-                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
-                      >
-                        <FileText className="inline-block w-4 h-4 mr-2" />
-                        Relatório de Notificações Pagas por Ano
-                      </Link>
-                      <Link
-                        href="/relatorios/eventos-operador"
-                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
-                      >
-                        <UserCheck className="inline-block w-4 h-4 mr-2" />
-                        Relatório de Eventos Operador
-                      </Link>
-                      <Link
-                        href="/relatorios/rendimento-geral"
-                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
-                      >
-                        <TrendingUp className="inline-block w-4 h-4 mr-2" />
-                        Rendimento Geral
-                      </Link>
-                      <Link
-                        href="/relatorios/tickets-detalhado"
-                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
-                      >
-                        <FileText className="inline-block w-4 h-4 mr-2" />
-                        Tickets Detalhado
-                      </Link>
-                      <Link
-                        href="/relatorios/uso-saldo"
-                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
-                      >
-                        <DollarSign className="inline-block w-4 h-4 mr-2" />
-                        Uso de Saldo
-                      </Link>
-                      <Link
-                        href="/relatorios/valores-tipo-pagamento"
-                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                      >
-                        <DollarSign className="inline-block w-4 h-4 mr-2" />
-                        Valores por Tipo de Pagamento
-                      </Link>
-                    </div>
+                  <div 
+                    className="fixed lg:absolute left-0 right-0 lg:left-auto z-50 w-full lg:w-[90vw] max-w-[1200px] mt-2 bg-white border rounded shadow-lg max-h-[80vh] overflow-y-auto"
+                    style={{
+                      transform: 'translateX(-50%)',
+                      left: '50%',
+                    }}
+                  >
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-0">
+                      {/* Coluna 1 */}
+                      <div className="border-b sm:border-r">
+                        <div className="p-2 bg-gray-50 font-medium text-gray-700 border-b">
+                          Relatórios Financeiros
+                        </div>
+                        <Link
+                          href="/relatorios/arrecadacao-diaria-resumida"
+                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
+                        >
+                          <DollarSign className="inline-block w-4 h-4 mr-2" />
+                          Arrecadação Diária Resumida
+                        </Link>
+                        <Link
+                          href="/relatorios/arrecadacao-por-operador"
+                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
+                        >
+                          <DollarSign className="inline-block w-4 h-4 mr-2" />
+                          Arrecadação por Operador
+                        </Link>
+                        <Link
+                          href="/relatorios/faturamento-periodo"
+                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
+                        >
+                          <FileSpreadsheet className="inline-block w-4 h-4 mr-2" />
+                          Faturamento Período
+                        </Link>
+                        <Link
+                          href="/relatorios/faturamento-completo"
+                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
+                        >
+                          <FileSpreadsheet className="inline-block w-4 h-4 mr-2" />
+                          Faturamento - Completo
+                        </Link>
+                        <Link
+                          href="/relatorios/faturamento-quadra-setor"
+                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
+                        >
+                          <FileBarChart className="inline-block w-4 h-4 mr-2" />
+                          Faturamento Por Quadra/Setor
+                        </Link>
+                        <Link
+                          href="/relatorios/rendimento-geral"
+                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
+                        >
+                          <TrendingUp className="inline-block w-4 h-4 mr-2" />
+                          Rendimento Geral
+                        </Link>
+                        <Link
+                          href="/relatorios/uso-saldo"
+                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                        >
+                          <DollarSign className="inline-block w-4 h-4 mr-2" />
+                          Uso de Saldo
+                        </Link>
+                      </div>
 
-                    {/* Coluna 2 */}
-                    <div className="border-r">
-                      <Link
-                        href="/relatorios/arrecadacao-diaria-cx-operadores"
-                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
-                      >
-                        <DollarSign className="inline-block w-4 h-4 mr-2" />
-                        Arrecadação Diária(Cx Operadores)
-                      </Link>
-                      <Link
-                        href="/relatorios/comparativo-rendimento-horario"
-                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
-                      >
-                        <BarChart className="inline-block w-4 h-4 mr-2" />
-                        Comparativo Rendimento P/Horário
-                      </Link>
-                      <Link
-                        href="/relatorios/consulta-notificacoes-ai"
-                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
-                      >
-                        <AlertTriangle className="inline-block w-4 h-4 mr-2" />
-                        Consulta Notificações/AI
-                      </Link>
-                      <Link
-                        href="/relatorios/extrato-veiculo-uso-saldo"
-                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
-                      >
-                        <FileText className="inline-block w-4 h-4 mr-2" />
-                        Extrato Veículo - Uso de Saldo
-                      </Link>
-                      <Link
-                        href="/relatorios/faturamento-quadra-setor"
-                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b bg-yellow-50"
-                      >
-                        <FileBarChart className="inline-block w-4 h-4 mr-2" />
-                        Faturamento Por Quadra/Setor
-                      </Link>
-                      <Link
-                        href="/relatorios/indicadores-produtividade"
-                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
-                      >
-                        <DollarSign className="inline-block w-4 h-4 mr-2" />
-                        Indicadores de Produtividade
-                      </Link>
-                      <Link
-                        href="/relatorios/mensagens"
-                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
-                      >
-                        <MessageSquare className="inline-block w-4 h-4 mr-2" />
-                        Mensagens
-                      </Link>
-                      <Link
-                        href="/relatorios/movimentacoes-cartao"
-                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
-                      >
-                        <CardIcon className="inline-block w-4 h-4 mr-2" />
-                        Movimentações de Cartão
-                      </Link>
-                      <Link
-                        href="/relatorios/ocupacao-estacionamento"
-                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
-                      >
-                        <Map className="inline-block w-4 h-4 mr-2" />
-                        Relatório de Ocupação Estacionamento
-                      </Link>
-                      <Link
-                        href="/relatorios/relatorio-ponto"
-                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
-                      >
-                        <CheckCircle className="inline-block w-4 h-4 mr-2" />
-                        Relatório Ponto
-                      </Link>
-                      <Link
-                        href="/relatorios/reservas-vagas"
-                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
-                      >
-                        <MapPin className="inline-block w-4 h-4 mr-2" />
-                        Reservas de Vagas
-                      </Link>
-                      <Link
-                        href="/relatorios/taxa-ocupacao-respeito"
-                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b bg-yellow-50"
-                      >
-                        <PercentSquare className="inline-block w-4 h-4 mr-2" />
-                        Taxa de Ocupação/Respeito
-                      </Link>
-                      <Link
-                        href="/relatorios/uso-app"
-                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
-                      >
-                        <Smartphone className="inline-block w-4 h-4 mr-2" />
-                        Uso do APP
-                      </Link>
-                      <Link
-                        href="/relatorios/verificacoes"
-                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                      >
-                        <Search className="inline-block w-4 h-4 mr-2" />
-                        Verificações
-                      </Link>
-                    </div>
+                      {/* Coluna 2 */}
+                      <div className="border-b lg:border-r">
+                        <div className="p-2 bg-gray-50 font-medium text-gray-700 border-b">
+                          Relatórios Operacionais
+                        </div>
+                        <Link
+                          href="/relatorios/consulta-maiores-devedores"
+                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
+                        >
+                          <AlertOctagon className="inline-block w-4 h-4 mr-2" />
+                          Consulta Maiores Devedores
+                        </Link>
+                        <Link
+                          href="/relatorios/estatisticas-irregularidades"
+                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
+                        >
+                          <BarChart className="inline-block w-4 h-4 mr-2" />
+                          Estatísticas de Irregularidades
+                        </Link>
+                        <Link
+                          href="/relatorios/movimentacao-veiculo"
+                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
+                        >
+                          <Car className="inline-block w-4 h-4 mr-2" />
+                          Movimentação Veículo
+                        </Link>
+                        <Link
+                          href="/relatorios/ocupacao-estacionamento"
+                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
+                        >
+                          <Map className="inline-block w-4 h-4 mr-2" />
+                          Ocupação Estacionamento
+                        </Link>
+                        <Link
+                          href="/relatorios/taxa-ocupacao-respeito"
+                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
+                        >
+                          <PercentSquare className="inline-block w-4 h-4 mr-2" />
+                          Taxa de Ocupação/Respeito
+                        </Link>
+                        <Link
+                          href="/relatorios/verificacoes"
+                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                        >
+                          <Search className="inline-block w-4 h-4 mr-2" />
+                          Verificações
+                        </Link>
+                      </div>
 
-                    {/* Coluna 3 */}
-                    <div>
-                      <Link
-                        href="/relatorios/arrecadacao-por-horario"
-                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
-                      >
-                        <Clock className="inline-block w-4 h-4 mr-2" />
-                        Arrecadação por Horário
-                      </Link>
-                      <Link
-                        href="/relatorios/consulta-clientes-veiculos"
-                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
-                      >
-                        <Search className="inline-block w-4 h-4 mr-2" />
-                        Consulta Clientes/Veículos
-                      </Link>
-                      <Link
-                        href="/relatorios/creditos-estorno-gerados"
-                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
-                      >
-                        <DollarSign className="inline-block w-4 h-4 mr-2" />
-                        Créditos/Estorno Gerados
-                      </Link>
-                      <Link
-                        href="/relatorios/faturamento-completo"
-                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b bg-yellow-50"
-                      >
-                        <FileSpreadsheet className="inline-block w-4 h-4 mr-2" />
-                        Faturamento - Completo
-                      </Link>
-                      <Link
-                        href="/relatorios/faturamento-por-vaga"
-                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
-                      >
-                        <MapPin className="inline-block w-4 h-4 mr-2" />
-                        Faturamento por Vaga
-                      </Link>
-                      <Link
-                        href="/relatorios/indicativo-placa-cidade-fora"
-                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
-                      >
-                        <FileBarChart className="inline-block w-4 h-4 mr-2" />
-                        Indicativo Placa cidade x Placa de fora
-                      </Link>
-                      <Link
-                        href="/relatorios/movimentacao-site-aplicativo"
-                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
-                      >
-                        <Activity className="inline-block w-4 h-4 mr-2" />
-                        Movimentação Site e Aplicativo
-                      </Link>
-                      <Link
-                        href="/relatorios/contribuicoes-mumbuca-verde"
-                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
-                      >
-                        <FileText className="inline-block w-4 h-4 mr-2" />
-                        Relatório de Contribuições - Mumbuca Verde
-                      </Link>
-                      <Link
-                        href="/relatorios/acessos"
-                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
-                      >
-                        <UserCheck className="inline-block w-4 h-4 mr-2" />
-                        Relatório de acessos
-                      </Link>
-                      <Link
-                        href="/relatorios/rendimentos-funcionarios"
-                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b bg-yellow-50"
-                      >
-                        <FileBarChart className="inline-block w-4 h-4 mr-2" />
-                        Relatório Rendimentos Funcionários
-                      </Link>
-                      <Link
-                        href="/relatorios/sac-consulta"
-                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
-                      >
-                        <Search className="inline-block w-4 h-4 mr-2" />
-                        SAC - Consulta
-                      </Link>
-                      <Link
-                        href="/relatorios/transacoes-tef"
-                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
-                      >
-                        <CardIcon className="inline-block w-4 h-4 mr-2" />
-                        Transações TEF(C.cred/C.deb)
-                      </Link>
-                      <Link
-                        href="/relatorios/valores-parquimetro"
-                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                      >
-                        <FileSpreadsheet className="inline-block w-4 h-4 mr-2" />
-                        Valores no Parquímetro
-                      </Link>
+                      {/* Coluna 3 */}
+                      <div>
+                        <div className="p-2 bg-gray-50 font-medium text-gray-700 border-b">
+                          Outros Relatórios
+                        </div>
+                        <Link
+                          href="/relatorios/relatorio-ponto"
+                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
+                        >
+                          <CheckCircle className="inline-block w-4 h-4 mr-2" />
+                          Relatório Ponto
+                        </Link>
+                        <Link
+                          href="/relatorios/rendimentos-funcionarios"
+                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
+                        >
+                          <FileBarChart className="inline-block w-4 h-4 mr-2" />
+                          Rendimentos Funcionários
+                        </Link>
+                        <Link
+                          href="/relatorios/sac-consulta"
+                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
+                        >
+                          <Search className="inline-block w-4 h-4 mr-2" />
+                          SAC - Consulta
+                        </Link>
+                        <Link
+                          href="/relatorios/uso-app"
+                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
+                        >
+                          <Smartphone className="inline-block w-4 h-4 mr-2" />
+                          Uso do APP
+                        </Link>
+                        <Link
+                          href="/relatorios/valores-parquimetro"
+                          className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                        >
+                          <FileSpreadsheet className="inline-block w-4 h-4 mr-2" />
+                          Valores no Parquímetro
+                        </Link>
+                      </div>
                     </div>
                   </div>
                 )}

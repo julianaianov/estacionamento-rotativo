@@ -59,7 +59,7 @@ export default function UsuariosDashboard() {
   ])
 
   return (
-    <div>
+          <div>
       <div className="container mx-auto p-4">
         <div className="flex justify-between items-center mb-6">
           <div className="flex items-center">
@@ -89,7 +89,7 @@ export default function UsuariosDashboard() {
                     Login
                   </th>
                   <th className="px-6 py-3 text-left text-sm font-medium text-gray-600">
-                    Status
+              Status
                   </th>
                   <th className="px-6 py-3 text-left text-sm font-medium text-gray-600">
                     Tipo Usuário
