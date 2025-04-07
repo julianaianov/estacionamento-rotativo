@@ -11,6 +11,9 @@ import {
   FileBarChart,
   PercentSquare,
   Ticket,
+  AlertTriangle,
+  Wallet,
+  Users,
 } from "lucide-react"
 
 export default function RelatoriosPage() {
@@ -23,6 +26,30 @@ export default function RelatoriosPage() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {/* Relatórios destacados */}
+          <Link href="/relatorios/lista-funcionarios">
+            <Card className="hover:shadow-md transition-shadow cursor-pointer bg-yellow-50">
+              <CardHeader className="flex flex-row items-center space-x-2">
+                <Users className="h-6 w-6 text-blue-600" />
+                <CardTitle>Lista de Funcionários</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-gray-500">Relatório de ponto dos funcionários</p>
+              </CardContent>
+            </Card>
+          </Link>
+
+          <Link href="/relatorios/uso-de-saldo">
+            <Card className="hover:shadow-md transition-shadow cursor-pointer bg-yellow-50">
+              <CardHeader className="flex flex-row items-center space-x-2">
+                <Wallet className="h-6 w-6 text-blue-600" />
+                <CardTitle>Uso de Saldo</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-gray-500">Relatório de utilização de saldo</p>
+              </CardContent>
+            </Card>
+          </Link>
+
           <Link href="/relatorios/arrecadacao-diaria-resumida">
             <Card className="hover:shadow-md transition-shadow cursor-pointer bg-yellow-50">
               <CardHeader className="flex flex-row items-center space-x-2">
@@ -47,14 +74,14 @@ export default function RelatoriosPage() {
             </Card>
           </Link>
 
-          <Link href="/relatorios/estatisticas-irregularidades">
+          <Link href="/relatorios/indices-irregularidades">
             <Card className="hover:shadow-md transition-shadow cursor-pointer bg-yellow-50">
               <CardHeader className="flex flex-row items-center space-x-2">
-                <BarChart className="h-6 w-6 text-blue-600" />
-                <CardTitle>Estatísticas de Irregularidades</CardTitle>
+                <AlertTriangle className="h-6 w-6 text-blue-600" />
+                <CardTitle>Índices de Irregularidades</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-sm text-gray-500">Estatísticas sobre irregularidades registradas</p>
+                <p className="text-sm text-gray-500">Análise dos índices de irregularidades</p>
               </CardContent>
             </Card>
           </Link>

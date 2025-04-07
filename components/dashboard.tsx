@@ -182,9 +182,7 @@ export default function Dashboard() {
 
   return (
     <div className="container mx-auto py-6">
-      <div className="mb-6">
-        <h2 className="text-xl font-bold text-blue-800 bg-blue-100 p-3 rounded">Dados de Hoje</h2>
-      </div>
+      
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <Card>
