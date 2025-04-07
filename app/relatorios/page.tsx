@@ -1,4 +1,3 @@
-import Navbar from "@/components/navbar"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import Link from "next/link"
 import {
@@ -11,12 +10,12 @@ import {
   Search,
   FileBarChart,
   PercentSquare,
+  Ticket,
 } from "lucide-react"
 
 export default function RelatoriosPage() {
   return (
     <main className="min-h-screen bg-gray-100">
-      <Navbar />
       <div className="container mx-auto py-6">
         <div className="flex justify-between items-center mb-6">
           <h1 className="text-2xl font-bold">Relatórios e Consultas</h1>
@@ -165,6 +164,18 @@ export default function RelatoriosPage() {
               </CardHeader>
               <CardContent>
                 <p className="text-sm text-gray-500">Consulta de clientes e seus veículos</p>
+              </CardContent>
+            </Card>
+          </Link>
+
+          <Link href="/relatorios/consulta-tickets">
+            <Card className="hover:shadow-md transition-shadow cursor-pointer">
+              <CardHeader className="flex flex-row items-center space-x-2">
+                <Ticket className="h-6 w-6 text-blue-600" />
+                <CardTitle>Ticket Detalhado</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-gray-500">Consulta detalhada de tickets</p>
               </CardContent>
             </Card>
           </Link>
