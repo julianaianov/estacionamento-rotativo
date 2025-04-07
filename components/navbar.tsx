@@ -1,6 +1,7 @@
 "use client"
 
 import Link from "next/link"
+import Image from "next/image"
 import { useState, useEffect, useRef } from "react"
 import { usePathname, useRouter } from "next/navigation"
 import {
@@ -87,375 +88,391 @@ export default function Navbar() {
   return (
     <header className="relative">
       <div className="bg-[#0093FF] shadow">
-        <div className="flex items-center justify-between px-4 py-2">
-          <div className="flex items-center">
-            <div className="mr-4">
-              <Link href="/" className="flex items-center">
-                <div className="bg-blue-600 rounded-full p-2 mr-2">
-                  <span className="text-white font-bold">E</span>
+        <div className="flex items-center justify-between w-full px-4">
+          {/* Logo container */}
+          <div className="relative" style={{ width: '150px', height: '70px' }}>
+            <Link href="/" className="flex items-center">
+              <div style={{ 
+                width: '320px',
+                marginTop: '-35px',
+                marginLeft: '-35px'
+              }}>
+                <Image
+                  src="/images/logo-marica-rota.png"
+                  alt="Maricá Rotativo"
+                  width={320}
+                  height={130}
+                  className="w-full h-auto"
+                  priority
+                />
+              </div>
+            </Link>
+          </div>
+
+          {/* Menu de navegação */}
+          <nav className={`${
+            isMobileMenuOpen ? 'flex absolute top-full left-0 right-0 flex-col bg-[#0093FF] z-50 shadow-lg' : 'hidden'
+          } lg:flex lg:relative lg:flex-row lg:items-center lg:space-x-1 lg:ml-4 lg:bg-transparent`}>
+            <Link
+              href="/"
+              className="flex items-center px-2 py-2 text-sm font-medium text-white hover:bg-blue-700 rounded"
+              onClick={() => {
+                setActiveDropdown(null)
+                setIsMobileMenuOpen(false)
+              }}
+            >
+              <Home className="w-4 h-4 mr-1" />
+              <span className="whitespace-nowrap">Home</span>
+            </Link>
+
+            <div className="relative dropdown-container">
+              <button
+                onClick={() => toggleDropdown("cadastros")}
+                className="flex items-center w-full lg:w-auto px-2 py-2 text-sm font-medium text-white rounded hover:bg-blue-700"
+                aria-expanded={activeDropdown === "cadastros"}
+                aria-haspopup="true"
+              >
+                <FileText className="w-4 h-4 mr-1" />
+                <span className="whitespace-nowrap">Cadastros</span>
+                <ChevronDown className="w-4 h-4 ml-1" />
+              </button>
+              {activeDropdown === "cadastros" && (
+                <div 
+                  className="absolute left-0 lg:left-auto z-10 w-64 mt-1 bg-white border rounded shadow-lg"
+                  role="menu"
+                  aria-orientation="vertical"
+                  aria-labelledby="cadastros-menu"
+                >
+                  <Link
+                    href="/cadastros/usuarios"
+                    className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                    onClick={() => setActiveDropdown(null)}
+                  >
+                    <Users className="w-4 h-4 mr-2" />
+                    Usuários
+                  </Link>
+                  <Link 
+                    href="/cadastros/clientes" 
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
+                    onClick={() => setActiveDropdown(null)}
+                  >
+                    <UserCircle className="inline-block w-4 h-4 mr-2" />
+                    Clientes
+                  </Link>
+                  <Link 
+                    href="/cadastros/parquimetros" 
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
+                    onClick={() => setActiveDropdown(null)}
+                  >
+                    <Parking className="inline-block w-4 h-4 mr-2" />
+                    Parquímetros
+                  </Link>
+                  <Link 
+                    href="/cadastros/ruas-setores" 
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
+                    onClick={() => setActiveDropdown(null)}
+                  >
+                    <Road className="inline-block w-4 h-4 mr-2" />
+                    Ruas/Setores
+                  </Link>
+                  <Link 
+                    href="/cadastros/isentos-pos-pago" 
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
+                    onClick={() => setActiveDropdown(null)}
+                  >
+                    <CreditCard className="inline-block w-4 h-4 mr-2" />
+                    Isentos/Pós-Pago
+                  </Link>
+                  <Link 
+                    href="/cadastros/feriados" 
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
+                    onClick={() => setActiveDropdown(null)}
+                  >
+                    <Calendar className="inline-block w-4 h-4 mr-2" />
+                    Feriados
+                  </Link>
+                  <Link 
+                    href="/cadastros/sac-motivos" 
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
+                    onClick={() => setActiveDropdown(null)}
+                  >
+                    <Info className="inline-block w-4 h-4 mr-2" />
+                    SAC - Motivos
+                  </Link>
+                  <Link 
+                    href="/cadastros/tabelas-valores" 
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
+                    onClick={() => setActiveDropdown(null)}
+                  >
+                    <Table className="inline-block w-4 h-4 mr-2" />
+                    Tabelas e Valores
+                  </Link>
+                  <Link 
+                    href="/cadastros/tipo-advertencias" 
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
+                    onClick={() => setActiveDropdown(null)}
+                  >
+                    <AlertTriangle className="inline-block w-4 h-4 mr-2" />
+                    Tipo Advertências
+                  </Link>
+                  <Link 
+                    href="/cadastros/turnos" 
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
+                    onClick={() => setActiveDropdown(null)}
+                  >
+                    <Watch className="inline-block w-4 h-4 mr-2" />
+                    Turnos
+                  </Link>
+                  <Link 
+                    href="/cadastros/manutencao-veiculos" 
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
+                    onClick={() => setActiveDropdown(null)}
+                  >
+                    <Car className="inline-block w-4 h-4 mr-2" />
+                    Manutenção Veículo/Placa
+                  </Link>
+                  <Link 
+                    href="/cadastros/veiculos-marca-modelo" 
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
+                    onClick={() => setActiveDropdown(null)}
+                  >
+                    <Car className="inline-block w-4 h-4 mr-2" />
+                    Veículos (Marca/Modelo)
+                  </Link>
+                  <Link 
+                    href="/cadastros/impostos" 
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
+                    onClick={() => setActiveDropdown(null)}
+                  >
+                    <DollarSign className="inline-block w-4 h-4 mr-2" />
+                    Impostos
+                  </Link>
+                  <Link 
+                    href="/cadastros/isentos-vaga-setor" 
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
+                    onClick={() => setActiveDropdown(null)}
+                  >
+                    <Ban className="inline-block w-4 h-4 mr-2" />
+                    Isento por Vaga/Setor
+                  </Link>
+                  <Link 
+                    href="/cadastros/rotas" 
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
+                    onClick={() => setActiveDropdown(null)}
+                  >
+                    <Route className="inline-block w-4 h-4 mr-2" />
+                    Rotas
+                  </Link>
+                  <Link 
+                    href="/cadastros/operacoes-parquimetro" 
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
+                    onClick={() => setActiveDropdown(null)}
+                  >
+                    <Cog className="inline-block w-4 h-4 mr-2" />
+                    Operações de Parquímetro
+                  </Link>
+                  <Link 
+                    href="/cadastros/motivos-baixa-ai" 
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
+                    onClick={() => setActiveDropdown(null)}
+                  >
+                    <ClipboardCheck className="inline-block w-4 h-4 mr-2" />
+                    Motivos de baixa de AI
+                  </Link>
+                  <Link 
+                    href="/cadastros/dispositivos" 
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                    onClick={() => setActiveDropdown(null)}
+                  >
+                    <Tablet className="inline-block w-4 h-4 mr-2" />
+                    Dispositivos
+                  </Link>
                 </div>
-                <div>
-                  <h1 className="text-xl font-bold text-gray-800">MARICÁ</h1>
-                  <p className="text-sm text-gray-600">ROTATIVO</p>
-                </div>
-              </Link>
+              )}
             </div>
 
-            {/* Botão do menu mobile */}
+            <div className="relative dropdown-container">
+              <button
+                onClick={() => toggleDropdown("operacional")}
+                className="flex items-center w-full lg:w-auto px-2 py-2 text-sm font-medium text-white rounded hover:bg-blue-700"
+                aria-expanded={activeDropdown === "operacional"}
+                aria-haspopup="true"
+              >
+                <Settings className="w-4 h-4 mr-1" />
+                <span className="whitespace-nowrap">Operacional</span>
+                <ChevronDown className="w-4 h-4 ml-1" />
+              </button>
+              {activeDropdown === "operacional" && (
+                <div 
+                  className="absolute left-0 lg:left-auto z-10 w-64 mt-1 bg-white border rounded shadow-lg"
+                  role="menu"
+                  aria-orientation="vertical"
+                  aria-labelledby="operacional-menu"
+                >
+                  <Link href="/operacional/quitacao-ai-notificacao" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">
+                    <CheckCircle className="inline-block w-4 h-4 mr-2" />
+                    Quitação de AI/Notificação
+                  </Link>
+                  <Link href="/operacional/fechamento-diario" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">
+                    <FileText className="inline-block w-4 h-4 mr-2" />
+                    Fechamento Diário
+                  </Link>
+                  <Link href="/operacional/inserir-resgatar-creditos" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">
+                    <CreditCard className="inline-block w-4 h-4 mr-2" />
+                    Inserir/Resgatar Créditos/Manut.Cadastro
+                  </Link>
+                  <Link href="/operacional/fechamento-consulta-ponto" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">
+                    <Clock className="inline-block w-4 h-4 mr-2" />
+                    Fechamento/Consulta de Ponto
+                  </Link>
+                  <Link href="/operacional/gerar-credito-estorno" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">
+                    <DollarSign className="inline-block w-4 h-4 mr-2" />
+                    Gerar Crédito/Estorno
+                  </Link>
+                  <Link href="/operacional/lote-mumbuca-verde" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">
+                    <Leaf className="inline-block w-4 h-4 mr-2" />
+                    Lote Mumbuca Verde
+                  </Link>
+                  <Link href="/operacional/reserva-vaga" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">
+                    <ParkingCircle className="inline-block w-4 h-4 mr-2" />
+                    Reserva de Vaga
+                  </Link>
+                  <Link href="/operacional/meu-caixa" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                    <Briefcase className="inline-block w-4 h-4 mr-2" />
+                    Meu Caixa
+                  </Link>
+                </div>
+              )}
+            </div>
+
+            <div className="relative dropdown-container">
+              <button
+                onClick={() => toggleDropdown("fiscalizacao")}
+                className="flex items-center w-full lg:w-auto px-2 py-2 text-sm font-medium text-white rounded hover:bg-blue-700"
+              >
+                <BarChart2 className="w-4 h-4 mr-1" />
+                <span className="whitespace-nowrap">Fiscalização</span>
+                <ChevronDown className="w-4 h-4 ml-1" />
+              </button>
+              {activeDropdown === "fiscalizacao" && (
+                <div className="absolute left-0 lg:left-auto z-10 w-48 mt-1 bg-white border rounded shadow-lg">
+                  {/* Itens de fiscalização... */}
+                </div>
+              )}
+            </div>
+
+            <div className="relative dropdown-container">
+              <button
+                onClick={() => toggleDropdown("tempo-real")}
+                className="flex items-center w-full lg:w-auto px-2 py-2 text-sm font-medium text-white rounded hover:bg-blue-700"
+              >
+                <Clock className="w-4 h-4 mr-1" />
+                <span className="whitespace-nowrap">Tempo Real</span>
+                <ChevronDown className="w-4 h-4 ml-1" />
+              </button>
+              {activeDropdown === "tempo-real" && (
+                <div className="absolute left-0 lg:left-auto z-10 w-64 mt-1 bg-white border rounded shadow-lg">
+                  <Link 
+                    href="/tempo-real/mapa-ocupacao-vagas" 
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
+                    onClick={() => setActiveDropdown(null)}
+                  >
+                    <Map className="inline-block w-4 h-4 mr-2" />
+                    Mapa de Ocupação de Vagas
+                  </Link>
+                  <Link 
+                    href="/tempo-real/fiscalizacao" 
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
+                    onClick={() => setActiveDropdown(null)}
+                  >
+                    <BarChart2 className="inline-block w-4 h-4 mr-2" />
+                    Fiscalização
+                  </Link>
+                  <Link 
+                    href="/tempo-real/parquimetro" 
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
+                    onClick={() => setActiveDropdown(null)}
+                  >
+                    <Parking className="inline-block w-4 h-4 mr-2" />
+                    Parquímetro
+                  </Link>
+                </div>
+              )}
+            </div>
+
+            <div className="relative dropdown-container">
+              <button
+                onClick={() => toggleDropdown("pdv")}
+                className="flex items-center w-full lg:w-auto px-2 py-2 text-sm font-medium text-white rounded hover:bg-blue-700"
+              >
+                <ShoppingCart className="w-4 h-4 mr-1" />
+                <span className="whitespace-nowrap">PDV</span>
+                <ChevronDown className="w-4 h-4 ml-1" />
+              </button>
+              {activeDropdown === "pdv" && (
+                <div className="absolute left-0 lg:left-auto z-10 w-48 mt-1 bg-white border rounded shadow-lg">
+                  {/* Itens de PDV... */}
+                </div>
+              )}
+            </div>
+
+            <Link
+              href="/relatorios"
+              className="flex items-center px-2 py-2 text-sm font-medium text-white hover:bg-blue-700 rounded"
+              onClick={() => {
+                setActiveDropdown(null)
+                setIsMobileMenuOpen(false)
+              }}
+            >
+              <BarChart2 className="w-4 h-4 mr-1" />
+              <span className="whitespace-nowrap">Relatórios/Consultas</span>
+            </Link>
+
+            <div className="relative dropdown-container">
+              <button
+                onClick={() => toggleDropdown("manutencao")}
+                className="flex items-center w-full lg:w-auto px-2 py-2 text-sm font-medium text-white rounded hover:bg-blue-700"
+              >
+                <Tool className="w-4 h-4 mr-1" />
+                <span className="whitespace-nowrap">Manutenção</span>
+                <ChevronDown className="w-4 h-4 ml-1" />
+              </button>
+              {activeDropdown === "manutencao" && (
+                <div className="absolute left-0 lg:left-auto z-10 w-48 mt-1 bg-white border rounded shadow-lg">
+                  {/* Itens de manutenção... */}
+                </div>
+              )}
+            </div>
+          </nav>
+
+          {/* Botão do menu mobile */}
+          <div className="flex items-center lg:hidden">
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="lg:hidden ml-2 p-2 text-white hover:bg-blue-700 rounded"
+              className="p-2 text-white hover:bg-blue-700 rounded"
+              aria-label="Toggle menu"
             >
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16m-7 6h7" />
               </svg>
             </button>
-
-            {/* Menu de navegação */}
-            <nav className={`${isMobileMenuOpen ? 'flex' : 'hidden'} lg:flex absolute lg:relative top-full left-0 right-0 lg:top-auto flex-col lg:flex-row w-full lg:w-auto bg-[#0093FF] lg:bg-transparent z-50 lg:space-x-1`}>
-              <Link
-                href="/"
-                className="flex items-center px-3 py-2 text-sm font-medium text-white hover:bg-blue-700 rounded"
-                onClick={() => {
-                  setActiveDropdown(null)
-                  setIsMobileMenuOpen(false)
-                }}
-              >
-                <Home className="w-4 h-4 mr-1" />
-                Home
-              </Link>
-
-              <div className="relative dropdown-container">
-                <button
-                  onClick={() => toggleDropdown("cadastros")}
-                  className="flex items-center px-3 py-2 text-sm font-medium text-white rounded hover:bg-blue-700"
-                  aria-expanded={activeDropdown === "cadastros"}
-                  aria-haspopup="true"
-                >
-                  <FileText className="w-4 h-4 mr-1" />
-                  Cadastros
-                  <ChevronDown className="w-4 h-4 ml-1" />
-                </button>
-                {activeDropdown === "cadastros" && (
-                  <div 
-                    className="absolute left-0 z-10 w-64 mt-2 bg-white border rounded shadow-lg"
-                    role="menu"
-                    aria-orientation="vertical"
-                    aria-labelledby="cadastros-menu"
-                  >
-                    <Link
-                      href="/cadastros/usuarios"
-                      className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                      onClick={() => setActiveDropdown(null)}
-                    >
-                      <Users className="w-4 h-4 mr-2" />
-                      Usuários
-                    </Link>
-                    <Link 
-                      href="/cadastros/clientes" 
-                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
-                      onClick={() => setActiveDropdown(null)}
-                    >
-                      <UserCircle className="inline-block w-4 h-4 mr-2" />
-                      Clientes
-                    </Link>
-                    <Link 
-                      href="/cadastros/parquimetros" 
-                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
-                      onClick={() => setActiveDropdown(null)}
-                    >
-                      <Parking className="inline-block w-4 h-4 mr-2" />
-                      Parquímetros
-                    </Link>
-                    <Link 
-                      href="/cadastros/ruas-setores" 
-                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
-                      onClick={() => setActiveDropdown(null)}
-                    >
-                      <Road className="inline-block w-4 h-4 mr-2" />
-                      Ruas/Setores
-                    </Link>
-                    <Link 
-                      href="/cadastros/isentos-pos-pago" 
-                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
-                      onClick={() => setActiveDropdown(null)}
-                    >
-                      <CreditCard className="inline-block w-4 h-4 mr-2" />
-                      Isentos/Pós-Pago
-                    </Link>
-                    <Link 
-                      href="/cadastros/feriados" 
-                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
-                      onClick={() => setActiveDropdown(null)}
-                    >
-                      <Calendar className="inline-block w-4 h-4 mr-2" />
-                      Feriados
-                    </Link>
-                    <Link 
-                      href="/cadastros/sac-motivos" 
-                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
-                      onClick={() => setActiveDropdown(null)}
-                    >
-                      <Info className="inline-block w-4 h-4 mr-2" />
-                      SAC - Motivos
-                    </Link>
-                    <Link 
-                      href="/cadastros/tabelas-valores" 
-                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
-                      onClick={() => setActiveDropdown(null)}
-                    >
-                      <Table className="inline-block w-4 h-4 mr-2" />
-                      Tabelas e Valores
-                    </Link>
-                    <Link 
-                      href="/cadastros/tipo-advertencias" 
-                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
-                      onClick={() => setActiveDropdown(null)}
-                    >
-                      <AlertTriangle className="inline-block w-4 h-4 mr-2" />
-                      Tipo Advertências
-                    </Link>
-                    <Link 
-                      href="/cadastros/turnos" 
-                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
-                      onClick={() => setActiveDropdown(null)}
-                    >
-                      <Watch className="inline-block w-4 h-4 mr-2" />
-                      Turnos
-                    </Link>
-                    <Link 
-                      href="/cadastros/manutencao-veiculos" 
-                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
-                      onClick={() => setActiveDropdown(null)}
-                    >
-                      <Car className="inline-block w-4 h-4 mr-2" />
-                      Manutenção Veículo/Placa
-                    </Link>
-                    <Link 
-                      href="/cadastros/veiculos-marca-modelo" 
-                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
-                      onClick={() => setActiveDropdown(null)}
-                    >
-                      <Car className="inline-block w-4 h-4 mr-2" />
-                      Veículos (Marca/Modelo)
-                    </Link>
-                    <Link 
-                      href="/cadastros/impostos" 
-                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
-                      onClick={() => setActiveDropdown(null)}
-                    >
-                      <DollarSign className="inline-block w-4 h-4 mr-2" />
-                      Impostos
-                    </Link>
-                    <Link 
-                      href="/cadastros/isentos-vaga-setor" 
-                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
-                      onClick={() => setActiveDropdown(null)}
-                    >
-                      <Ban className="inline-block w-4 h-4 mr-2" />
-                      Isento por Vaga/Setor
-                    </Link>
-                    <Link 
-                      href="/cadastros/rotas" 
-                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
-                      onClick={() => setActiveDropdown(null)}
-                    >
-                      <Route className="inline-block w-4 h-4 mr-2" />
-                      Rotas
-                    </Link>
-                    <Link 
-                      href="/cadastros/operacoes-parquimetro" 
-                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
-                      onClick={() => setActiveDropdown(null)}
-                    >
-                      <Cog className="inline-block w-4 h-4 mr-2" />
-                      Operações de Parquímetro
-                    </Link>
-                    <Link 
-                      href="/cadastros/motivos-baixa-ai" 
-                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
-                      onClick={() => setActiveDropdown(null)}
-                    >
-                      <ClipboardCheck className="inline-block w-4 h-4 mr-2" />
-                      Motivos de baixa de AI
-                    </Link>
-                    <Link 
-                      href="/cadastros/dispositivos" 
-                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                      onClick={() => setActiveDropdown(null)}
-                    >
-                      <Tablet className="inline-block w-4 h-4 mr-2" />
-                      Dispositivos
-                    </Link>
-                  </div>
-                )}
-              </div>
-
-              <div className="relative dropdown-container">
-                <button
-                  onClick={() => toggleDropdown("operacional")}
-                  className="flex items-center px-3 py-2 text-sm font-medium text-white rounded hover:bg-blue-700"
-                  aria-expanded={activeDropdown === "operacional"}
-                  aria-haspopup="true"
-                >
-                  <Settings className="w-4 h-4 mr-1" />
-                  Operacional
-                  <ChevronDown className="w-4 h-4 ml-1" />
-                </button>
-                {activeDropdown === "operacional" && (
-                  <div 
-                    className="absolute left-0 z-10 w-64 mt-2 bg-white border rounded shadow-lg"
-                    role="menu"
-                    aria-orientation="vertical"
-                    aria-labelledby="operacional-menu"
-                  >
-                    <Link href="/operacional/quitacao-ai-notificacao" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">
-                      <CheckCircle className="inline-block w-4 h-4 mr-2" />
-                      Quitação de AI/Notificação
-                    </Link>
-                    <Link href="/operacional/fechamento-diario" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">
-                      <FileText className="inline-block w-4 h-4 mr-2" />
-                      Fechamento Diário
-                    </Link>
-                    <Link href="/operacional/inserir-resgatar-creditos" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">
-                      <CreditCard className="inline-block w-4 h-4 mr-2" />
-                      Inserir/Resgatar Créditos/Manut.Cadastro
-                    </Link>
-                    <Link href="/operacional/fechamento-consulta-ponto" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">
-                      <Clock className="inline-block w-4 h-4 mr-2" />
-                      Fechamento/Consulta de Ponto
-                    </Link>
-                    <Link href="/operacional/gerar-credito-estorno" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">
-                      <DollarSign className="inline-block w-4 h-4 mr-2" />
-                      Gerar Crédito/Estorno
-                    </Link>
-                    <Link href="/operacional/lote-mumbuca-verde" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">
-                      <Leaf className="inline-block w-4 h-4 mr-2" />
-                      Lote Mumbuca Verde
-                    </Link>
-                    <Link href="/operacional/reserva-vaga" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">
-                      <ParkingCircle className="inline-block w-4 h-4 mr-2" />
-                      Reserva de Vaga
-                    </Link>
-                    <Link href="/operacional/meu-caixa" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                      <Briefcase className="inline-block w-4 h-4 mr-2" />
-                      Meu Caixa
-                    </Link>
-                  </div>
-                )}
-              </div>
-
-              <div className="relative dropdown-container">
-                <button
-                  onClick={() => toggleDropdown("fiscalizacao")}
-                  className="flex items-center px-3 py-2 text-sm font-medium text-white rounded hover:bg-blue-700"
-                >
-                  <BarChart2 className="w-4 h-4 mr-1" />
-                  Fiscalização
-                  <ChevronDown className="w-4 h-4 ml-1" />
-                </button>
-                {activeDropdown === "fiscalizacao" && (
-                  <div className="absolute left-0 z-10 w-48 mt-2 bg-white border rounded shadow-lg">
-                    {/* Itens de fiscalização... */}
-                  </div>
-                )}
-              </div>
-
-              <div className="relative dropdown-container">
-                <button
-                  onClick={() => toggleDropdown("tempo-real")}
-                  className="flex items-center px-3 py-2 text-sm font-medium text-white rounded hover:bg-blue-700"
-                >
-                  <Clock className="w-4 h-4 mr-1" />
-                  Tempo Real
-                  <ChevronDown className="w-4 h-4 ml-1" />
-                </button>
-                {activeDropdown === "tempo-real" && (
-                  <div className="absolute left-0 z-10 w-64 mt-2 bg-white border rounded shadow-lg">
-                    <Link 
-                      href="/tempo-real/mapa-ocupacao-vagas" 
-                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
-                      onClick={() => setActiveDropdown(null)}
-                    >
-                      <Map className="inline-block w-4 h-4 mr-2" />
-                      Mapa de Ocupação de Vagas
-                    </Link>
-                    <Link 
-                      href="/tempo-real/fiscalizacao" 
-                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
-                      onClick={() => setActiveDropdown(null)}
-                    >
-                      <BarChart2 className="inline-block w-4 h-4 mr-2" />
-                      Fiscalização
-                    </Link>
-                    <Link 
-                      href="/tempo-real/parquimetro" 
-                      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                      onClick={() => setActiveDropdown(null)}
-                    >
-                      <Parking className="inline-block w-4 h-4 mr-2" />
-                      Parquímetro
-                    </Link>
-                  </div>
-                )}
-              </div>
-
-              <div className="relative dropdown-container">
-                <button
-                  onClick={() => toggleDropdown("pdv")}
-                  className="flex items-center px-3 py-2 text-sm font-medium text-white rounded hover:bg-blue-700"
-                >
-                  <ShoppingCart className="w-4 h-4 mr-1" />
-                  PDV
-                  <ChevronDown className="w-4 h-4 ml-1" />
-                </button>
-                {activeDropdown === "pdv" && (
-                  <div className="absolute left-0 z-10 w-48 mt-2 bg-white border rounded shadow-lg">
-                    {/* Itens de PDV... */}
-                  </div>
-                )}
-              </div>
-
-              <Link
-                href="/relatorios"
-                className="flex items-center px-3 py-2 text-sm font-medium text-white hover:bg-blue-700 rounded"
-                onClick={() => {
-                  setActiveDropdown(null)
-                  setIsMobileMenuOpen(false)
-                }}
-              >
-                <BarChart2 className="w-4 h-4 mr-1" />
-                Relatórios/Consultas
-              </Link>
-
-              <div className="relative dropdown-container">
-                <button
-                  onClick={() => toggleDropdown("manutencao")}
-                  className="flex items-center px-3 py-2 text-sm font-medium text-white rounded hover:bg-blue-700"
-                >
-                  <Tool className="w-4 h-4 mr-1" />
-                  Manutenção
-                  <ChevronDown className="w-4 h-4 ml-1" />
-                </button>
-                {activeDropdown === "manutencao" && (
-                  <div className="absolute left-0 z-10 w-48 mt-2 bg-white border rounded shadow-lg">
-                    {/* Itens de manutenção... */}
-                  </div>
-                )}
-              </div>
-            </nav>
           </div>
 
-          <div>
-            <button className="flex items-center px-3 py-2 text-sm font-medium text-white rounded hover:bg-blue-700">
+          {/* Botão Sair */}
+          <div className="hidden lg:flex items-center">
+            <button className="flex items-center px-2 py-2 text-sm font-medium text-white rounded hover:bg-blue-700">
               <LogOut className="w-4 h-4 mr-1" />
-              Sair
+              <span className="whitespace-nowrap">Sair</span>
             </button>
           </div>
         </div>
       </div>
       {/* Gradient line */}
       <div className="h-1 bg-gradient-to-r from-red-500 via-yellow-500 to-green-500"></div>
+      {/* Dados de Hoje section */}
+      <div className="bg-gradient-to-r from-[#33ACFF] via-[#0093FF] to-[#0070CC] py-4">
+        <h2 className="text-white text-xl font-semibold text-center">Dados de Hoje</h2>
+      </div>
     </header>
   )
 }
