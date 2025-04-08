@@ -438,8 +438,103 @@ export default function Navbar() {
                 <ChevronDown className="w-4 h-4 ml-1" />
               </button>
               {activeDropdown === "manutencao" && (
-                <div className="absolute left-0 lg:left-auto z-10 w-48 mt-1 bg-white border rounded shadow-lg">
-                  {/* Itens de manutenção... */}
+                <div className="absolute left-0 lg:left-auto z-10 w-64 mt-1 bg-white border rounded shadow-lg">
+                  <Link 
+                    href="/manutencao/privilegios" 
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
+                    onClick={() => setActiveDropdown(null)}
+                  >
+                    <UserCheck className="inline-block w-4 h-4 mr-2" />
+                    Privilégios
+                  </Link>
+                  <Link 
+                    href="/manutencao/alterar-senha-acesso-cliente" 
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
+                    onClick={() => setActiveDropdown(null)}
+                  >
+                    <UserCircle className="inline-block w-4 h-4 mr-2" />
+                    Alterar Senha Acesso Cliente
+                  </Link>
+                  <Link 
+                    href="/manutencao/consulta-ai-gerar-estorno" 
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
+                    onClick={() => setActiveDropdown(null)}
+                  >
+                    <AlertOctagon className="inline-block w-4 h-4 mr-2" />
+                    Consulta AI/Gerar Estorno
+                  </Link>
+                  <Link 
+                    href="/manutencao/consulta-estorno-ai-quit-ai" 
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
+                    onClick={() => setActiveDropdown(null)}
+                  >
+                    <Search className="inline-block w-4 h-4 mr-2" />
+                    Consulta Estorno AI/Quit.AI
+                  </Link>
+                  <Link 
+                    href="/manutencao/empresa" 
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
+                    onClick={() => setActiveDropdown(null)}
+                  >
+                    <Briefcase className="inline-block w-4 h-4 mr-2" />
+                    Empresa
+                  </Link>
+                  <Link 
+                    href="/manutencao/gerar-cadastrar-vagas" 
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
+                    onClick={() => setActiveDropdown(null)}
+                  >
+                    <MapPin className="inline-block w-4 h-4 mr-2" />
+                    Gerar/Cadastrar Vagas
+                  </Link>
+                  <Link 
+                    href="/manutencao/layout-impressoes" 
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
+                    onClick={() => setActiveDropdown(null)}
+                  >
+                    <FileSpreadsheet className="inline-block w-4 h-4 mr-2" />
+                    Layout impressões
+                  </Link>
+                  <Link 
+                    href="/manutencao/quitar-ai-uso-saldo" 
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
+                    onClick={() => setActiveDropdown(null)}
+                  >
+                    <Activity className="inline-block w-4 h-4 mr-2" />
+                    Quitar AI - Uso de Saldo
+                  </Link>
+                  <Link 
+                    href="/manutencao/transacoes-credito-debito" 
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
+                    onClick={() => setActiveDropdown(null)}
+                  >
+                    <CardIcon className="inline-block w-4 h-4 mr-2" />
+                    Transações Crédito/Débito
+                  </Link>
+                  <Link 
+                    href="/manutencao/alterar-minha-senha" 
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
+                    onClick={() => setActiveDropdown(null)}
+                  >
+                    <Tool className="inline-block w-4 h-4 mr-2" />
+                    Alterar minha senha
+                  </Link>
+                  <Link 
+                    href="/manutencao/consulta-estorno-creditos" 
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
+                    onClick={() => setActiveDropdown(null)}
+                  >
+                    <MessageSquare className="inline-block w-4 h-4 mr-2" />
+                    Consulta/Estorno de créditos
+                  </Link>
+                  <Link 
+                    href="/manutencao/alteracao-forma-pagamento" 
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                    onClick={() => setActiveDropdown(null)}
+                  >
+                    <Smartphone className="inline-block w-4 h-4 mr-2" />
+                    Alteração forma de pagamento
+                  </Link>
                 </div>
               )}
             </div>
