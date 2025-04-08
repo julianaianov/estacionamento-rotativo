@@ -9,29 +9,80 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Checkbox } from "@/components/ui/checkbox"
 import { ArrowLeft, MapPin, Map } from "lucide-react"
 import Link from "next/link"
+import dynamic from "next/dynamic"
+import { FaArrowLeft } from 'react-icons/fa'
+
+const MapComponent = dynamic(() => import("@/components/maps/OccupationMap"), {
+  ssr: false,
+  loading: () => (
+    <div className="w-full h-[600px] flex items-center justify-center bg-gray-100">
+      <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-600"></div>
+    </div>
+  ),
+})
+
+type ParkingSpot = {
+  id: string
+  latitude: number
+  longitude: number
+  type: string
+  status: "active" | "inactive" | "free" | "occupied" | "regularizing" | "unavailable"
+  spotNumber: string
+}
 
 export default function GerarCadastrarVagasPage() {
-  const [selectedArea, setSelectedArea] = useState("")
-  const [selectedQuadraSetor, setSelectedQuadraSetor] = useState("")
+  const [selectedLocation, setSelectedLocation] = useState<{ lat: number; lng: number } | null>(null)
+  const [parkingSpots, setParkingSpots] = useState<ParkingSpot[]>([])
+  const [selectedArea, setSelectedArea] = useState<string>('todas')
+  const [selectedQuadraSetor, setSelectedQuadraSetor] = useState<string>('todas')
   const [filters, setFilters] = useState({
-    normal: true,
-    idoso: true,
-    pne: true,
-    farmacia: true,
-    cargaDescarga: true,
-    orgaoPublico: true,
-    moto: true,
-    gestante: true,
-    vagaGaragem: true,
-    vagaGratuita: true,
-    inativo: true
+    normal: false,
+    idoso: false,
+    pne: false,
+    farmacia: false,
+    cargaDescarga: false,
+    orgaoPublico: false,
+    moto: false,
+    gestante: false,
+    vagaGaragem: false,
+    vagaGratuita: false,
+    inativo: false
+  })
+  const [formData, setFormData] = useState({
+    spotNumber: '',
+    type: 'normal',
+    status: 'free' as ParkingSpot['status'],
   })
 
-  const handleFilterChange = (filterName: string) => {
-    setFilters(prev => ({
-      ...prev,
-      [filterName]: !prev[filterName as keyof typeof filters]
-    }))
+  const handleMapClick = (event: { latlng: { lat: number; lng: number } }) => {
+    setSelectedLocation(event.latlng)
+  }
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    if (!selectedLocation) {
+      alert('Por favor, selecione uma localização no mapa')
+      return
+    }
+
+    const newSpot: ParkingSpot = {
+      id: Date.now().toString(),
+      latitude: selectedLocation.lat,
+      longitude: selectedLocation.lng,
+      ...formData,
+    }
+
+    setParkingSpots([...parkingSpots, newSpot])
+    setFormData({
+      spotNumber: '',
+      type: 'normal',
+      status: 'free',
+    })
+    setSelectedLocation(null)
+  }
+
+  const handleFilterChange = (filterName: keyof typeof filters) => {
+    setFilters(prev => ({ ...prev, [filterName]: !prev[filterName] }))
   }
 
   return (
@@ -64,7 +115,8 @@ export default function GerarCadastrarVagasPage() {
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="todas">:: todas ::</SelectItem>
-                      {/* Add other areas as needed */}
+                      <SelectItem value="centro">Centro</SelectItem>
+                      <SelectItem value="bairro">Bairro</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
@@ -77,7 +129,8 @@ export default function GerarCadastrarVagasPage() {
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="todas">:: todas ::</SelectItem>
-                      {/* Add other sectors as needed */}
+                      <SelectItem value="setor1">Setor 1</SelectItem>
+                      <SelectItem value="setor2">Setor 2</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
@@ -229,11 +282,46 @@ export default function GerarCadastrarVagasPage() {
             <CardTitle>Mapeamento Vagas</CardTitle>
           </CardHeader>
           <CardContent>
-            <div className="h-[600px] bg-gray-100 rounded-lg flex items-center justify-center">
-              <div className="text-center text-gray-500">
-                <Map className="h-12 w-12 mx-auto mb-2" />
-                <p>Mapa será carregado aqui</p>
-                <p className="text-sm">Integração com Google Maps ou similar será necessária</p>
+            <div className="space-y-4">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+                <div>
+                  <Label>Número da Vaga</Label>
+                  <Input
+                    value={formData.spotNumber}
+                    onChange={(e) => setFormData({ ...formData, spotNumber: e.target.value })}
+                    placeholder="Ex: A001"
+                  />
+                </div>
+                <div>
+                  <Label>Tipo de Vaga</Label>
+                  <Select value={formData.type} onValueChange={(value) => setFormData({ ...formData, type: value as ParkingSpot['type'] })}>
+                    <SelectTrigger>
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="normal">Normal</SelectItem>
+                      <SelectItem value="motorcycle">Moto</SelectItem>
+                      <SelectItem value="handicapped">PCD</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div>
+                  <Label>Status</Label>
+                  <Select value={formData.status} onValueChange={(value) => setFormData({ ...formData, status: value as ParkingSpot['status'] })}>
+                    <SelectTrigger>
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="free">Disponível</SelectItem>
+                      <SelectItem value="occupied">Ocupada</SelectItem>
+                      <SelectItem value="regularizing">Regularizando</SelectItem>
+                      <SelectItem value="unavailable">Indisponível</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
+              <div className="h-[600px] rounded-lg overflow-hidden">
+                <MapComponent onMapClick={handleMapClick} spots={parkingSpots} />
               </div>
             </div>
           </CardContent>
@@ -243,7 +331,7 @@ export default function GerarCadastrarVagasPage() {
         <div className="flex justify-center">
           <Link href="/manutencao">
             <Button className="bg-[#F5A623] hover:bg-[#F5A623]/90 text-white">
-              <ArrowLeft className="mr-2 h-4 w-4" />
+              <FaArrowLeft className="mr-2 h-4 w-4" />
               Voltar
             </Button>
           </Link>
