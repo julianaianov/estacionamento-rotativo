@@ -125,8 +125,6 @@ export default function ResultadosClientes() {
           Voltar
         </Link>
       </div>
-      
-      <div className="h-1 bg-gradient-to-r from-red-500 via-yellow-500 to-green-500"></div>
     </div>
   )
 } 

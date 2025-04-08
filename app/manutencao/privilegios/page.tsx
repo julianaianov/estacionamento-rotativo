@@ -118,17 +118,9 @@ export default function PrivilegiosPage() {
       {/* Header */}
       <div className="bg-white shadow">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center py-4">
-            <div className="flex items-center">
-              <UserCheck className="h-8 w-8 text-blue-600 mr-2" />
-              <h1 className="text-2xl font-bold text-gray-900">Privilégios de Acesso</h1>
-            </div>
-            <Link href="/manutencao">
-              <Button className="bg-[#F5A623] hover:bg-[#F5A623]/90 text-white">
-                <ArrowLeft className="mr-2 h-4 w-4" />
-                Voltar
-              </Button>
-            </Link>
+          <div className="flex items-center py-4">
+            <UserCheck className="h-8 w-8 text-blue-600 mr-2" />
+            <h1 className="text-2xl font-bold text-gray-900">Privilégios de Acesso</h1>
           </div>
         </div>
       </div>
@@ -198,6 +190,17 @@ export default function PrivilegiosPage() {
             </CardContent>
           </Card>
         )}
+
+        {/* Back button at the bottom */}
+        <div className="mt-8 flex justify-center">
+          <Link href="/manutencao">
+            <Button className="bg-[#F5A623] hover:bg-[#F5A623]/90 text-white">
+              <ArrowLeft className="mr-2 h-4 w-4" />
+              Voltar
+            </Button>
+          </Link>
+        </div>
+        <div className="mt-4 h-1 bg-gradient-to-r from-red-500 via-yellow-500 to-green-500"></div>
       </div>
     </div>
   )
