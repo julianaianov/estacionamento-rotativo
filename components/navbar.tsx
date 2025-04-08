@@ -88,9 +88,9 @@ export default function Navbar() {
   return (
     <header className="relative">
       <div className="bg-[#0093FF] shadow">
-        <div className="flex items-center justify-between w-full px-4">
+        <div className="flex items-center w-full px-2">
           {/* Logo container */}
-          <div className="relative" style={{ width: '150px', height: '70px' }}>
+          <div className="relative flex-shrink-0" style={{ width: '150px', height: '70px' }}>
             <Link href="/" className="flex items-center">
               <div style={{ 
                 width: '320px',
@@ -111,26 +111,26 @@ export default function Navbar() {
 
           {/* Menu de navegação */}
           <nav className={`${
-            isMobileMenuOpen ? 'flex absolute top-full left-0 right-0 flex-col bg-[#0093FF] z-50 shadow-lg' : 'hidden'
-          } lg:flex lg:relative lg:flex-row lg:items-center lg:space-x-1 lg:ml-4 lg:bg-transparent`}>
+            isMobileMenuOpen 
+              ? 'flex fixed top-[70px] left-0 right-0 flex-col bg-[#0093FF] z-50 shadow-lg py-2 overflow-y-auto max-h-[calc(100vh-70px)]' 
+              : 'hidden'
+          } lg:flex lg:relative lg:flex-row lg:items-center lg:space-x-0.5 lg:py-0 lg:bg-transparent lg:overflow-visible`}>
             <Link
               href="/"
-              className="flex items-center px-2 py-2 text-sm font-medium text-white hover:bg-blue-700 rounded"
+              className="flex items-center px-2 py-2 text-sm font-medium text-white hover:bg-blue-700 rounded whitespace-nowrap"
               onClick={() => {
                 setActiveDropdown(null)
                 setIsMobileMenuOpen(false)
               }}
             >
               <Home className="w-4 h-4 mr-1" />
-              <span className="whitespace-nowrap">Home</span>
+              <span>Home</span>
             </Link>
 
             <div className="relative dropdown-container">
               <button
                 onClick={() => toggleDropdown("cadastros")}
                 className="flex items-center w-full lg:w-auto px-2 py-2 text-sm font-medium text-white rounded hover:bg-blue-700"
-                aria-expanded={activeDropdown === "cadastros"}
-                aria-haspopup="true"
               >
                 <FileText className="w-4 h-4 mr-1" />
                 <span className="whitespace-nowrap">Cadastros</span>
@@ -428,123 +428,33 @@ export default function Navbar() {
               <span className="whitespace-nowrap">Relatórios/Consultas</span>
             </Link>
 
-            <div className="relative dropdown-container">
-              <button
-                onClick={() => toggleDropdown("manutencao")}
-                className="flex items-center w-full lg:w-auto px-2 py-2 text-sm font-medium text-white rounded hover:bg-blue-700"
-              >
-                <Tool className="w-4 h-4 mr-1" />
-                <span className="whitespace-nowrap">Manutenção</span>
-                <ChevronDown className="w-4 h-4 ml-1" />
-              </button>
-              {activeDropdown === "manutencao" && (
-                <div className="absolute left-0 lg:left-auto z-10 w-64 mt-1 bg-white border rounded shadow-lg">
-                  <Link 
-                    href="/manutencao/privilegios" 
-                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
-                    onClick={() => setActiveDropdown(null)}
-                  >
-                    <UserCheck className="inline-block w-4 h-4 mr-2" />
-                    Privilégios
-                  </Link>
-                  <Link 
-                    href="/manutencao/alterar-senha-acesso-cliente" 
-                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
-                    onClick={() => setActiveDropdown(null)}
-                  >
-                    <UserCircle className="inline-block w-4 h-4 mr-2" />
-                    Alterar Senha Acesso Cliente
-                  </Link>
-                  <Link 
-                    href="/manutencao/consulta-ai-gerar-estorno" 
-                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
-                    onClick={() => setActiveDropdown(null)}
-                  >
-                    <AlertOctagon className="inline-block w-4 h-4 mr-2" />
-                    Consulta AI/Gerar Estorno
-                  </Link>
-                  <Link 
-                    href="/manutencao/consulta-estorno-ai-quit-ai" 
-                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
-                    onClick={() => setActiveDropdown(null)}
-                  >
-                    <Search className="inline-block w-4 h-4 mr-2" />
-                    Consulta Estorno AI/Quit.AI
-                  </Link>
-                  <Link 
-                    href="/manutencao/empresa" 
-                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
-                    onClick={() => setActiveDropdown(null)}
-                  >
-                    <Briefcase className="inline-block w-4 h-4 mr-2" />
-                    Empresa
-                  </Link>
-                  <Link 
-                    href="/manutencao/gerar-cadastrar-vagas" 
-                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
-                    onClick={() => setActiveDropdown(null)}
-                  >
-                    <MapPin className="inline-block w-4 h-4 mr-2" />
-                    Gerar/Cadastrar Vagas
-                  </Link>
-                  <Link 
-                    href="/manutencao/layout-impressoes" 
-                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
-                    onClick={() => setActiveDropdown(null)}
-                  >
-                    <FileSpreadsheet className="inline-block w-4 h-4 mr-2" />
-                    Layout impressões
-                  </Link>
-                  <Link 
-                    href="/manutencao/quitar-ai-uso-saldo" 
-                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
-                    onClick={() => setActiveDropdown(null)}
-                  >
-                    <Activity className="inline-block w-4 h-4 mr-2" />
-                    Quitar AI - Uso de Saldo
-                  </Link>
-                  <Link 
-                    href="/manutencao/transacoes-credito-debito" 
-                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
-                    onClick={() => setActiveDropdown(null)}
-                  >
-                    <CardIcon className="inline-block w-4 h-4 mr-2" />
-                    Transações Crédito/Débito
-                  </Link>
-                  <Link 
-                    href="/manutencao/alterar-minha-senha" 
-                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
-                    onClick={() => setActiveDropdown(null)}
-                  >
-                    <Tool className="inline-block w-4 h-4 mr-2" />
-                    Alterar minha senha
-                  </Link>
-                  <Link 
-                    href="/manutencao/consulta-estorno-creditos" 
-                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
-                    onClick={() => setActiveDropdown(null)}
-                  >
-                    <MessageSquare className="inline-block w-4 h-4 mr-2" />
-                    Consulta/Estorno de créditos
-                  </Link>
-                  <Link 
-                    href="/manutencao/alteracao-forma-pagamento" 
-                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                    onClick={() => setActiveDropdown(null)}
-                  >
-                    <Smartphone className="inline-block w-4 h-4 mr-2" />
-                    Alteração forma de pagamento
-                  </Link>
-                </div>
-              )}
-            </div>
+            <Link
+              href="/manutencao"
+              className="flex items-center px-2 py-2 text-sm font-medium text-white hover:bg-blue-700 rounded whitespace-nowrap"
+              onClick={() => {
+                setActiveDropdown(null)
+                setIsMobileMenuOpen(false)
+              }}
+            >
+              <Tool className="w-4 h-4 mr-1" />
+              <span>Manutenção</span>
+            </Link>
           </nav>
 
-          {/* Botão do menu mobile */}
-          <div className="flex items-center lg:hidden">
+          {/* Container para botões (Sair e Menu Mobile) */}
+          <div className="flex items-center gap-2 ml-auto">
+            <button 
+              onClick={() => router.push('/logout')}
+              className="flex items-center px-3 py-2 text-sm font-medium text-white hover:bg-blue-700 rounded whitespace-nowrap"
+            >
+              <LogOut className="w-4 h-4 mr-1" />
+              <span>Sair</span>
+            </button>
+
+            {/* Botão do menu mobile */}
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="p-2 text-white hover:bg-blue-700 rounded"
+              className="lg:hidden p-2 text-white hover:bg-blue-700 rounded"
               aria-label="Toggle menu"
             >
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -552,18 +462,12 @@ export default function Navbar() {
               </svg>
             </button>
           </div>
-
-          {/* Botão Sair */}
-          <div className="hidden lg:flex items-center">
-            <button className="flex items-center px-2 py-2 text-sm font-medium text-white rounded hover:bg-blue-700">
-              <LogOut className="w-4 h-4 mr-1" />
-              <span className="whitespace-nowrap">Sair</span>
-            </button>
-          </div>
         </div>
       </div>
+
       {/* Gradient line */}
       <div className="h-1 bg-gradient-to-r from-red-500 via-yellow-500 to-green-500"></div>
+
       {/* Dados de Hoje section */}
       <div className="bg-gradient-to-r from-[#33ACFF] via-[#0093FF] to-[#0070CC] py-4">
         <h2 className="text-white text-xl font-semibold text-center">Dados de Hoje</h2>
