@@ -53,6 +53,7 @@ import {
   CreditCardIcon as CardIcon,
   PercentSquare,
   Smartphone,
+  Package,
 } from "lucide-react"
 
 export default function Navbar() {
@@ -378,23 +379,55 @@ export default function Navbar() {
                     onClick={() => setActiveDropdown(null)}
                   >
                     <Map className="inline-block w-4 h-4 mr-2" />
-                    Mapa de Ocupação de Vagas
+                    Mapa Ocupação Vagas
                   </Link>
                   <Link 
-                    href="/tempo-real/fiscalizacao" 
+                    href="/tempo-real/mapa-ocupacao-vagas-gerente" 
                     className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
                     onClick={() => setActiveDropdown(null)}
                   >
-                    <BarChart2 className="inline-block w-4 h-4 mr-2" />
-                    Fiscalização
+                    <MapPin className="inline-block w-4 h-4 mr-2" />
+                    Mapa Ocupação Vagas - Gerente
                   </Link>
                   <Link 
-                    href="/tempo-real/parquimetro" 
+                    href="/tempo-real/consulta-quadra-setor" 
                     className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
                     onClick={() => setActiveDropdown(null)}
                   >
-                    <Parking className="inline-block w-4 h-4 mr-2" />
-                    Parquímetro
+                    <Search className="inline-block w-4 h-4 mr-2" />
+                    Consulta Por Quadra/Setor
+                  </Link>
+                  <Link 
+                    href="/tempo-real/mapa-movimentacao-operadores" 
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
+                    onClick={() => setActiveDropdown(null)}
+                  >
+                    <Route className="inline-block w-4 h-4 mr-2" />
+                    Mapa Movimentação Operadores
+                  </Link>
+                  <Link 
+                    href="/tempo-real/mapa-incidencia-estacionamento" 
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
+                    onClick={() => setActiveDropdown(null)}
+                  >
+                    <AlertTriangle className="inline-block w-4 h-4 mr-2" />
+                    Mapa Incidência Estacionamento(Calor)
+                  </Link>
+                  <Link 
+                    href="/tempo-real/mapa-exibicao-vagas" 
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
+                    onClick={() => setActiveDropdown(null)}
+                  >
+                    <ParkingCircle className="inline-block w-4 h-4 mr-2" />
+                    Mapa de Exibição de Vagas Cadastradas
+                  </Link>
+                  <Link 
+                    href="/tempo-real/devedores-estacionados" 
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                    onClick={() => setActiveDropdown(null)}
+                  >
+                    <AlertOctagon className="inline-block w-4 h-4 mr-2" />
+                    Devedores estacionados
                   </Link>
                 </div>
               )}
@@ -410,8 +443,71 @@ export default function Navbar() {
                 <ChevronDown className="w-4 h-4 ml-1" />
               </button>
               {activeDropdown === "pdv" && (
-                <div className="absolute left-0 lg:left-auto z-10 w-48 mt-1 bg-white border rounded shadow-lg">
-                  {/* Itens de PDV... */}
+                <div className="absolute left-0 lg:left-auto z-10 w-64 mt-1 bg-white border rounded shadow-lg">
+                  <Link 
+                    href="/pdv/dashboard" 
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
+                    onClick={() => setActiveDropdown(null)}
+                  >
+                    <ShoppingCart className="inline-block w-4 h-4 mr-2" />
+                    PDV Dashboard
+                  </Link>
+                  <Link 
+                    href="/pdv/cadastro" 
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
+                    onClick={() => setActiveDropdown(null)}
+                  >
+                    <UserPlus className="inline-block w-4 h-4 mr-2" />
+                    Cadastro de PDV
+                  </Link>
+                  <Link 
+                    href="/pdv/relatorio-movimentacoes" 
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
+                    onClick={() => setActiveDropdown(null)}
+                  >
+                    <Activity className="inline-block w-4 h-4 mr-2" />
+                    Relatório de Movimentações
+                  </Link>
+                  <Link 
+                    href="/pdv/relatorio-vendas-resumido" 
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
+                    onClick={() => setActiveDropdown(null)}
+                  >
+                    <FileBarChart className="inline-block w-4 h-4 mr-2" />
+                    Relatório de Vendas Resumido
+                  </Link>
+                  <Link 
+                    href="/pdv/relatorio-pagamentos" 
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
+                    onClick={() => setActiveDropdown(null)}
+                  >
+                    <CreditCard className="inline-block w-4 h-4 mr-2" />
+                    Relatório de Pagamentos
+                  </Link>
+                  <Link 
+                    href="/pdv/relatorio-fechamentos" 
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
+                    onClick={() => setActiveDropdown(null)}
+                  >
+                    <FileText className="inline-block w-4 h-4 mr-2" />
+                    Relatório de Fechamentos
+                  </Link>
+                  <Link 
+                    href="/pdv/relatorio-faturamento-periodo" 
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
+                    onClick={() => setActiveDropdown(null)}
+                  >
+                    <DollarSign className="inline-block w-4 h-4 mr-2" />
+                    Relatório Faturamento Período
+                  </Link>
+                  <Link 
+                    href="/pdv/indicador-produtividade" 
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                    onClick={() => setActiveDropdown(null)}
+                  >
+                    <TrendingUp className="inline-block w-4 h-4 mr-2" />
+                    Indicador de Produtividade
+                  </Link>
                 </div>
               )}
             </div>
