@@ -415,19 +415,11 @@ export default function Navbar() {
                   </Link>
                   <Link 
                     href="/tempo-real/mapa-exibicao-vagas" 
-                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                     onClick={() => setActiveDropdown(null)}
                   >
                     <ParkingCircle className="inline-block w-4 h-4 mr-2" />
                     Mapa de Exibição de Vagas Cadastradas
-                  </Link>
-                  <Link 
-                    href="/tempo-real/devedores-estacionados" 
-                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                    onClick={() => setActiveDropdown(null)}
-                  >
-                    <AlertOctagon className="inline-block w-4 h-4 mr-2" />
-                    Devedores estacionados
                   </Link>
                 </div>
               )}
