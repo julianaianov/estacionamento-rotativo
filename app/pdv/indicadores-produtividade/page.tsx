@@ -1,6 +1,5 @@
 "use client"
 
-import React from "react"
 import { useState } from "react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
@@ -19,7 +18,9 @@ export default function IndicadoresProdutividadePage() {
   const [dataFinal, setDataFinal] = useState("30/04/2025")
   const [mostrarResultados, setMostrarResultados] = useState(false)
 
+
   // Dados de exemplo para os setores   
+
   const setores: Setor[] = [
     {
       nome: "RUA DOMICIO DA GAMA",
