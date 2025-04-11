@@ -18,7 +18,9 @@ export default function IndicadoresProdutividadePage() {
   const [dataFinal, setDataFinal] = useState("30/04/2025")
   const [mostrarResultados, setMostrarResultados] = useState(false)
 
-  // Dados de exemplo para os setores
+
+  // Dados de exemplo para os setores   
+
   const setores: Setor[] = [
     {
       nome: "RUA DOMICIO DA GAMA",

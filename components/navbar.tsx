@@ -53,6 +53,7 @@ import {
   CreditCardIcon as CardIcon,
   PercentSquare,
   Smartphone,
+  Package,
 } from "lucide-react"
 
 export default function Navbar() {
@@ -378,23 +379,47 @@ export default function Navbar() {
                     onClick={() => setActiveDropdown(null)}
                   >
                     <Map className="inline-block w-4 h-4 mr-2" />
-                    Mapa de Ocupação de Vagas
+                    Mapa Ocupação Vagas
                   </Link>
                   <Link 
-                    href="/tempo-real/fiscalizacao" 
+                    href="/tempo-real/mapa-ocupacao-vagas-gerente" 
                     className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
                     onClick={() => setActiveDropdown(null)}
                   >
-                    <BarChart2 className="inline-block w-4 h-4 mr-2" />
-                    Fiscalização
+                    <MapPin className="inline-block w-4 h-4 mr-2" />
+                    Mapa Ocupação Vagas - Gerente
                   </Link>
                   <Link 
-                    href="/tempo-real/parquimetro" 
+                    href="/tempo-real/consulta-quadra-setor" 
                     className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
                     onClick={() => setActiveDropdown(null)}
                   >
-                    <Parking className="inline-block w-4 h-4 mr-2" />
-                    Parquímetro
+                    <Search className="inline-block w-4 h-4 mr-2" />
+                    Consulta Por Quadra/Setor
+                  </Link>
+                  <Link 
+                    href="/tempo-real/mapa-movimentacao-operadores" 
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
+                    onClick={() => setActiveDropdown(null)}
+                  >
+                    <Route className="inline-block w-4 h-4 mr-2" />
+                    Mapa Movimentação Operadores
+                  </Link>
+                  <Link 
+                    href="/tempo-real/mapa-incidencia-estacionamento" 
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
+                    onClick={() => setActiveDropdown(null)}
+                  >
+                    <AlertTriangle className="inline-block w-4 h-4 mr-2" />
+                    Mapa Incidência Estacionamento(Calor)
+                  </Link>
+                  <Link 
+                    href="/tempo-real/mapa-exibicao-vagas" 
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                    onClick={() => setActiveDropdown(null)}
+                  >
+                    <ParkingCircle className="inline-block w-4 h-4 mr-2" />
+                    Mapa de Exibição de Vagas Cadastradas
                   </Link>
                 </div>
               )}
@@ -424,7 +449,7 @@ export default function Navbar() {
                     className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
                     onClick={() => setActiveDropdown(null)}
                   >
-                    <ShoppingCart className="inline-block w-4 h-4 mr-2" />
+                    <UserPlus className="inline-block w-4 h-4 mr-2" />
                     Cadastro de PDV
                   </Link>
                   <Link 
@@ -432,7 +457,7 @@ export default function Navbar() {
                     className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
                     onClick={() => setActiveDropdown(null)}
                   >
-                    <DollarSign className="inline-block w-4 h-4 mr-2" />
+                    <Activity className="inline-block w-4 h-4 mr-2" />
                     Relatório de Movimentações
                   </Link>
                   <Link 
@@ -440,7 +465,7 @@ export default function Navbar() {
                     className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
                     onClick={() => setActiveDropdown(null)}
                   >
-                    <FileSpreadsheet className="inline-block w-4 h-4 mr-2" />
+                    <FileBarChart className="inline-block w-4 h-4 mr-2" />
                     Relatório de Vendas Resumido
                   </Link>
                   <Link 
@@ -448,7 +473,7 @@ export default function Navbar() {
                     className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
                     onClick={() => setActiveDropdown(null)}
                   >
-                    <CardIcon className="inline-block w-4 h-4 mr-2" />
+                    <CreditCard className="inline-block w-4 h-4 mr-2" />
                     Relatório de Pagamentos
                   </Link>
                   <Link 
@@ -456,7 +481,7 @@ export default function Navbar() {
                     className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
                     onClick={() => setActiveDropdown(null)}
                   >
-                    <FileBarChart className="inline-block w-4 h-4 mr-2" />
+                    <FileText className="inline-block w-4 h-4 mr-2" />
                     Relatório de Fechamentos
                   </Link>
                   <Link 
@@ -464,7 +489,7 @@ export default function Navbar() {
                     className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
                     onClick={() => setActiveDropdown(null)}
                   >
-                    <PieChart className="inline-block w-4 h-4 mr-2" />
+                    <DollarSign className="inline-block w-4 h-4 mr-2" />
                     Relatório Faturamento Período
                   </Link>
                   <Link 
