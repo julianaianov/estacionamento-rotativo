@@ -54,6 +54,12 @@ import {
   PercentSquare,
   Smartphone,
   Package,
+  Grid,
+  Trash2,
+  Navigation,
+  Menu,
+  X,
+  Image as ImageIcon
 } from "lucide-react"
 
 export default function Navbar() {
@@ -356,8 +362,71 @@ export default function Navbar() {
                 <ChevronDown className="w-4 h-4 ml-1" />
               </button>
               {activeDropdown === "fiscalizacao" && (
-                <div className="absolute left-0 lg:left-auto z-10 w-48 mt-1 bg-white border rounded shadow-lg">
-                  {/* Itens de fiscalização... */}
+                <div className="absolute left-0 lg:left-auto z-10 w-64 mt-1 bg-white border rounded shadow-lg">
+                  <Link 
+                    href="/fiscalizacao/cadastro-veiculos" 
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
+                    onClick={() => setActiveDropdown(null)}
+                  >
+                    <Car className="inline-block w-4 h-4 mr-2" />
+                    Cadastro de Veículos
+                  </Link>
+                  <Link 
+                    href="/fiscalizacao/cadastro-quadras-exclusoes" 
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
+                    onClick={() => setActiveDropdown(null)}
+                  >
+                    <Grid className="inline-block w-4 h-4 mr-2" />
+                    Cadastro de Quadras/Exclusões
+                  </Link>
+                  <Link 
+                    href="/fiscalizacao/motivos-remocao" 
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
+                    onClick={() => setActiveDropdown(null)}
+                  >
+                    <Trash2 className="inline-block w-4 h-4 mr-2" />
+                    Motivos de Remoção
+                  </Link>
+                  <Link 
+                    href="/fiscalizacao/consulta-placa" 
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
+                    onClick={() => setActiveDropdown(null)}
+                  >
+                    <Search className="inline-block w-4 h-4 mr-2" />
+                    Consulta por Placa
+                  </Link>
+                  <Link 
+                    href="/fiscalizacao/mapa-monitoramento" 
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
+                    onClick={() => setActiveDropdown(null)}
+                  >
+                    <Map className="inline-block w-4 h-4 mr-2" />
+                    Mapa monitoramento
+                  </Link>
+                  <Link 
+                    href="/fiscalizacao/analisar-imagens" 
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
+                    onClick={() => setActiveDropdown(null)}
+                  >
+                    <ImageIcon className="inline-block w-4 h-4 mr-2" />
+                    Analisar imagens
+                  </Link>
+                  <Link 
+                    href="/fiscalizacao/mapa-deslocamento-veiculo" 
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
+                    onClick={() => setActiveDropdown(null)}
+                  >
+                    <Navigation className="inline-block w-4 h-4 mr-2" />
+                    Mapa Deslocamento Veículo
+                  </Link>
+                  <Link 
+                    href="/fiscalizacao/relatorio-estatisticas" 
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                    onClick={() => setActiveDropdown(null)}
+                  >
+                    <BarChart2 className="inline-block w-4 h-4 mr-2" />
+                    Relatório de Estatísticas
+                  </Link>
                 </div>
               )}
             </div>
