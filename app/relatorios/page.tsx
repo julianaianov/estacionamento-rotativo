@@ -14,6 +14,10 @@ import {
   AlertTriangle,
   Wallet,
   Users,
+  Smartphone,
+  RefreshCcw,
+  LayoutGrid,
+  KeyRound,
 } from "lucide-react"
 
 export default function RelatoriosPage() {
@@ -275,6 +279,54 @@ export default function RelatoriosPage() {
               </CardHeader>
               <CardContent>
                 <p className="text-sm text-gray-500">Relatório de rendimentos gerais do sistema</p>
+              </CardContent>
+            </Card>
+          </Link>
+
+          <Link href="/relatorios/uso-app" className="block">
+            <Card className="hover:shadow-md transition-shadow cursor-pointer">
+              <CardHeader className="flex flex-row items-center space-x-2">
+                <Smartphone className="h-6 w-6 text-blue-600" />
+                <CardTitle>Relatório de uso do APP</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-gray-500">Consulta de usuários que utilizam o aplicativo, com informações de saldo e tickets ativados</p>
+              </CardContent>
+            </Card>
+          </Link>
+
+          <Link href="/relatorios/creditos-estorno" className="block">
+            <Card className="hover:shadow-md transition-shadow cursor-pointer">
+              <CardHeader className="flex flex-row items-center space-x-2">
+                <RefreshCcw className="h-6 w-6 text-blue-600" />
+                <CardTitle>Relatório de Créditos/Estorno Gerados</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-gray-500">Consulta de créditos e estornos gerados no sistema</p>
+              </CardContent>
+            </Card>
+          </Link>
+
+          <Link href="/relatorios/movimentacao-site-app" className="block">
+            <Card className="hover:shadow-md transition-shadow cursor-pointer">
+              <CardHeader className="flex flex-row items-center space-x-2">
+                <LayoutGrid className="h-6 w-6 text-blue-600" />
+                <CardTitle>Relatório Movimentação Site e Aplicativo</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-gray-500">Consulta de movimentações realizadas através do site e aplicativo</p>
+              </CardContent>
+            </Card>
+          </Link>
+
+          <Link href="/relatorios/log-acesso" className="block">
+            <Card className="hover:shadow-md transition-shadow cursor-pointer">
+              <CardHeader className="flex flex-row items-center space-x-2">
+                <KeyRound className="h-6 w-6 text-blue-600" />
+                <CardTitle>Log de acesso(Administrativo)</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-gray-500">Relatório de acessos administrativos ao sistema</p>
               </CardContent>
             </Card>
           </Link>
