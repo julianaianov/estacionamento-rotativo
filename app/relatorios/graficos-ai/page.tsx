@@ -348,6 +348,76 @@ export default function GraficosAIPage() {
                 </div>
               </CardContent>
             </Card>
+
+            {/* Rendimento Geral */}
+            <Card>
+              <CardHeader>
+                <CardTitle>Rendimento Geral</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="overflow-x-auto">
+                  <table className="w-full text-sm">
+                    <thead>
+                      <tr className="bg-gray-100">
+                        <th className="px-4 py-2 text-left">Nome</th>
+                        <th className="px-4 py-2 text-center" colSpan={3}>Tickets</th>
+                        <th className="px-4 py-2 text-center" colSpan={2}>Regularizações</th>
+                        <th className="px-4 py-2 text-center" colSpan={4}>Recargas</th>
+                        <th className="px-4 py-2 text-center" colSpan={2}>Cartões</th>
+                        <th className="px-4 py-2 text-center">TOTAL</th>
+                      </tr>
+                      <tr className="bg-gray-50">
+                        <th className="px-4 py-2"></th>
+                        <th className="px-4 py-2">Qtde</th>
+                        <th className="px-4 py-2">Reap.</th>
+                        <th className="px-4 py-2">Valor</th>
+                        <th className="px-4 py-2">Qtde</th>
+                        <th className="px-4 py-2">Valor</th>
+                        <th className="px-4 py-2">Qtde cartão</th>
+                        <th className="px-4 py-2">Valor cartão</th>
+                        <th className="px-4 py-2">Qtde saldo</th>
+                        <th className="px-4 py-2">Valor saldo</th>
+                        <th className="px-4 py-2">Qtde vendas</th>
+                        <th className="px-4 py-2">Valor vendas</th>
+                        <th className="px-4 py-2">TOTAL</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr className="border-b">
+                        <td className="px-4 py-2">AGENTE DE CAMPO</td>
+                        <td className="px-4 py-2 text-center">0</td>
+                        <td className="px-4 py-2 text-center">0</td>
+                        <td className="px-4 py-2 text-right">0,00</td>
+                        <td className="px-4 py-2 text-center">39</td>
+                        <td className="px-4 py-2 text-right">102,50</td>
+                        <td className="px-4 py-2 text-center">0</td>
+                        <td className="px-4 py-2 text-right">0,00</td>
+                        <td className="px-4 py-2 text-center">0</td>
+                        <td className="px-4 py-2 text-right">0,00</td>
+                        <td className="px-4 py-2 text-center">0</td>
+                        <td className="px-4 py-2 text-right">0,00</td>
+                        <td className="px-4 py-2 text-right font-bold">102,50</td>
+                      </tr>
+                      <tr className="bg-gray-50 font-bold">
+                        <td className="px-4 py-2">TOTAL GERAL</td>
+                        <td className="px-4 py-2 text-center">0</td>
+                        <td className="px-4 py-2 text-center">0</td>
+                        <td className="px-4 py-2 text-right">0,00</td>
+                        <td className="px-4 py-2 text-center">39</td>
+                        <td className="px-4 py-2 text-right">102,50</td>
+                        <td className="px-4 py-2 text-center">0</td>
+                        <td className="px-4 py-2 text-right">0,00</td>
+                        <td className="px-4 py-2 text-center">0</td>
+                        <td className="px-4 py-2 text-right">0,00</td>
+                        <td className="px-4 py-2 text-center">0</td>
+                        <td className="px-4 py-2 text-right">0,00</td>
+                        <td className="px-4 py-2 text-right">102,50</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </CardContent>
+            </Card>
           </>
         )}
 
