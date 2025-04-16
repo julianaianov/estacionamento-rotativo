@@ -146,6 +146,18 @@ export default function RelatoriosPage() {
             </Card>
           </Link>
 
+          <Link href="/relatorios/faturamento-periodo">
+            <Card className="hover:shadow-md transition-shadow cursor-pointer bg-yellow-50">
+              <CardHeader className="flex flex-row items-center space-x-2">
+                <DollarSign className="h-6 w-6 text-blue-600" />
+                <CardTitle>Faturamento Período</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-gray-500">Relatório de faturamento por período</p>
+              </CardContent>
+            </Card>
+          </Link>
+
           {/* Outros relatórios */}
           <Link href="/relatorios/arrecadacao-por-operador">
             <Card className="hover:shadow-md transition-shadow cursor-pointer">
