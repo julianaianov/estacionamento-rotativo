@@ -230,6 +230,54 @@ export default function RelatoriosPage() {
               </CardContent>
             </Card>
           </Link>
+
+          <Link href="/relatorios/extrato-saldo">
+            <Card className="hover:shadow-md transition-shadow cursor-pointer">
+              <CardHeader className="flex flex-row items-center space-x-2">
+                <Wallet className="h-6 w-6 text-blue-600" />
+                <CardTitle>Extrato CPF/CNPJ - Uso de Saldo</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-gray-500">Consulta de uso de saldo e bônus por CPF/CNPJ</p>
+              </CardContent>
+            </Card>
+          </Link>
+
+          <Link href="/relatorios/consulta-notificacoes">
+            <Card className="hover:shadow-md transition-shadow cursor-pointer">
+              <CardHeader className="flex flex-row items-center space-x-2">
+                <AlertOctagon className="h-6 w-6 text-blue-600" />
+                <CardTitle>Consulta Notificações/AI</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-gray-500">Consulta de notificações e autos de infração</p>
+              </CardContent>
+            </Card>
+          </Link>
+
+          <Link href="/relatorios/notificacoes-pagas-ano">
+            <Card className="hover:shadow-md transition-shadow cursor-pointer">
+              <CardHeader className="flex flex-row items-center space-x-2">
+                <FileBarChart className="h-6 w-6 text-blue-600" />
+                <CardTitle>Notificações Pagas por Ano</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-gray-500">Relatório de notificações pagas por ano</p>
+              </CardContent>
+            </Card>
+          </Link>
+
+          <Link href="/relatorios/rendimento-geral">
+            <Card className="hover:shadow-md transition-shadow cursor-pointer">
+              <CardHeader className="flex flex-row items-center space-x-2">
+                <DollarSign className="h-6 w-6 text-blue-600" />
+                <CardTitle>Rendimento Geral</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-gray-500">Relatório de rendimentos gerais do sistema</p>
+              </CardContent>
+            </Card>
+          </Link>
         </div>
       </div>
     </main>
