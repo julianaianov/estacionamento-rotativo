@@ -171,6 +171,18 @@ export default function RelatoriosPage() {
             </Card>
           </Link>
 
+          <Link href="/relatorios/graficos-ai">
+            <Card className="hover:shadow-md transition-shadow cursor-pointer">
+              <CardHeader className="flex flex-row items-center space-x-2">
+                <BarChart className="h-6 w-6 text-blue-600" />
+                <CardTitle>Gráficos AI</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-gray-500">Análise gráfica de Autos de Infração</p>
+              </CardContent>
+            </Card>
+          </Link>
+
           <Link href="/relatorios/arrecadacao-diaria-cx-operadores">
             <Card className="hover:shadow-md transition-shadow cursor-pointer">
               <CardHeader className="flex flex-row items-center space-x-2">
