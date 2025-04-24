@@ -1,4 +1,3 @@
-import Navbar from "@/components/navbar"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import Link from "next/link"
 import {
@@ -23,7 +22,6 @@ import {
 export default function CadastrosPage() {
   return (
     <main className="min-h-screen bg-gray-100">
-      <Navbar />
       <div className="container mx-auto py-6">
         <div className="flex justify-between items-center mb-6">
           <h1 className="text-2xl font-bold">Cadastros</h1>
