@@ -123,11 +123,11 @@ export default function OperacionalPage() {
             </Card>
           </Link>
 
-          <Link href="/operacional/reserva-vaga">
+          <Link href="/operacional/reserva-vagas">
             <Card className="hover:shadow-md transition-shadow cursor-pointer">
               <CardHeader className="flex flex-row items-center space-x-2">
                 <ParkingCircle className="h-6 w-6 text-blue-600" />
-                <CardTitle>Reserva de Vaga</CardTitle>
+                <CardTitle>Reserva de Vagas</CardTitle>
               </CardHeader>
               <CardContent>
                 <p className="text-sm text-gray-500">Gerenciamento de reservas de vagas</p>

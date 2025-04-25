@@ -188,9 +188,9 @@ export default function Navbar() {
                     <Leaf className="inline-block w-4 h-4 mr-2" />
                     Lote Mumbuca Verde
                   </Link>
-                  <Link href="/operacional/reserva-vaga" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">
+                  <Link href="/operacional/reserva-vagas" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">
                     <ParkingCircle className="inline-block w-4 h-4 mr-2" />
-                    Reserva de Vaga
+                    Reserva de Vagas
                   </Link>
                   <Link href="/operacional/meu-caixa" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
                     <Briefcase className="inline-block w-4 h-4 mr-2" />

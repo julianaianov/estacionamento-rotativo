@@ -178,6 +178,9 @@ export default function LoteMumbucaVerdeDashboard() {
           </Button>
         </Link>
       </div>
+
+      {/* Gradient Line */}
+      <div className="h-1 bg-gradient-to-r from-red-500 via-yellow-500 to-green-500 mt-6"></div>
     </div>
   )
 } 
