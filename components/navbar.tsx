@@ -473,10 +473,13 @@ export default function Navbar() {
       {/* Gradient line */}
       <div className="h-1 bg-gradient-to-r from-red-500 via-yellow-500 to-green-500"></div>
 
-      {/* Dados de Hoje section */}
+    {/* Dados de Hoje section (visível apenas no dashboard) */}
+    {pathname === "/" && (
       <div className="bg-gradient-to-r from-[#33ACFF] via-[#0093FF] to-[#0070CC] py-4">
         <h2 className="text-white text-xl font-semibold text-center">Dados de Hoje</h2>
       </div>
+    )}
+
     </header>
   )
 }

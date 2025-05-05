@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => 'rotativo-marica/backend',
-        'pretty_version' => '1.0.0+no-version-set',
-        'version' => '1.0.0.0',
-        'reference' => null,
+        'pretty_version' => 'dev-main',
+        'version' => 'dev-main',
+        'reference' => 'e93168c3d937ca8d95fefa57e98aa9ada7476b13',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -729,9 +729,9 @@
             ),
         ),
         'rotativo-marica/backend' => array(
-            'pretty_version' => '1.0.0+no-version-set',
-            'version' => '1.0.0.0',
-            'reference' => null,
+            'pretty_version' => 'dev-main',
+            'version' => 'dev-main',
+            'reference' => 'e93168c3d937ca8d95fefa57e98aa9ada7476b13',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

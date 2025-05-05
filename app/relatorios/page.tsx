@@ -31,7 +31,7 @@ export default function RelatoriosPage() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {/* Relatórios destacados */}
           <Link href="/relatorios/lista-funcionarios">
-            <Card className="hover:shadow-md transition-shadow cursor-pointer bg-yellow-50">
+            <Card className="hover:shadow-md transition-shadow cursor-pointer">
               <CardHeader className="flex flex-row items-center space-x-2">
                 <Users className="h-6 w-6 text-blue-600" />
                 <CardTitle>Lista de Funcionários</CardTitle>
@@ -43,7 +43,7 @@ export default function RelatoriosPage() {
           </Link>
 
           <Link href="/relatorios/uso-de-saldo">
-            <Card className="hover:shadow-md transition-shadow cursor-pointer bg-yellow-50">
+            <Card className="hover:shadow-md transition-shadow cursor-pointer">
               <CardHeader className="flex flex-row items-center space-x-2">
                 <Wallet className="h-6 w-6 text-blue-600" />
                 <CardTitle>Uso de Saldo</CardTitle>
@@ -55,7 +55,7 @@ export default function RelatoriosPage() {
           </Link>
 
           <Link href="/relatorios/arrecadacao-diaria-resumida">
-            <Card className="hover:shadow-md transition-shadow cursor-pointer bg-yellow-50">
+            <Card className="hover:shadow-md transition-shadow cursor-pointer">
               <CardHeader className="flex flex-row items-center space-x-2">
                 <DollarSign className="h-6 w-6 text-blue-600" />
                 <CardTitle>Arrecadação Diária Resumida</CardTitle>
@@ -67,7 +67,7 @@ export default function RelatoriosPage() {
           </Link>
 
           <Link href="/relatorios/consulta-maiores-devedores">
-            <Card className="hover:shadow-md transition-shadow cursor-pointer bg-yellow-50">
+            <Card className="hover:shadow-md transition-shadow cursor-pointer">
               <CardHeader className="flex flex-row items-center space-x-2">
                 <AlertOctagon className="h-6 w-6 text-blue-600" />
                 <CardTitle>Consulta Maiores Devedores</CardTitle>
@@ -79,7 +79,7 @@ export default function RelatoriosPage() {
           </Link>
 
           <Link href="/relatorios/indices-irregularidades">
-            <Card className="hover:shadow-md transition-shadow cursor-pointer bg-yellow-50">
+            <Card className="hover:shadow-md transition-shadow cursor-pointer">
               <CardHeader className="flex flex-row items-center space-x-2">
                 <AlertTriangle className="h-6 w-6 text-blue-600" />
                 <CardTitle>Índices de Irregularidades</CardTitle>
@@ -91,7 +91,7 @@ export default function RelatoriosPage() {
           </Link>
 
           <Link href="/relatorios/movimentacao-veiculo">
-            <Card className="hover:shadow-md transition-shadow cursor-pointer bg-yellow-50">
+            <Card className="hover:shadow-md transition-shadow cursor-pointer">
               <CardHeader className="flex flex-row items-center space-x-2">
                 <Car className="h-6 w-6 text-blue-600" />
                 <CardTitle>Movimentação Veículo</CardTitle>
@@ -103,7 +103,7 @@ export default function RelatoriosPage() {
           </Link>
 
           <Link href="/relatorios/faturamento-quadra-setor">
-            <Card className="hover:shadow-md transition-shadow cursor-pointer bg-yellow-50">
+            <Card className="hover:shadow-md transition-shadow cursor-pointer">
               <CardHeader className="flex flex-row items-center space-x-2">
                 <FileBarChart className="h-6 w-6 text-blue-600" />
                 <CardTitle>Faturamento Por Quadra/Setor</CardTitle>
@@ -115,7 +115,7 @@ export default function RelatoriosPage() {
           </Link>
 
           <Link href="/relatorios/taxa-ocupacao-respeito">
-            <Card className="hover:shadow-md transition-shadow cursor-pointer bg-yellow-50">
+            <Card className="hover:shadow-md transition-shadow cursor-pointer">
               <CardHeader className="flex flex-row items-center space-x-2">
                 <PercentSquare className="h-6 w-6 text-blue-600" />
                 <CardTitle>Taxa de Ocupação/Respeito</CardTitle>
@@ -127,7 +127,7 @@ export default function RelatoriosPage() {
           </Link>
 
           <Link href="/relatorios/faturamento-completo">
-            <Card className="hover:shadow-md transition-shadow cursor-pointer bg-yellow-50">
+            <Card className="hover:shadow-md transition-shadow cursor-pointer">
               <CardHeader className="flex flex-row items-center space-x-2">
                 <FileSpreadsheet className="h-6 w-6 text-blue-600" />
                 <CardTitle>Faturamento - Completo</CardTitle>
@@ -139,7 +139,7 @@ export default function RelatoriosPage() {
           </Link>
 
           <Link href="/relatorios/rendimentos-funcionarios">
-            <Card className="hover:shadow-md transition-shadow cursor-pointer bg-yellow-50">
+            <Card className="hover:shadow-md transition-shadow cursor-pointer">
               <CardHeader className="flex flex-row items-center space-x-2">
                 <FileBarChart className="h-6 w-6 text-blue-600" />
                 <CardTitle>Relatório Rendimentos Funcionários</CardTitle>
@@ -151,7 +151,7 @@ export default function RelatoriosPage() {
           </Link>
 
           <Link href="/relatorios/faturamento-periodo">
-            <Card className="hover:shadow-md transition-shadow cursor-pointer bg-yellow-50">
+            <Card className="hover:shadow-md transition-shadow cursor-pointer">
               <CardHeader className="flex flex-row items-center space-x-2">
                 <DollarSign className="h-6 w-6 text-blue-600" />
                 <CardTitle>Faturamento Período</CardTitle>

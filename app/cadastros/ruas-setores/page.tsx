@@ -60,6 +60,18 @@ export default function RuasSetoresDashboard() {
     { id: 3, quadraSetor: "R.RIBEIRO DE ALMEIDA", area: "BANCARIO/COML" }
   ])
 
+  const handleSalvarTodos = () => {
+    console.log("Salvando todos os dados...")
+  
+    // Simulação de envio dos dados
+    console.log("Rua:", { nomeRua, codigoDetran })
+    console.log("Área:", { descricaoArea, latitude, longitude, zoom, status })
+    console.log("Quadra/Setor:", { nomeQuadraSetor, area: areaQuadraSetor, possuiSensor })
+  
+    // Você pode colocar aqui chamadas para APIs usando fetch/axios
+    alert("Dados enviados com sucesso! (simulação)")
+  }
+  
   return (
     <div>
       <div className="bg-white rounded-lg shadow mx-4 mt-4">
@@ -95,9 +107,6 @@ export default function RuasSetoresDashboard() {
                 className="border border-gray-300 p-2 w-full rounded"
               />
             </div>
-            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-              Salvar
-            </button>
 
             <div className="mt-4">
               <table className="min-w-full divide-y divide-gray-200">
@@ -174,9 +183,6 @@ export default function RuasSetoresDashboard() {
                 </select>
               </div>
             </div>
-            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-              Salvar
-            </button>
 
             <div className="mt-4">
               <table className="min-w-full divide-y divide-gray-200">
@@ -239,9 +245,6 @@ export default function RuasSetoresDashboard() {
                 Possui sensor
               </label>
             </div>
-            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-              Salvar
-            </button>
 
             <div className="mt-4">
               <table className="min-w-full divide-y divide-gray-200">
@@ -267,16 +270,31 @@ export default function RuasSetoresDashboard() {
         </div>
       </div>
 
-      <div className="flex justify-center mt-4 mb-4">
+      <div className="flex justify-center gap-6 mt-6 mb-6">
+        <button
+          onClick={handleSalvarTodos}
+          className="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-8 rounded text-sm w-40"
+        >
+          Salvar
+        </button>
+
+        <button
+          onClick={() => alert("Função de edição ainda não implementada")}
+          className="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-8 rounded text-sm w-40"
+        >
+          Editar
+        </button>
+
         <Link
           href="/"
-          className="bg-[#F5A623] hover:bg-[#F5A623]/80 text-white px-6 py-1.5 rounded text-sm font-medium inline-flex items-center"
+          className="bg-[#F5A623] hover:bg-[#F5A623]/80 text-white px-8 py-2 rounded text-sm font-medium inline-flex items-center justify-center w-40"
         >
           <ArrowLeft className="w-4 h-4 mr-1" />
           Voltar
         </Link>
       </div>
-      
+
+
       <div className="h-1 bg-gradient-to-r from-red-500 via-yellow-500 to-green-500"></div>
     </div>
   )
