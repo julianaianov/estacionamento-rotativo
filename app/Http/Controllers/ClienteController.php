@@ -18,8 +18,32 @@ class ClienteController extends Controller
 
     public function store(Request $request)
     {
-        // Lógica para salvar
-        return redirect()->route('clientes.index')->with('success', 'Cliente cadastrado com sucesso!');
+        // Validação dos dados
+        $validated = $request->validate([
+            'nome' => 'required|string|max:255',
+            'documento' => 'required|string|max:32',
+            'tipo_pessoa' => 'required|in:cpf,cnpj',
+            'email' => 'nullable|email',
+            'telefone' => 'nullable|string|max:32',
+        ]);
+
+        // Criação do cliente
+        $cliente = \App\Models\Cliente::create($validated);
+
+        // Salvar placas, se enviadas
+        if ($request->has('placas') && is_array($request->placas)) {
+            foreach ($request->placas as $placa) {
+                if (!empty($placa)) {
+                    $cliente->placas()->create(['placa' => $placa]);
+                }
+            }
+        }
+
+        // Retorno JSON para API
+        return response()->json([
+            'message' => 'Cliente cadastrado com sucesso!',
+            'cliente' => $cliente->load('placas')
+        ], 201);
     }
 
     public function show($id)
