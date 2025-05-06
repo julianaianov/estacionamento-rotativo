@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="<?php echo e(str_replace('_', '-', app()->getLocale())); ?>">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="csrf-token" content="<?php echo e(csrf_token()); ?>">
 
-    <title>{{ config('app.name', 'Estacionamento') }}</title>
+    <title><?php echo e(config('app.name', 'Estacionamento')); ?></title>
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -22,14 +22,14 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">
-            <a class="navbar-brand" href="{{ route('home') }}">{{ config('app.name', 'Estacionamento') }}</a>
+            <a class="navbar-brand" href="<?php echo e(route('home')); ?>"><?php echo e(config('app.name', 'Estacionamento')); ?></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('clientes.index') }}">Clientes</a>
+                        <a class="nav-link" href="<?php echo e(route('clientes.index')); ?>">Clientes</a>
                     </li>
                 </ul>
             </div>
@@ -37,7 +37,7 @@
     </nav>
 
     <main class="container">
-        @yield('content')
+        <?php echo $__env->yieldContent('content'); ?>
     </main>
 
     <!-- jQuery -->
@@ -57,3 +57,4 @@
     </script>
 </body>
 </html>
+<?php /**PATH /home/juliana-ianov/estacionamento/estacionamento-rotativo/resources/views/layouts/app.blade.php ENDPATH**/ ?>
