@@ -92,3 +92,7 @@ Route::prefix('relatorios')->group(function () {
     Route::get('/operacionais', [RelatorioController::class, 'operacionais'])->name('relatorios.operacionais');
 });
 
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

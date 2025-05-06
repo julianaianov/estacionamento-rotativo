@@ -1,6 +1,6 @@
 "use client";
 import { useForm, useFieldArray } from "react-hook-form";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -21,6 +21,23 @@ export default function NovoClientePage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState(false);
+  const [csrfToken, setCsrfToken] = useState("");
+
+  useEffect(() => {
+    // Fetch CSRF token when component mounts
+    fetch("http://localhost:8000/sanctum/csrf-cookie", {
+      credentials: "include",
+    }).then(() => {
+      // Get the token from the cookie
+      const token = document.cookie
+        .split("; ")
+        .find((row) => row.startsWith("XSRF-TOKEN="))
+        ?.split("=")[1];
+      if (token) {
+        setCsrfToken(decodeURIComponent(token));
+      }
+    });
+  }, []);
 
   const { register, handleSubmit, control, formState: { errors } } = useForm<ClienteForm>({
     defaultValues: {
@@ -40,7 +57,12 @@ export default function NovoClientePage() {
     try {
       const res = await fetch("http://localhost:8000/api/clientes", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { 
+          "Content-Type": "application/json",
+          "X-XSRF-TOKEN": csrfToken,
+          "Accept": "application/json",
+        },
+        credentials: "include",
         body: JSON.stringify({
           nome: data.nome,
           documento: data.documento,
@@ -50,7 +72,12 @@ export default function NovoClientePage() {
           placas: data.placas.map(p => p.placa),
         }),
       });
-      if (!res.ok) throw new Error("Erro ao salvar cliente");
+      
+      if (!res.ok) {
+        const errorData = await res.json();
+        throw new Error(errorData.message || "Erro ao salvar cliente");
+      }
+      
       setSuccess(true);
       setTimeout(() => router.push("/cadastros/clientes"), 1200);
     } catch (e: any) {

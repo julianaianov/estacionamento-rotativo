@@ -40,4 +40,6 @@ Route::apiResource('feriados', FeriadoController::class);
 Route::apiResource('rotas', RotaController::class);
 
 // API Routes para Clientes
-Route::apiResource('clientes', ClienteController::class); 
+Route::middleware(['web'])->group(function () {
+    Route::apiResource('clientes', ClienteController::class);
+}); 

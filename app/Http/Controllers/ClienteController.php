@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Cliente;
 
 class ClienteController extends Controller
 {
@@ -18,32 +19,45 @@ class ClienteController extends Controller
 
     public function store(Request $request)
     {
-        // Validação dos dados
-        $validated = $request->validate([
-            'nome' => 'required|string|max:255',
-            'documento' => 'required|string|max:32',
-            'tipo_pessoa' => 'required|in:cpf,cnpj',
-            'email' => 'nullable|email',
-            'telefone' => 'nullable|string|max:32',
-        ]);
+        try {
+            // Validação dos dados
+            $validated = $request->validate([
+                'nome' => 'required|string|max:255',
+                'documento' => 'required|string|max:32',
+                'tipo_pessoa' => 'required|in:cpf,cnpj',
+                'email' => 'nullable|email',
+                'telefone' => 'nullable|string|max:32',
+            ]);
 
-        // Criação do cliente
-        $cliente = \App\Models\Cliente::create($validated);
+            // Criação do cliente
+            $cliente = Cliente::create($validated);
 
-        // Salvar placas, se enviadas
-        if ($request->has('placas') && is_array($request->placas)) {
-            foreach ($request->placas as $placa) {
-                if (!empty($placa)) {
-                    $cliente->placas()->create(['placa' => $placa]);
+            // Salvar placas, se enviadas
+            if ($request->has('placas') && is_array($request->placas)) {
+                foreach ($request->placas as $placa) {
+                    if (!empty($placa)) {
+                        $cliente->placas()->create(['placa' => $placa]);
+                    }
                 }
             }
-        }
 
-        // Retorno JSON para API
-        return response()->json([
-            'message' => 'Cliente cadastrado com sucesso!',
-            'cliente' => $cliente->load('placas')
-        ], 201);
+            if ($request->wantsJson()) {
+                return response()->json([
+                    'message' => 'Cliente cadastrado com sucesso!',
+                    'cliente' => $cliente->load('placas')
+                ], 201);
+            }
+
+            return redirect()->route('clientes.index')->with('success', 'Cliente cadastrado com sucesso!');
+        } catch (\Exception $e) {
+            if ($request->wantsJson()) {
+                return response()->json([
+                    'message' => 'Erro ao cadastrar cliente',
+                    'error' => $e->getMessage()
+                ], 500);
+            }
+            return back()->withErrors(['error' => 'Erro ao cadastrar cliente: ' . $e->getMessage()]);
+        }
     }
 
     public function show($id)
