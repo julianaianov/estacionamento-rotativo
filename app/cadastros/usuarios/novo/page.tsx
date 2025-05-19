@@ -81,7 +81,7 @@ export default function NovoUsuario() {
       if (response.ok) {
         const data = await response.json()
         alert(`Usuário cadastrado com sucesso! ID: ${data.user.id}`)
-        router.push("/usuarios")
+        router.push("/cadastros/usuarios")
       } else {
         const data = await response.json()
         alert(data.message || "Erro ao cadastrar usuário")
