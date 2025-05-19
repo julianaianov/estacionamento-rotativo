@@ -8,6 +8,7 @@ use App\Http\Controllers\MotivoBaixaAiController;
 use App\Http\Controllers\FeriadoController;
 use App\Http\Controllers\RotaController;
 use App\Http\Controllers\ClienteController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -42,4 +43,10 @@ Route::apiResource('rotas', RotaController::class);
 // API Routes para Clientes
 Route::middleware(['web'])->group(function () {
     Route::apiResource('clientes', ClienteController::class);
+});
+
+// API Routes para Usuários
+Route::middleware(['api'])->group(function () {
+    Route::get('/usuarios', [UserController::class, 'index']);
+    Route::post('/usuarios', [UserController::class, 'store']);
 }); 
