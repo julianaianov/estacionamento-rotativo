@@ -25,10 +25,13 @@ export default function UsuariosDashboard() {
     const fetchUsers = async () => {
       try {
         const response = await fetch("http://localhost:8000/api/usuarios")
+        console.log('Status da resposta:', response.status)
         if (!response.ok) throw new Error("Erro ao buscar usuários")
         const data = await response.json()
-        setUsers(data)
+        console.log('Dados recebidos:', data)
+        setUsers(data.data || data)
       } catch (err) {
+        console.error('Erro no fetch:', err)
         setError("Erro ao buscar usuários")
       } finally {
         setLoading(false)

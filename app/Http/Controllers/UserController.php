@@ -11,10 +11,10 @@ use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $users = User::all();
-        return view('cadastros.usuarios.index', compact('users'));
+        return response()->json($users);
     }
 
     public function create()
