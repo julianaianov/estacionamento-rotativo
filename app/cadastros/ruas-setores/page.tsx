@@ -2,7 +2,7 @@
 
 import Link from "next/link"
 import { useState } from "react"
-import { MapPin, Star, ArrowLeft, Map } from "lucide-react"
+import { MapPin, Star, ArrowLeft, Map, MoreVertical } from "lucide-react"
 
 interface Rua {
   id: number
@@ -39,7 +39,7 @@ export default function RuasSetoresDashboard() {
   const [possuiSensor, setPossuiSensor] = useState(false)
 
   // Dados de exemplo para as tabelas
-  const [ruas] = useState<Rua[]>([
+  const [ruas, setRuas] = useState<Rua[]>([
     { id: 1, rua: "RUA BARAO DO RIO BRANCO" },
     { id: 2, rua: "RUA BARAO DE INOA" },
     { id: 3, rua: "RUA ABREU RANGEL" },
@@ -47,18 +47,188 @@ export default function RuasSetoresDashboard() {
     { id: 5, rua: "RUA LUIS MANOEL" }
   ])
 
-  const [areas] = useState<Area[]>([
+  const [areas, setAreas] = useState<Area[]>([
     { id: 8, descricao: "AEROPORTO", status: "Inativo" },
     { id: 1, descricao: "BANCARIO/COML", status: "Ativo" },
     { id: 6, descricao: "BARROCO/COML", status: "Ativo" },
-    { id: 10, descricao: "Mercado Produtor", status: "Ativo" }
+    { id: 10, descricao: "Mercado Produtor", status: "Ativo" },
+    { id: 11, descricao: "COMERCIAL", status: "Ativo" },
+    { id: 12, descricao: "RESIDENCIAL", status: "Ativo" }
   ])
 
-  const [quadrasSetores] = useState<QuadraSetor[]>([
+  const [quadrasSetores, setQuadrasSetores] = useState<QuadraSetor[]>([
     { id: 1, quadraSetor: "R.GABRIEL FARIA", area: "BANCARIO/COML" },
     { id: 2, quadraSetor: "R.JUDEMIR RANGEL", area: "BANCARIO/COML" },
     { id: 3, quadraSetor: "R.RIBEIRO DE ALMEIDA", area: "BANCARIO/COML" }
   ])
+
+  const [showDropdownRua, setShowDropdownRua] = useState<number | null>(null);
+  const [showDropdownArea, setShowDropdownArea] = useState<number | null>(null);
+  const [showDropdownQuadraSetor, setShowDropdownQuadraSetor] = useState<number | null>(null);
+
+  const toggleDropdownRua = (id: number) => {
+    setShowDropdownRua(showDropdownRua === id ? null : id);
+  };
+
+  const toggleDropdownArea = (id: number) => {
+    setShowDropdownArea(showDropdownArea === id ? null : id);
+  };
+
+  const toggleDropdownQuadraSetor = (id: number) => {
+    setShowDropdownQuadraSetor(showDropdownQuadraSetor === id ? null : id);
+  };
+
+  const handleSubmit = async () => {
+    try {
+      const response = await fetch("http://localhost:8000/api/ruas-setores", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          nome: nomeRua,
+          codigo_detran: codigoDetran,
+        }),
+      });
+      if (!response.ok) throw new Error("Erro ao cadastrar rua");
+      const data = await response.json();
+      setRuas([...ruas, { id: data.id, rua: data.nome }]);
+      setNomeRua("");
+      setCodigoDetran("");
+      alert("Rua cadastrada com sucesso!");
+    } catch (error) {
+      console.error("Erro:", error);
+      alert("Erro ao cadastrar rua");
+    }
+  };
+
+  const handleDeleteRua = async (id: number) => {
+    try {
+      const response = await fetch(`http://localhost:8000/api/ruas-setores/${id}`, {
+        method: "DELETE",
+      });
+      if (!response.ok) throw new Error("Erro ao excluir rua");
+      setRuas(ruas.filter(rua => rua.id !== id));
+      alert("Rua excluída com sucesso!");
+    } catch (error) {
+      console.error("Erro:", error);
+      alert("Erro ao excluir rua");
+    }
+  };
+
+  const handleEditRua = async (rua: Rua) => {
+    const novoNome = prompt("Editar nome da rua:", rua.rua);
+    if (novoNome === null) return;
+    try {
+      const response = await fetch(`http://localhost:8000/api/ruas-setores/${rua.id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ nome: novoNome }),
+      });
+      if (!response.ok) throw new Error("Erro ao editar rua");
+      setRuas(ruas.map(r => r.id === rua.id ? { ...r, rua: novoNome } : r));
+      alert("Rua editada com sucesso!");
+    } catch (error) {
+      console.error("Erro:", error);
+      alert("Erro ao editar rua");
+    }
+  };
+
+  const handleDeleteArea = async (id: number) => {
+    try {
+      const response = await fetch(`http://localhost:8000/api/areas/${id}`, {
+        method: "DELETE",
+      });
+      if (!response.ok) throw new Error("Erro ao excluir área");
+      setAreas(areas.filter(area => area.id !== id));
+      alert("Área excluída com sucesso!");
+    } catch (error) {
+      console.error("Erro:", error);
+      alert("Erro ao excluir área");
+    }
+  };
+
+  const handleEditArea = async (area: Area) => {
+    const novaDescricao = prompt("Editar descrição da área:", area.descricao);
+    if (novaDescricao === null) return;
+    try {
+      const response = await fetch(`http://localhost:8000/api/areas/${area.id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ descricao: novaDescricao }),
+      });
+      if (!response.ok) throw new Error("Erro ao editar área");
+      setAreas(areas.map(a => a.id === area.id ? { ...a, descricao: novaDescricao } : a));
+      alert("Área editada com sucesso!");
+    } catch (error) {
+      console.error("Erro:", error);
+      alert("Erro ao editar área");
+    }
+  };
+
+  const handleDeleteQuadraSetor = async (id: number) => {
+    try {
+      const response = await fetch(`http://localhost:8000/api/quadras-setores/${id}`, {
+        method: "DELETE",
+      });
+      if (!response.ok) throw new Error("Erro ao excluir quadra/setor");
+      setQuadrasSetores(quadrasSetores.filter(item => item.id !== id));
+      alert("Quadra/setor excluído com sucesso!");
+    } catch (error) {
+      console.error("Erro:", error);
+      alert("Erro ao excluir quadra/setor");
+    }
+  };
+
+  const handleEditQuadraSetor = async (item: QuadraSetor) => {
+    const novoNome = prompt("Editar nome da quadra/setor:", item.quadraSetor);
+    if (novoNome === null) return;
+    try {
+      const response = await fetch(`http://localhost:8000/api/quadras-setores/${item.id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ quadraSetor: novoNome }),
+      });
+      if (!response.ok) throw new Error("Erro ao editar quadra/setor");
+      setQuadrasSetores(quadrasSetores.map(q => q.id === item.id ? { ...q, quadraSetor: novoNome } : q));
+      alert("Quadra/setor editado com sucesso!");
+    } catch (error) {
+      console.error("Erro:", error);
+      alert("Erro ao editar quadra/setor");
+    }
+  };
+
+  const handleSubmitQuadraSetor = async () => {
+    try {
+      const response = await fetch("http://localhost:8000/api/quadras-setores", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          quadraSetor: nomeQuadraSetor,
+          area: areaQuadraSetor,
+          possuiSensor: possuiSensor,
+        }),
+      });
+      if (!response.ok) throw new Error("Erro ao cadastrar quadra/setor");
+      const data = await response.json();
+      setQuadrasSetores([...quadrasSetores, { id: data.id, quadraSetor: data.quadraSetor, area: data.area }]);
+      setNomeQuadraSetor("");
+      setAreaQuadraSetor("");
+      setPossuiSensor(false);
+      alert("Quadra/Setor cadastrada com sucesso!");
+    } catch (error) {
+      console.error("Erro:", error);
+      alert("Erro ao cadastrar quadra/setor");
+    }
+  };
 
   return (
     <div>
@@ -95,7 +265,10 @@ export default function RuasSetoresDashboard() {
                 className="border border-gray-300 p-2 w-full rounded"
               />
             </div>
-            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+            <button
+              onClick={handleSubmit}
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            >
               Salvar
             </button>
 
@@ -105,13 +278,38 @@ export default function RuasSetoresDashboard() {
                   <tr>
                     <th className="px-4 py-2 text-left text-xs font-medium text-gray-500">Id</th>
                     <th className="px-4 py-2 text-left text-xs font-medium text-gray-500">Rua</th>
+                    <th className="px-4 py-2 text-left text-xs font-medium text-gray-500">Ações</th>
                   </tr>
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
                   {ruas.map((rua) => (
-                    <tr key={rua.id}>
+                    <tr key={`rua-${rua.id}-${rua.rua}`}>
                       <td className="px-4 py-2 text-sm text-gray-900">{rua.id}</td>
                       <td className="px-4 py-2 text-sm text-gray-900">{rua.rua}</td>
+                      <td className="px-4 py-2 text-sm text-gray-900 relative">
+                        <button
+                          onClick={() => toggleDropdownRua(rua.id)}
+                          className="text-gray-600 hover:text-gray-800"
+                        >
+                          <MoreVertical size={20} />
+                        </button>
+                        {showDropdownRua === rua.id && (
+                          <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-10">
+                            <button
+                              onClick={() => handleEditRua(rua)}
+                              className="block w-full text-left px-4 py-2 text-sm text-blue-600 hover:bg-gray-100"
+                            >
+                              Editar
+                            </button>
+                            <button
+                              onClick={() => handleDeleteRua(rua.id)}
+                              className="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100"
+                            >
+                              Excluir
+                            </button>
+                          </div>
+                        )}
+                      </td>
                     </tr>
                   ))}
                 </tbody>
@@ -185,6 +383,7 @@ export default function RuasSetoresDashboard() {
                     <th className="px-4 py-2 text-left text-xs font-medium text-gray-500">Id</th>
                     <th className="px-4 py-2 text-left text-xs font-medium text-gray-500">Descrição</th>
                     <th className="px-4 py-2 text-left text-xs font-medium text-gray-500">Status</th>
+                    <th className="px-4 py-2 text-left text-xs font-medium text-gray-500">Ações</th>
                   </tr>
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
@@ -193,6 +392,30 @@ export default function RuasSetoresDashboard() {
                       <td className="px-4 py-2 text-sm text-gray-900">{area.id}</td>
                       <td className="px-4 py-2 text-sm text-gray-900">{area.descricao}</td>
                       <td className="px-4 py-2 text-sm text-gray-900">{area.status}</td>
+                      <td className="px-4 py-2 text-sm text-gray-900 relative">
+                        <button
+                          onClick={() => toggleDropdownArea(area.id)}
+                          className="text-gray-600 hover:text-gray-800"
+                        >
+                          <MoreVertical size={20} />
+                        </button>
+                        {showDropdownArea === area.id && (
+                          <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-10">
+                            <button
+                              onClick={() => handleEditArea(area)}
+                              className="block w-full text-left px-4 py-2 text-sm text-blue-600 hover:bg-gray-100"
+                            >
+                              Editar
+                            </button>
+                            <button
+                              onClick={() => handleDeleteArea(area.id)}
+                              className="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100"
+                            >
+                              Excluir
+                            </button>
+                          </div>
+                        )}
+                      </td>
                     </tr>
                   ))}
                 </tbody>
@@ -239,7 +462,9 @@ export default function RuasSetoresDashboard() {
                 Possui sensor
               </label>
             </div>
-            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+            <button
+              onClick={handleSubmitQuadraSetor}
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
               Salvar
             </button>
 
@@ -250,6 +475,7 @@ export default function RuasSetoresDashboard() {
                     <th className="px-4 py-2 text-left text-xs font-medium text-gray-500">ID</th>
                     <th className="px-4 py-2 text-left text-xs font-medium text-gray-500">Quadra/Setor</th>
                     <th className="px-4 py-2 text-left text-xs font-medium text-gray-500">Área</th>
+                    <th className="px-4 py-2 text-left text-xs font-medium text-gray-500">Ações</th>
                   </tr>
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
@@ -258,6 +484,30 @@ export default function RuasSetoresDashboard() {
                       <td className="px-4 py-2 text-sm text-gray-900">{item.id}</td>
                       <td className="px-4 py-2 text-sm text-gray-900">{item.quadraSetor}</td>
                       <td className="px-4 py-2 text-sm text-gray-900">{item.area}</td>
+                      <td className="px-4 py-2 text-sm text-gray-900 relative">
+                        <button
+                          onClick={() => toggleDropdownQuadraSetor(item.id)}
+                          className="text-gray-600 hover:text-gray-800"
+                        >
+                          <MoreVertical size={20} />
+                        </button>
+                        {showDropdownQuadraSetor === item.id && (
+                          <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-10">
+                            <button
+                              onClick={() => handleEditQuadraSetor(item)}
+                              className="block w-full text-left px-4 py-2 text-sm text-blue-600 hover:bg-gray-100"
+                            >
+                              Editar
+                            </button>
+                            <button
+                              onClick={() => handleDeleteQuadraSetor(item.id)}
+                              className="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100"
+                            >
+                              Excluir
+                            </button>
+                          </div>
+                        )}
+                      </td>
                     </tr>
                   ))}
                 </tbody>
