@@ -82,5 +82,21 @@ class ClienteController extends Controller
         // Lógica para excluir
         return redirect()->route('clientes.index')->with('success', 'Cliente excluído com sucesso!');
     }
+
+    // Buscar cliente pela placa
+    public function buscarPorPlaca(Request $request)
+    {
+        $placa = $request->query('placa');
+        if (!$placa) {
+            return response()->json(['message' => 'Placa não informada'], 400);
+        }
+        $cliente = \App\Models\Cliente::whereHas('placas', function($q) use ($placa) {
+            $q->where('placa', $placa);
+        })->with('placas')->first();
+        if (!$cliente) {
+            return response()->json(['message' => 'Cliente não encontrado'], 404);
+        }
+        return response()->json($cliente);
+    }
 }
 

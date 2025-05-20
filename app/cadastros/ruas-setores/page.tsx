@@ -3,6 +3,8 @@
 import Link from "next/link"
 import { useState } from "react"
 import { MapPin, Star, ArrowLeft, Map, MoreVertical } from "lucide-react"
+import dynamic from "next/dynamic";
+const MapView = dynamic(() => import("./MapView"), { ssr: false });
 
 interface Rua {
   id: number
@@ -65,6 +67,8 @@ export default function RuasSetoresDashboard() {
   const [showDropdownRua, setShowDropdownRua] = useState<number | null>(null);
   const [showDropdownArea, setShowDropdownArea] = useState<number | null>(null);
   const [showDropdownQuadraSetor, setShowDropdownQuadraSetor] = useState<number | null>(null);
+
+  const [showMap, setShowMap] = useState(false);
 
   const toggleDropdownRua = (id: number) => {
     setShowDropdownRua(showDropdownRua === id ? null : id);
@@ -349,7 +353,23 @@ export default function RuasSetoresDashboard() {
                 />
               </div>
             </div>
-            <button className="bg-blue-500 text-white px-4 py-2 rounded">Ver Mapa</button>
+            <button
+              className="bg-blue-500 text-white px-4 py-2 rounded"
+              onClick={() => setShowMap(!showMap)}
+            >
+              Ver Mapa
+            </button>
+            {showMap && (
+              <div className="my-4" style={{ height: 300 }}>
+                <MapView
+                  latitude={latitude}
+                  longitude={longitude}
+                  zoom={zoom}
+                  setLatitude={setLatitude}
+                  setLongitude={setLongitude}
+                />
+              </div>
+            )}
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">Zoom:</label>
