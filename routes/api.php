@@ -9,6 +9,7 @@ use App\Http\Controllers\FeriadoController;
 use App\Http\Controllers\RotaController;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\RuaSetorController;
 
 /*
 |--------------------------------------------------------------------------
@@ -49,4 +50,7 @@ Route::middleware(['web'])->group(function () {
 Route::middleware(['api'])->group(function () {
     Route::get('/usuarios', [UserController::class, 'index']);
     Route::post('/usuarios', [UserController::class, 'store']);
-}); 
+});
+
+// API Routes para Ruas e Setores
+Route::apiResource('ruas-setores', RuaSetorController::class); 

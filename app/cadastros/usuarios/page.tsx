@@ -94,12 +94,12 @@ export default function UsuariosDashboard() {
                     <td className="px-6 py-4 text-sm">
                       <span
                         className={`px-2 py-1 rounded-full text-xs font-medium ${
-                          (user.status === "Ativo" || user.status === 1)
+                          Boolean(user.status)
                             ? "bg-green-100 text-green-800"
                             : "bg-red-100 text-red-800"
                         }`}
                       >
-                        {user.status === 1 ? "Ativo" : user.status === 0 ? "Inativo" : user.status}
+                        {Boolean(user.status) ? "Ativo" : "Inativo"}
                       </span>
                     </td>
                     <td className="px-6 py-4 text-sm text-gray-900">
