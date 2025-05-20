@@ -9,7 +9,7 @@ class ClienteController extends Controller
 {
     public function index(Request $request)
     {
-        $clientes = Cliente::all();
+        $clientes = Cliente::with('placas')->get();
         return response()->json($clientes);
     }
 
@@ -97,6 +97,16 @@ class ClienteController extends Controller
             return response()->json(['message' => 'Cliente não encontrado'], 404);
         }
         return response()->json($cliente);
+    }
+
+    public function adicionarPlaca(Request $request, $id)
+    {
+        $request->validate([
+            'placa' => 'required|string|unique:placas,placa',
+        ]);
+        $cliente = \App\Models\Cliente::findOrFail($id);
+        $cliente->placas()->create(['placa' => $request->placa]);
+        return response()->json(['message' => 'Placa adicionada com sucesso!']);
     }
 }
 

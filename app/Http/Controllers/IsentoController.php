@@ -27,8 +27,18 @@ class IsentoController extends Controller
 
     public function index()
     {
-        return response()->json(
-            \App\Models\Isento::with('cliente.placas')->get()
-        );
+        $isentos = \App\Models\Isento::with(['cliente.placas'])->get();
+        $result = $isentos->map(function($isento) {
+            $cliente = $isento->cliente;
+            $placa = $cliente && $cliente->placas->count() > 0 ? $cliente->placas->first()->placa : null;
+            return [
+                'id' => $isento->id,
+                'nome' => $cliente->nome ?? '',
+                'documento' => $cliente->documento ?? '',
+                'placa' => $placa,
+                'motivo' => $isento->motivo,
+            ];
+        });
+        return response()->json($result);
     }
 } 

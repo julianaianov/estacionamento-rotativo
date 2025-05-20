@@ -9,7 +9,7 @@ interface Cliente {
   nome: string
   apelido?: string
   cpf?: string
-  placas?: string
+  placas?: any[]
   email?: string
 }
 
@@ -24,7 +24,12 @@ export default function ResultadosClientes() {
         const response = await fetch("http://localhost:8000/api/clientes")
         if (!response.ok) throw new Error("Erro ao buscar clientes")
         const data = await response.json()
-        setClientes(data.data || data)
+        setClientes(
+          (data.data || data).map((cliente: any) => ({
+            ...cliente,
+            cpf: cliente.documento
+          }))
+        )
       } catch (err) {
         setError("Erro ao buscar clientes")
       } finally {
@@ -72,7 +77,7 @@ export default function ResultadosClientes() {
                     <td className="px-4 py-2 text-sm text-gray-900">{cliente.nome}</td>
                     <td className="px-4 py-2 text-sm text-gray-900">{cliente.apelido}</td>
                     <td className="px-4 py-2 text-sm text-gray-900">{cliente.cpf}</td>
-                    <td className="px-4 py-2 text-sm text-gray-900">{cliente.placas}</td>
+                    <td className="px-4 py-2 text-sm text-gray-900">{(cliente.placas || []).map((p: any) => p.placa).join(", ")}</td>
                     <td className="px-4 py-2 text-sm text-gray-900">{cliente.email}</td>
                   </tr>
                 ))}

@@ -46,13 +46,15 @@ Route::apiResource('rotas', RotaController::class);
 // API Routes para Clientes
 Route::apiResource('clientes', ClienteController::class);
 // Buscar cliente pela placa
-Route::get('/clientes', [ClienteController::class, 'buscarPorPlaca']);
+Route::get('/clientes/busca-por-placa', [ClienteController::class, 'buscarPorPlaca']);
 // Cadastrar como isento
 Route::post('/isentos', [IsentoController::class, 'store']);
 // Cadastrar como pós-pago
 Route::post('/pos-pagos', [PosPagoController::class, 'store']);
 // Total de isentos
 Route::get('/isentos/total', [IsentoController::class, 'total']);
+// Adicionar placa a um cliente
+Route::post('/clientes/{id}/placas', [ClienteController::class, 'adicionarPlaca']);
 
 // API Routes para Usuários
 Route::middleware(['api'])->group(function () {

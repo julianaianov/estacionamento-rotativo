@@ -43,7 +43,7 @@ export default function IsentosPosPageDashboard() {
 
   // Função para buscar cliente pela placa
   async function buscarClientePorPlaca(placa: string) {
-    const response = await fetch(`http://localhost:8000/api/clientes?placa=${placa}`);
+    const response = await fetch(`http://localhost:8000/api/clientes/busca-por-placa?placa=${placa}`);
     if (!response.ok) throw new Error("Cliente não encontrado");
     return await response.json();
   }
@@ -208,16 +208,16 @@ export default function IsentosPosPageDashboard() {
                   <tr>
                     <th className="px-4 py-2">Nome</th>
                     <th className="px-4 py-2">Documento</th>
-                    <th className="px-4 py-2">Placas</th>
+                    <th className="px-4 py-2">Placa</th>
                     <th className="px-4 py-2">Motivo</th>
                   </tr>
                 </thead>
                 <tbody>
                   {isentos.map((item) => (
                     <tr key={item.id}>
-                      <td className="px-4 py-2">{item.cliente?.nome}</td>
-                      <td className="px-4 py-2">{item.cliente?.documento}</td>
-                      <td className="px-4 py-2">{(item.cliente?.placas || []).map((p: any) => p.placa).join(", ")}</td>
+                      <td className="px-4 py-2">{item.nome}</td>
+                      <td className="px-4 py-2">{item.documento}</td>
+                      <td className="px-4 py-2">{item.placa}</td>
                       <td className="px-4 py-2">{item.motivo}</td>
                     </tr>
                   ))}
