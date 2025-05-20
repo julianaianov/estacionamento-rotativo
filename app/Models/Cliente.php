@@ -16,6 +16,6 @@ class Cliente extends Model
 
     public function placas()
     {
-        return $this->hasMany(Placa::class);
+        return $this->hasMany(\App\Models\Placa::class);
     }
 } 

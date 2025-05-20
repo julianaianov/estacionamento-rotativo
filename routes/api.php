@@ -10,6 +10,8 @@ use App\Http\Controllers\RotaController;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\RuaSetorController;
+use App\Http\Controllers\IsentoController;
+use App\Http\Controllers\PosPagoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -42,9 +44,15 @@ Route::apiResource('feriados', FeriadoController::class);
 Route::apiResource('rotas', RotaController::class);
 
 // API Routes para Clientes
-Route::middleware(['web'])->group(function () {
-    Route::apiResource('clientes', ClienteController::class);
-});
+Route::apiResource('clientes', ClienteController::class);
+// Buscar cliente pela placa
+Route::get('/clientes', [ClienteController::class, 'buscarPorPlaca']);
+// Cadastrar como isento
+Route::post('/isentos', [IsentoController::class, 'store']);
+// Cadastrar como pós-pago
+Route::post('/pos-pagos', [PosPagoController::class, 'store']);
+// Total de isentos
+Route::get('/isentos/total', [IsentoController::class, 'total']);
 
 // API Routes para Usuários
 Route::middleware(['api'])->group(function () {
