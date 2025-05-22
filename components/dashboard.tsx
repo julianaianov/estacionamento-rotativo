@@ -181,11 +181,9 @@ export default function Dashboard() {
   }, []) // Empty dependency array means this effect runs once on mount
 
   return (
-    <div className="container mx-auto py-6">
-      
-
+    <div className="container mx-auto py-6 bg-white dark:bg-gray-950 text-gray-800 dark:text-gray-100 rounded shadow-md">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <Card>
+        <Card className="bg-white dark:bg-gray-800 text-gray-800 dark:text-white shadow">
           <CardHeader>
             <CardTitle>Estacionamentos P/Tempo Adquirido</CardTitle>
           </CardHeader>
@@ -218,7 +216,7 @@ export default function Dashboard() {
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="bg-white dark:bg-gray-800 text-gray-800 dark:text-white shadow">
           <CardHeader>
             <CardTitle>Estacionamentos Por Forma de Pagto</CardTitle>
           </CardHeader>
@@ -247,21 +245,21 @@ export default function Dashboard() {
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="bg-white dark:bg-gray-800 text-gray-800 dark:text-white shadow">
           <CardHeader>
             <CardTitle>Registros Agrupados p/Hora</CardTitle>
           </CardHeader>
           <CardContent>
-            <canvas ref={horaChart} height="200"></canvas>
+            <canvas ref={horaChart} height="200" />
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="bg-white dark:bg-gray-800 text-gray-800 dark:text-white shadow">
           <CardHeader>
             <CardTitle>Estacionamentos Últimos Dias(Quantidade)</CardTitle>
           </CardHeader>
           <CardContent>
-            <canvas ref={diasChart} height="200"></canvas>
+            <canvas ref={diasChart} height="200" />
           </CardContent>
         </Card>
       </div>
