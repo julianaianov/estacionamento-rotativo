@@ -21,7 +21,7 @@ import {
 
 export default function CadastrosPage() {
   return (
-    <main className="min-h-screen bg-gray-100">
+    <main className="min-h-screen bg-gray-100 dark:bg-gray-950">
       <div className="container mx-auto py-6">
         <div className="flex justify-between items-center mb-6">
           <h1 className="text-2xl font-bold">Cadastros</h1>
