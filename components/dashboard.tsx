@@ -181,7 +181,7 @@ export default function Dashboard() {
   }, []) // Empty dependency array means this effect runs once on mount
 
   return (
-    <div className="container mx-auto py-6 bg-white dark:bg-gray-950 text-gray-800 dark:text-gray-100 rounded shadow-md">
+    <div className="container mx-auto py-6 bg-white dark:bg-gray-900 text-gray-800 dark:text-gray-100 rounded shadow-md">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <Card className="bg-white dark:bg-gray-800 text-gray-800 dark:text-white shadow">
           <CardHeader>
