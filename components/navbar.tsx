@@ -91,28 +91,39 @@ export default function Navbar() {
       setActiveDropdown(menu)
     }
   }
+  const [isDark, setIsDark] = useState(false)
+
+  useEffect(() => {
+    const saved = localStorage.getItem('theme')
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
+    const active = saved === 'dark' || (!saved && prefersDark)
+    setIsDark(active)
+    document.documentElement.classList.toggle('dark', active)
+  }, [])
+
+  const toggleTheme = () => {
+    const newTheme = isDark ? 'light' : 'dark'
+    localStorage.setItem('theme', newTheme)
+    document.documentElement.classList.toggle('dark', newTheme === 'dark')
+    setIsDark(!isDark)
+  }
 
   return (
     <header className="relative">
-      <div className="bg-[#0093FF] shadow">
+      <div className="bg-[#0093FF] dark:bg-[#0f172a] shadow">
+
         <div className="flex items-center w-full px-2">
           {/* Logo container */}
-          <div className="relative flex-shrink-0" style={{ width: '150px', height: '70px' }}>
-            <Link href="/" className="flex items-center">
-              <div style={{ 
-                width: '320px',
-                marginTop: '-35px',
-                marginLeft: '-35px'
-              }}>
-                <Image
-                  src="/images/logo-marica-rota.png"
-                  alt="Maricá Rotativo"
-                  width={320}
-                  height={130}
-                  className="w-full h-auto"
-                  priority
-                />
-              </div>
+          <div className="flex items-center justify-center h-[70px] w-[150px]">
+            <Link href="/" className="block w-full">
+              <Image
+                src="/images/logo-marica-rota.png"
+                alt="Maricá Rotativo"
+                width={130}
+                height={70}
+                className="mx-auto h-auto max-h-[70px]"
+                priority
+              />
             </Link>
           </div>
 
@@ -164,35 +175,35 @@ export default function Navbar() {
                   aria-orientation="vertical"
                   aria-labelledby="operacional-menu"
                 >
-                  <Link href="/operacional/quitacao-ai-notificacao" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">
+                  <Link href="/operacional/quitacao-ai-notificacao" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:bg-gray-950 border-b">
                     <CheckCircle className="inline-block w-4 h-4 mr-2" />
                     Quitação de AI/Notificação
                   </Link>
-                  <Link href="/operacional/fechamento-diario" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">
+                  <Link href="/operacional/fechamento-diario" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:bg-gray-950 border-b">
                     <FileText className="inline-block w-4 h-4 mr-2" />
                     Fechamento Diário
                   </Link>
-                  <Link href="/operacional/inserir-resgatar-creditos" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">
+                  <Link href="/operacional/inserir-resgatar-creditos" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:bg-gray-950 border-b">
                     <CreditCard className="inline-block w-4 h-4 mr-2" />
                     Inserir/Resgatar Créditos/Manut.Cadastro
                   </Link>
-                  <Link href="/operacional/fechamento-consulta-ponto" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">
+                  <Link href="/operacional/fechamento-consulta-ponto" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:bg-gray-950 border-b">
                     <Clock className="inline-block w-4 h-4 mr-2" />
                     Fechamento/Consulta de Ponto
                   </Link>
-                  <Link href="/operacional/gerar-credito-estorno" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">
+                  <Link href="/operacional/gerar-credito-estorno" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:bg-gray-950 border-b">
                     <DollarSign className="inline-block w-4 h-4 mr-2" />
                     Gerar Crédito/Estorno
                   </Link>
-                  <Link href="/operacional/lote-mumbuca-verde" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">
+                  <Link href="/operacional/lote-mumbuca-verde" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:bg-gray-950 border-b">
                     <Leaf className="inline-block w-4 h-4 mr-2" />
                     Lote Mumbuca Verde
                   </Link>
-                  <Link href="/operacional/reserva-vagas" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b">
+                  <Link href="/operacional/reserva-vagas" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:bg-gray-950 border-b">
                     <ParkingCircle className="inline-block w-4 h-4 mr-2" />
                     Reserva de Vagas
                   </Link>
-                  <Link href="/operacional/meu-caixa" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                  <Link href="/operacional/meu-caixa" className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:bg-gray-950">
                     <Briefcase className="inline-block w-4 h-4 mr-2" />
                     Meu Caixa
                   </Link>
@@ -213,7 +224,7 @@ export default function Navbar() {
                 <div className="absolute left-0 lg:left-auto z-10 w-64 mt-1 bg-white border rounded shadow-lg">
                   <Link 
                     href="/fiscalizacao/cadastro-veiculos" 
-                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:bg-gray-950 border-b"
                     onClick={() => setActiveDropdown(null)}
                   >
                     <Car className="inline-block w-4 h-4 mr-2" />
@@ -221,7 +232,7 @@ export default function Navbar() {
                   </Link>
                   <Link 
                     href="/fiscalizacao/cadastro-quadras-exclusoes" 
-                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:bg-gray-950 border-b"
                     onClick={() => setActiveDropdown(null)}
                   >
                     <Grid className="inline-block w-4 h-4 mr-2" />
@@ -229,7 +240,7 @@ export default function Navbar() {
                   </Link>
                   <Link 
                     href="/fiscalizacao/motivos-remocao" 
-                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:bg-gray-950 border-b"
                     onClick={() => setActiveDropdown(null)}
                   >
                     <Trash2 className="inline-block w-4 h-4 mr-2" />
@@ -237,7 +248,7 @@ export default function Navbar() {
                   </Link>
                   <Link 
                     href="/fiscalizacao/consulta-placa" 
-                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:bg-gray-950 border-b"
                     onClick={() => setActiveDropdown(null)}
                   >
                     <Search className="inline-block w-4 h-4 mr-2" />
@@ -245,7 +256,7 @@ export default function Navbar() {
                   </Link>
                   <Link 
                     href="/fiscalizacao/mapa-monitoramento" 
-                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:bg-gray-950 border-b"
                     onClick={() => setActiveDropdown(null)}
                   >
                     <Map className="inline-block w-4 h-4 mr-2" />
@@ -253,7 +264,7 @@ export default function Navbar() {
                   </Link>
                   <Link 
                     href="/fiscalizacao/analisar-imagens" 
-                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:bg-gray-950 border-b"
                     onClick={() => setActiveDropdown(null)}
                   >
                     <ImageIcon className="inline-block w-4 h-4 mr-2" />
@@ -261,7 +272,7 @@ export default function Navbar() {
                   </Link>
                   <Link 
                     href="/fiscalizacao/mapa-deslocamento-veiculo" 
-                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:bg-gray-950 border-b"
                     onClick={() => setActiveDropdown(null)}
                   >
                     <Navigation className="inline-block w-4 h-4 mr-2" />
@@ -269,7 +280,7 @@ export default function Navbar() {
                   </Link>
                   <Link 
                     href="/fiscalizacao/relatorio-estatisticas" 
-                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:bg-gray-950"
                     onClick={() => setActiveDropdown(null)}
                   >
                     <BarChart2 className="inline-block w-4 h-4 mr-2" />
@@ -292,7 +303,7 @@ export default function Navbar() {
                 <div className="absolute left-0 lg:left-auto z-10 w-64 mt-1 bg-white border rounded shadow-lg">
                   <Link 
                     href="/tempo-real/mapa-ocupacao-vagas" 
-                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:bg-gray-950 border-b"
                     onClick={() => setActiveDropdown(null)}
                   >
                     <Map className="inline-block w-4 h-4 mr-2" />
@@ -300,7 +311,7 @@ export default function Navbar() {
                   </Link>
                   <Link 
                     href="/tempo-real/mapa-ocupacao-vagas-gerente" 
-                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:bg-gray-950 border-b"
                     onClick={() => setActiveDropdown(null)}
                   >
                     <MapPin className="inline-block w-4 h-4 mr-2" />
@@ -308,7 +319,7 @@ export default function Navbar() {
                   </Link>
                   <Link 
                     href="/tempo-real/consulta-quadra-setor" 
-                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:bg-gray-950 border-b"
                     onClick={() => setActiveDropdown(null)}
                   >
                     <Search className="inline-block w-4 h-4 mr-2" />
@@ -316,7 +327,7 @@ export default function Navbar() {
                   </Link>
                   <Link 
                     href="/tempo-real/mapa-movimentacao-operadores" 
-                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:bg-gray-950 border-b"
                     onClick={() => setActiveDropdown(null)}
                   >
                     <Route className="inline-block w-4 h-4 mr-2" />
@@ -324,7 +335,7 @@ export default function Navbar() {
                   </Link>
                   <Link 
                     href="/tempo-real/mapa-incidencia-estacionamento" 
-                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:bg-gray-950 border-b"
                     onClick={() => setActiveDropdown(null)}
                   >
                     <AlertTriangle className="inline-block w-4 h-4 mr-2" />
@@ -332,7 +343,7 @@ export default function Navbar() {
                   </Link>
                   <Link 
                     href="/tempo-real/mapa-exibicao-vagas" 
-                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:bg-gray-950"
                     onClick={() => setActiveDropdown(null)}
                   >
                     <ParkingCircle className="inline-block w-4 h-4 mr-2" />
@@ -355,7 +366,7 @@ export default function Navbar() {
                 <div className="absolute left-0 lg:left-auto z-10 w-64 mt-1 bg-white border rounded shadow-lg">
                   <Link 
                     href="/pdv/dashboard" 
-                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:bg-gray-950 border-b"
                     onClick={() => setActiveDropdown(null)}
                   >
                     <ShoppingCart className="inline-block w-4 h-4 mr-2" />
@@ -363,7 +374,7 @@ export default function Navbar() {
                   </Link>
                   <Link 
                     href="/pdv/cadastro" 
-                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:bg-gray-950 border-b"
                     onClick={() => setActiveDropdown(null)}
                   >
                     <UserPlus className="inline-block w-4 h-4 mr-2" />
@@ -371,7 +382,7 @@ export default function Navbar() {
                   </Link>
                   <Link 
                     href="/pdv/relatorio-movimentacoes" 
-                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:bg-gray-950 border-b"
                     onClick={() => setActiveDropdown(null)}
                   >
                     <Activity className="inline-block w-4 h-4 mr-2" />
@@ -379,7 +390,7 @@ export default function Navbar() {
                   </Link>
                   <Link 
                     href="/pdv/relatorio-vendas-resumido" 
-                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:bg-gray-950 border-b"
                     onClick={() => setActiveDropdown(null)}
                   >
                     <FileBarChart className="inline-block w-4 h-4 mr-2" />
@@ -387,7 +398,7 @@ export default function Navbar() {
                   </Link>
                   <Link 
                     href="/pdv/relatorio-pagamentos" 
-                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:bg-gray-950 border-b"
                     onClick={() => setActiveDropdown(null)}
                   >
                     <CreditCard className="inline-block w-4 h-4 mr-2" />
@@ -395,7 +406,7 @@ export default function Navbar() {
                   </Link>
                   <Link 
                     href="/pdv/relatorio-fechamentos" 
-                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:bg-gray-950 border-b"
                     onClick={() => setActiveDropdown(null)}
                   >
                     <FileText className="inline-block w-4 h-4 mr-2" />
@@ -403,7 +414,7 @@ export default function Navbar() {
                   </Link>
                   <Link 
                     href="/pdv/relatorio-faturamento-periodo" 
-                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 border-b"
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:bg-gray-950 border-b"
                     onClick={() => setActiveDropdown(null)}
                   >
                     <DollarSign className="inline-block w-4 h-4 mr-2" />
@@ -411,7 +422,7 @@ export default function Navbar() {
                   </Link>
                   <Link 
                     href="/pdv/indicador-produtividade" 
-                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                    className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:bg-gray-950"
                     onClick={() => setActiveDropdown(null)}
                   >
                     <TrendingUp className="inline-block w-4 h-4 mr-2" />
@@ -448,6 +459,13 @@ export default function Navbar() {
 
           {/* Container para botões (Sair e Menu Mobile) */}
           <div className="flex items-center gap-2 ml-auto">
+            <button
+              onClick={toggleTheme}
+              className="hidden lg:flex items-center px-3 py-2 text-sm font-medium text-white hover:bg-blue-700 rounded whitespace-nowrap"
+            >
+              {isDark ? '☀️ Modo Claro' : '🌙 Modo Noturno'}
+            </button>
+
             <button 
               onClick={() => router.push('/logout')}
               className="flex items-center px-3 py-2 text-sm font-medium text-white hover:bg-blue-700 rounded whitespace-nowrap"
@@ -473,10 +491,16 @@ export default function Navbar() {
       {/* Gradient line */}
       <div className="h-1 bg-gradient-to-r from-red-500 via-yellow-500 to-green-500"></div>
 
-      {/* Dados de Hoje section */}
-      <div className="bg-gradient-to-r from-[#33ACFF] via-[#0093FF] to-[#0070CC] py-4">
+    {/* Barra fixa em todas as páginas */}
+    <div className="h-[52px] flex items-center justify-center bg-gradient-to-r from-[#33ACFF] via-[#0093FF] to-[#0070CC] dark:bg-[#0f172a]">
+      {pathname === "/" && (
         <h2 className="text-white text-xl font-semibold text-center">Dados de Hoje</h2>
-      </div>
+      )}
+    </div>
+
+
+
+
     </header>
   )
 }
