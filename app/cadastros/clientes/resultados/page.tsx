@@ -1,77 +1,43 @@
 "use client"
 
 import Link from "next/link"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Users, Star, ArrowLeft } from "lucide-react"
 
 interface Cliente {
   id: string
   nome: string
-  apelido: string
-  cpf: string
-  placas: string
-  email: string
+  apelido?: string
+  cpf?: string
+  placas?: any[]
+  email?: string
 }
 
 export default function ResultadosClientes() {
-  const [clientes] = useState<Cliente[]>([
-    {
-      id: "13",
-      nome: "AGATHA MARINHO",
-      apelido: "ABC1234",
-      cpf: "116.911.027-41",
-      placas: "ABC1234 AGT1705 DDD5555 FFF0000 KJK5G55",
-      email: "estacionamentomarica"
-    },
-    {
-      id: "2471",
-      nome: "daniele almeida pessoa",
-      apelido: "ABC1234",
-      cpf: "133.417.177-73",
-      placas: "ABC1234 KQB8653",
-      email: "estacionamentomarica"
-    },
-    {
-      id: "9291",
-      nome: "Diogo Diniz",
-      apelido: "ABC1234",
-      cpf: "120.351.107-85",
-      placas: "ABC1234 BFR1234 LLJ8G54 LPK1965 LPK1965",
-      email: "estacionamentomarica"
-    },
-    {
-      id: "14683",
-      nome: "ronen de Souza",
-      apelido: "ABC1234",
-      cpf: "090.731.907-62",
-      placas: "ABC1234",
-      email: "estacionamentomarica"
-    },
-    {
-      id: "15759",
-      nome: "LUIZ EDUARDO MOTTA",
-      apelido: "ABC1234",
-      cpf: "016.877.168-38",
-      placas: "ABC1234",
-      email: "estacionamentomarica"
-    },
-    {
-      id: "52087",
-      nome: "Luiz Victor da Silva e Silva",
-      apelido: "",
-      cpf: "172.298.997-10",
-      placas: "ABC1234 ABC1234 KYT4D96 RFJ4G21",
-      email: "estacionamentomarica"
-    },
-    {
-      id: "57223",
-      nome: "Kaua",
-      apelido: "",
-      cpf: "156.979.987-32",
-      placas: "ABC1234",
-      email: "estacionamentomarica"
+  const [clientes, setClientes] = useState<Cliente[]>([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState("")
+
+  useEffect(() => {
+    const fetchClientes = async () => {
+      try {
+        const response = await fetch("http://localhost:8000/api/clientes")
+        if (!response.ok) throw new Error("Erro ao buscar clientes")
+        const data = await response.json()
+        setClientes(
+          (data.data || data).map((cliente: any) => ({
+            ...cliente,
+            cpf: cliente.documento
+          }))
+        )
+      } catch (err) {
+        setError("Erro ao buscar clientes")
+      } finally {
+        setLoading(false)
+      }
     }
-  ])
+    fetchClientes()
+  }, [])
 
   return (
     <div>
@@ -86,6 +52,11 @@ export default function ResultadosClientes() {
           </button>
         </div>
 
+        {loading ? (
+          <div className="text-center py-8">Carregando clientes...</div>
+        ) : error ? (
+          <div className="text-center text-red-500 py-8">{error}</div>
+        ) : (
         <div className="p-4">
           <div className="overflow-x-auto">
             <table className="min-w-full">
@@ -106,7 +77,7 @@ export default function ResultadosClientes() {
                     <td className="px-4 py-2 text-sm text-gray-900">{cliente.nome}</td>
                     <td className="px-4 py-2 text-sm text-gray-900">{cliente.apelido}</td>
                     <td className="px-4 py-2 text-sm text-gray-900">{cliente.cpf}</td>
-                    <td className="px-4 py-2 text-sm text-gray-900">{cliente.placas}</td>
+                    <td className="px-4 py-2 text-sm text-gray-900">{(cliente.placas || []).map((p: any) => p.placa).join(", ")}</td>
                     <td className="px-4 py-2 text-sm text-gray-900">{cliente.email}</td>
                   </tr>
                 ))}
@@ -114,6 +85,7 @@ export default function ResultadosClientes() {
             </table>
           </div>
         </div>
+        )}
       </div>
 
       <div className="flex justify-center mt-4 mb-4">

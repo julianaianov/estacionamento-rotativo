@@ -8,11 +8,10 @@ import Link from "next/link"
 export default function NovoUsuario() {
   const router = useRouter()
   const [formData, setFormData] = useState({
-    codigo: "471",
     nome: "",
-    login: "Diogo",
-    senha: "••••••••",
-    confirmaSenha: "••••••••",
+    login: "",
+    senha: "",
+    confirmaSenha: "",
     fone: "",
     status: "Ativo",
     registrarOps: "Nao",
@@ -22,6 +21,7 @@ export default function NovoUsuario() {
     fiscalizacao: "Não",
     alertaParquimetro: "Não",
   })
+  const [loading, setLoading] = useState(false)
 
   const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target
@@ -30,6 +30,67 @@ export default function NovoUsuario() {
 
   const handleCancel = () => {
     router.push("/cadastros/usuarios")
+  }
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setLoading(true)
+
+    // Validação de e-mail
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    if (!emailRegex.test(formData.login)) {
+      alert('Por favor, digite um e-mail válido no campo Login.')
+      setLoading(false)
+      return
+    }
+
+    // Validação de senha
+    if (formData.senha.length < 8) {
+      alert('A senha deve ter pelo menos 8 caracteres.')
+      setLoading(false)
+      return
+    }
+
+    // Validação de nome
+    if (!formData.nome) {
+      alert('O campo Nome é obrigatório.')
+      setLoading(false)
+      return
+    }
+
+    // Ajuste os campos conforme o backend espera
+    const payload = {
+      name: formData.nome,
+      email: formData.login,
+      password: formData.senha,
+      password_confirmation: formData.confirmaSenha,
+      role: (formData.tipoUsuario || '').toLowerCase(),
+      status: formData.status === "Ativo" ? 1 : 0,
+    }
+
+    try {
+      const response = await fetch("http://localhost:8000/api/usuarios", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json",
+          "X-Requested-With": "XMLHttpRequest"
+        },
+        body: JSON.stringify(payload)
+      })
+      if (response.ok) {
+        const data = await response.json()
+        alert(`Usuário cadastrado com sucesso! ID: ${data.user.id}`)
+        router.push("/cadastros/usuarios")
+      } else {
+        const data = await response.json()
+        alert(data.message || "Erro ao cadastrar usuário")
+      }
+    } catch (error) {
+      alert("Erro de conexão com o servidor")
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (
@@ -44,21 +105,7 @@ export default function NovoUsuario() {
             <Star size={24} />
           </button>
         </div>
-
-        <div className="p-4">
-          <div className="mb-4">
-            <label htmlFor="codigo" className="block mb-1 font-medium">
-              Código Usuário
-            </label>
-            <input
-              id="codigo"
-              name="codigo"
-              value={formData.codigo}
-              onChange={handleChange}
-              className="border border-gray-300 p-2 w-24 rounded"
-            />
-          </div>
-
+        <form onSubmit={handleSubmit} className="p-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
               <label htmlFor="nome" className="block mb-1 font-medium">
@@ -72,7 +119,6 @@ export default function NovoUsuario() {
                 className="border border-gray-300 p-2 w-full rounded"
               />
             </div>
-
             <div>
               <label htmlFor="login" className="block mb-1 font-medium">
                 Login
@@ -86,7 +132,6 @@ export default function NovoUsuario() {
               />
             </div>
           </div>
-
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
             <div>
               <label htmlFor="senha" className="block mb-1 font-medium">
@@ -101,7 +146,6 @@ export default function NovoUsuario() {
                 className="border border-gray-300 p-2 w-full rounded bg-blue-50"
               />
             </div>
-
             <div>
               <label htmlFor="confirmaSenha" className="block mb-1 font-medium">
                 Confirma Senha
@@ -115,7 +159,6 @@ export default function NovoUsuario() {
                 className="border border-gray-300 p-2 w-full rounded"
               />
             </div>
-
             <div>
               <label htmlFor="fone" className="block mb-1 font-medium">
                 Fone
@@ -129,7 +172,6 @@ export default function NovoUsuario() {
               />
             </div>
           </div>
-
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mt-4">
             <div>
               <label htmlFor="status" className="block mb-1 font-medium">
@@ -146,7 +188,6 @@ export default function NovoUsuario() {
                 <option value="Inativo">Inativo</option>
               </select>
             </div>
-
             <div>
               <label htmlFor="registrarOps" className="block mb-1 font-medium">
                 RegistrarOps
@@ -162,7 +203,6 @@ export default function NovoUsuario() {
                 <option value="Nao">Nao</option>
               </select>
             </div>
-
             <div>
               <label htmlFor="registrarEventos" className="block mb-1 font-medium">
                 RegistrarEventos
@@ -178,7 +218,6 @@ export default function NovoUsuario() {
                 <option value="Nao">Nao</option>
               </select>
             </div>
-
             <div>
               <label htmlFor="tipoUsuario" className="block mb-1 font-medium">
                 TipoUsuario
@@ -189,15 +228,15 @@ export default function NovoUsuario() {
                 value={formData.tipoUsuario}
                 onChange={handleChange}
                 className="border border-gray-300 p-2 w-full rounded"
+                required
               >
                 <option value="">:: SELECIONE ::</option>
-                <option value="Administrador">Administrador</option>
-                <option value="Operador">Operador</option>
-                <option value="Fiscal">Fiscal</option>
+                <option value="admin">Administrador</option>
+                <option value="operador">Operador</option>
+                <option value="supervisor">Supervisor</option>
               </select>
             </div>
           </div>
-
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
             <div>
               <label htmlFor="troco" className="block mb-1 font-medium">
@@ -211,7 +250,6 @@ export default function NovoUsuario() {
                 className="border border-gray-300 p-2 w-full rounded"
               />
             </div>
-
             <div>
               <label htmlFor="fiscalizacao" className="block mb-1 font-medium">
                 Fiscalização
@@ -227,7 +265,6 @@ export default function NovoUsuario() {
                 <option value="Não">Não</option>
               </select>
             </div>
-
             <div>
               <label htmlFor="alertaParquimetro" className="block mb-1 font-medium">
                 Alerta Parquímetro
@@ -244,10 +281,10 @@ export default function NovoUsuario() {
               </select>
             </div>
           </div>
-
           <div className="mt-8 flex flex-wrap justify-between">
             <button 
               className="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded"
+              type="button"
             >
               Excluir Usuário
             </button>
@@ -255,22 +292,26 @@ export default function NovoUsuario() {
               <button 
                 onClick={handleCancel}
                 className="bg-[#F5A623] hover:bg-[#F5A623]/80 text-white px-6 py-1.5 rounded text-sm font-medium"
+                type="button"
               >
                 Listar
               </button>
               <button 
                 className="bg-[#27AE60] hover:bg-[#27AE60]/80 text-white px-6 py-1.5 rounded text-sm font-medium"
+                type="button"
               >
                 Novo
               </button>
               <button 
                 className="bg-[#2F80ED] hover:bg-[#2F80ED]/80 text-white px-6 py-1.5 rounded text-sm font-medium"
+                type="submit"
+                disabled={loading}
               >
-                Salvar
+                {loading ? "Salvando..." : "Salvar"}
               </button>
             </div>
           </div>
-        </div>
+        </form>
       </div>
       <div className="flex justify-center mt-4 mb-4">
         <Link

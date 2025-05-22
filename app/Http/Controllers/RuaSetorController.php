@@ -3,12 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\RuaSetor;
 
 class RuaSetorController extends Controller
 {
     public function index()
     {
-        return view('cadastros.ruas-setores.index');
+        return response()->json(RuaSetor::all());
     }
 
     public function create()
@@ -18,13 +19,22 @@ class RuaSetorController extends Controller
 
     public function store(Request $request)
     {
-        // Lógica para salvar
-        return redirect()->route('ruas-setores.index')->with('success', 'Rua/Setor cadastrado com sucesso!');
+        $validated = $request->validate([
+            'nome' => 'required|string|max:255',
+            'setor' => 'nullable|string|max:255',
+            'cep' => 'nullable|string|max:20',
+            'bairro' => 'nullable|string|max:255',
+            'cidade' => 'nullable|string|max:255',
+            'uf' => 'nullable|string|max:2',
+        ]);
+        $ruaSetor = RuaSetor::create($validated);
+        return response()->json($ruaSetor, 201);
     }
 
     public function show($id)
     {
-        return view('cadastros.ruas-setores.show');
+        $ruaSetor = RuaSetor::findOrFail($id);
+        return response()->json($ruaSetor);
     }
 
     public function edit($id)
@@ -34,14 +44,24 @@ class RuaSetorController extends Controller
 
     public function update(Request $request, $id)
     {
-        // Lógica para atualizar
-        return redirect()->route('ruas-setores.index')->with('success', 'Rua/Setor atualizado com sucesso!');
+        $ruaSetor = RuaSetor::findOrFail($id);
+        $validated = $request->validate([
+            'nome' => 'required|string|max:255',
+            'setor' => 'nullable|string|max:255',
+            'cep' => 'nullable|string|max:20',
+            'bairro' => 'nullable|string|max:255',
+            'cidade' => 'nullable|string|max:255',
+            'uf' => 'nullable|string|max:2',
+        ]);
+        $ruaSetor->update($validated);
+        return response()->json($ruaSetor);
     }
 
     public function destroy($id)
     {
-        // Lógica para excluir
-        return redirect()->route('ruas-setores.index')->with('success', 'Rua/Setor excluído com sucesso!');
+        $ruaSetor = RuaSetor::findOrFail($id);
+        $ruaSetor->delete();
+        return response()->json(['message' => 'Excluído com sucesso']);
     }
 }
 

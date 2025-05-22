@@ -1,65 +1,47 @@
 "use client"
 
 import Link from "next/link"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Users, ArrowLeft } from "lucide-react"
 
 interface User {
-  codigo: string
-  nome: string
-  login: string
-  status: string
-  tipoUsuario: string
+  codigo?: string
+  nome?: string
+  login?: string
+  status?: string | number
+  tipoUsuario?: string
+  id?: number
+  name?: string
+  email?: string
+  role?: string
 }
 
 export default function UsuariosDashboard() {
-  const [users] = useState<User[]>([
-    {
-      codigo: "309",
-      nome: "Adriano Correia Ribeiro",
-      login: "GM03",
-      status: "Ativo",
-      tipoUsuario: "AGENTE DE TRANSITO"
-    },
-    {
-      codigo: "311",
-      nome: "Adriano de Andrade dos Santos",
-      login: "GM04",
-      status: "Ativo",
-      tipoUsuario: "AGENTE DE TRANSITO"
-    },
-    {
-      codigo: "313",
-      nome: "Adriano Pessanha Santana",
-      login: "GM05",
-      status: "Ativo",
-      tipoUsuario: "AGENTE DE TRANSITO"
-    },
-    {
-      codigo: "3",
-      nome: "AGATHA MARINHO",
-      login: "agatha",
-      status: "Inativo",
-      tipoUsuario: "ADM"
-    },
-    {
-      codigo: "315",
-      nome: "Alex Sandro Pinto Maia",
-      login: "GM06",
-      status: "Inativo",
-      tipoUsuario: "AGENTE DE TRANSITO"
-    },
-    {
-      codigo: "452",
-      nome: "Anderson",
-      login: "Anderson",
-      status: "Ativo",
-      tipoUsuario: "CCo"
+  const [users, setUsers] = useState<User[]>([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState("")
+
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const response = await fetch("http://localhost:8000/api/usuarios")
+        console.log('Status da resposta:', response.status)
+        if (!response.ok) throw new Error("Erro ao buscar usuários")
+        const data = await response.json()
+        console.log('Dados recebidos:', data)
+        setUsers(data.data || data)
+      } catch (err) {
+        console.error('Erro no fetch:', err)
+        setError("Erro ao buscar usuários")
+      } finally {
+        setLoading(false)
+      }
     }
-  ])
+    fetchUsers()
+  }, [])
 
   return (
-          <div>
+    <div>
       <div className="container mx-auto p-4">
         <div className="flex justify-between items-center mb-6">
           <div className="flex items-center">
@@ -73,7 +55,11 @@ export default function UsuariosDashboard() {
             Adicionar novo Usuário
           </Link>
         </div>
-
+        {loading ? (
+          <div className="text-center py-8">Carregando usuários...</div>
+        ) : error ? (
+          <div className="text-center text-red-500 py-8">{error}</div>
+        ) : (
         <div className="bg-white shadow-md rounded-lg overflow-hidden">
           <div className="overflow-x-auto">
             <table className="min-w-full">
@@ -101,26 +87,26 @@ export default function UsuariosDashboard() {
               </thead>
               <tbody className="divide-y divide-gray-200">
                 {users.map((user) => (
-                  <tr key={user.codigo} className="hover:bg-gray-50">
-                    <td className="px-6 py-4 text-sm text-gray-900">{user.codigo}</td>
-                    <td className="px-6 py-4 text-sm text-gray-900">{user.nome}</td>
-                    <td className="px-6 py-4 text-sm text-gray-900">{user.login}</td>
+                  <tr key={user.codigo || user.id} className="hover:bg-gray-50">
+                    <td className="px-6 py-4 text-sm text-gray-900">{user.codigo || user.id}</td>
+                    <td className="px-6 py-4 text-sm text-gray-900">{user.nome || user.name}</td>
+                    <td className="px-6 py-4 text-sm text-gray-900">{user.login || user.email}</td>
                     <td className="px-6 py-4 text-sm">
                       <span
                         className={`px-2 py-1 rounded-full text-xs font-medium ${
-                          user.status === "Ativo"
+                          Boolean(user.status)
                             ? "bg-green-100 text-green-800"
                             : "bg-red-100 text-red-800"
                         }`}
                       >
-                        {user.status}
+                        {Boolean(user.status) ? "Ativo" : "Inativo"}
                       </span>
                     </td>
                     <td className="px-6 py-4 text-sm text-gray-900">
-                      {user.tipoUsuario}
+                      {user.tipoUsuario || user.role}
                     </td>
                     <td className="px-6 py-4 text-sm text-blue-600 hover:text-blue-900">
-                      <Link href={`/cadastros/usuarios/editar/${user.codigo}`} className="font-medium">
+                      <Link href={`/cadastros/usuarios/editar/${user.codigo || user.id}`} className="font-medium">
                         Editar
                       </Link>
                     </td>
@@ -130,6 +116,7 @@ export default function UsuariosDashboard() {
             </table>
           </div>
         </div>
+        )}
       </div>
       <div className="flex justify-center mt-4 mb-4">
         <Link
