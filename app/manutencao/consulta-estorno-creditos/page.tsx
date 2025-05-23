@@ -30,60 +30,16 @@ export default function ConsultarEstornarCreditosPage() {
   const [origem, setOrigem] = useState("")
   const [tipoCreditoPlaca, setTipoCreditoPlaca] = useState("Placa/CPF")
 
-  // Mock data for the table
   const credits: Credit[] = [
-    {
-      data: "08/04/2025 00:04",
-      placaCpfCnpj: "104.242.827-12",
-      usuario: "null",
-      tipoPagamento: "PIX",
-      origem: "APP IOS",
-      valor: "R$ 20,00"
-    },
-    {
-      data: "08/04/2025 07:15",
-      placaCpfCnpj: "018.598.637-44",
-      usuario: "null",
-      tipoPagamento: "PIX",
-      origem: "APP ANDROID",
-      valor: "R$ 10,00"
-    },
-    {
-      data: "08/04/2025 08:15",
-      placaCpfCnpj: "128.291.197-03",
-      usuario: "null",
-      tipoPagamento: "PIX",
-      origem: "APP ANDROID",
-      valor: "R$ 2,50"
-    },
-    {
-      data: "08/04/2025 08:25",
-      placaCpfCnpj: "113.782.177-99",
-      usuario: "null",
-      tipoPagamento: "CRED REDE",
-      origem: "APP IOS",
-      valor: "R$ 7,50"
-    },
-    {
-      data: "08/04/2025 08:40",
-      placaCpfCnpj: "762.822.367-20",
-      usuario: "null",
-      tipoPagamento: "PIX",
-      origem: "APP ANDROID",
-      valor: "R$ 30,00"
-    },
-    {
-      data: "08/04/2025 09:01",
-      placaCpfCnpj: "020.535.087-95",
-      usuario: "null",
-      tipoPagamento: "PIX",
-      origem: "APP ANDROID",
-      valor: "R$ 5,00"
-    }
+    { data: "08/04/2025 00:04", placaCpfCnpj: "104.242.827-12", usuario: "null", tipoPagamento: "PIX", origem: "APP IOS", valor: "R$ 20,00" },
+    { data: "08/04/2025 07:15", placaCpfCnpj: "018.598.637-44", usuario: "null", tipoPagamento: "PIX", origem: "APP ANDROID", valor: "R$ 10,00" },
+    { data: "08/04/2025 08:15", placaCpfCnpj: "128.291.197-03", usuario: "null", tipoPagamento: "PIX", origem: "APP ANDROID", valor: "R$ 2,50" },
+    { data: "08/04/2025 08:25", placaCpfCnpj: "113.782.177-99", usuario: "null", tipoPagamento: "CRED REDE", origem: "APP IOS", valor: "R$ 7,50" },
+    { data: "08/04/2025 08:40", placaCpfCnpj: "762.822.367-20", usuario: "null", tipoPagamento: "PIX", origem: "APP ANDROID", valor: "R$ 30,00" },
+    { data: "08/04/2025 09:01", placaCpfCnpj: "020.535.087-95", usuario: "null", tipoPagamento: "PIX", origem: "APP ANDROID", valor: "R$ 5,00" }
   ]
 
   const handleBuscarDados = () => {
-    // Aqui você implementaria a lógica real de busca
     console.log("Buscando créditos com os filtros:", {
       dataInicial,
       dataFinal,
@@ -96,20 +52,17 @@ export default function ConsultarEstornarCreditosPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-100 p-8">
+    <div className="min-h-screen bg-gray-100 dark:bg-gray-950 p-8">
       {/* Header */}
-      <div className="bg-white shadow rounded-lg mb-8">
-        <div className="px-6 py-4">
-          <div className="flex items-center">
-            <CreditCard className="h-8 w-8 text-blue-600 mr-2" />
-            <h1 className="text-2xl font-bold text-gray-900">Consulta/Estornar Créditos</h1>
-          </div>
+      <div className="px-6 py-4">
+        <div className="flex items-center">
+          <CreditCard className="h-8 w-8 text-blue-600 mr-2" />
+          <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Consulta/Estornar Créditos</h1>
         </div>
       </div>
 
       {/* Main content */}
       <div className="space-y-8">
-        {/* Filters Card */}
         <Card>
           <CardHeader>
             <CardTitle>Filtros</CardTitle>
@@ -119,20 +72,11 @@ export default function ConsultarEstornarCreditosPage() {
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 <div>
                   <Label>Data Inicial:</Label>
-                  <Input
-                    type="date"
-                    value={dataInicial}
-                    onChange={(e) => setDataInicial(e.target.value)}
-                  />
+                  <Input type="date" value={dataInicial} onChange={(e) => setDataInicial(e.target.value)} />
                 </div>
-
                 <div>
                   <Label>Data Final:</Label>
-                  <Input
-                    type="date"
-                    value={dataFinal}
-                    onChange={(e) => setDataFinal(e.target.value)}
-                  />
+                  <Input type="date" value={dataFinal} onChange={(e) => setDataFinal(e.target.value)} />
                 </div>
               </div>
 
@@ -219,10 +163,7 @@ export default function ConsultarEstornarCreditosPage() {
               </div>
 
               <div>
-                <Button 
-                  onClick={handleBuscarDados}
-                  className="bg-blue-600 hover:bg-blue-700 text-white"
-                >
+                <Button onClick={handleBuscarDados} className="bg-blue-600 hover:bg-blue-700 text-white">
                   Buscar Dados
                 </Button>
               </div>
@@ -280,4 +221,4 @@ export default function ConsultarEstornarCreditosPage() {
       </div>
     </div>
   )
-} 
+}

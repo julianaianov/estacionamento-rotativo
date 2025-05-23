@@ -20,9 +20,9 @@ export default function AlterarSenhaPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-100 p-8">
+    <div className="min-h-screen bg-gray-100 dark:bg-gray-950 p-8">
       {/* Header */}
-      <div className="bg-white shadow rounded-lg mb-8">
+      <div className="bg-white shadow dark:bg-gray-900">
         <div className="px-6 py-4">
           <div className="flex items-center">
             <Lock className="h-8 w-8 text-blue-600 mr-2" />
@@ -91,7 +91,7 @@ export default function AlterarSenhaPage() {
 
         {/* Back button */}
         <div className="flex justify-center">
-          <Link href="/">
+          <Link href="/manutencao">
             <Button className="bg-[#F5A623] hover:bg-[#F5A623]/90 text-white">
               <ArrowLeft className="mr-2 h-4 w-4" />
               Voltar

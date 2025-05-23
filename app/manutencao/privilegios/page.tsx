@@ -114,21 +114,17 @@ export default function PrivilegiosPage() {
   )
 
   return (
-    <div className="min-h-screen bg-gray-100">
+    <div className="min-h-screen bg-gray-100 dark:bg-gray-950">
       {/* Header */}
-      <div className="bg-white shadow">
+      <div className="bg-white shadow dark:bg-gray-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center py-4">
             <UserCheck className="h-8 w-8 text-blue-600 mr-2" />
-            <h1 className="text-2xl font-bold text-gray-900">Privilégios de Acesso</h1>
+            <h1 className="text-2xl font-bold">Privilégios de Acesso</h1>
           </div>
         </div>
       </div>
 
-      {/* Gradient line */}
-      <div className="h-1 bg-gradient-to-r from-red-500 via-yellow-500 to-green-500"></div>
-
-      {/* Main content */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <Card className="mb-8">
           <CardHeader>
@@ -137,11 +133,11 @@ export default function PrivilegiosPage() {
           <CardContent>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">
+                <label className="block text-sm font-medium mb-1">
                   Tipo Usuário:
                 </label>
                 <select
-                  className="w-full rounded-md border border-gray-300 bg-white px-3 py-2 text-sm"
+                  className="w-full rounded-md border border-gray-300 bg-white text-black px-3 py-2 text-sm dark:bg-gray-800 dark:text-white"
                   value={tipoUsuario}
                   onChange={(e) => setTipoUsuario(e.target.value)}
                 >
@@ -191,7 +187,6 @@ export default function PrivilegiosPage() {
           </Card>
         )}
 
-        {/* Back button at the bottom */}
         <div className="mt-8 flex justify-center">
           <Link href="/manutencao">
             <Button className="bg-[#F5A623] hover:bg-[#F5A623]/90 text-white">
@@ -204,4 +199,4 @@ export default function PrivilegiosPage() {
       </div>
     </div>
   )
-} 
+}

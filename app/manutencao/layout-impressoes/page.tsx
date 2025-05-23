@@ -38,9 +38,9 @@ export default function LayoutImpressoesPage() {
   ]
 
   return (
-    <div className="min-h-screen bg-gray-100 p-8">
+    <div className="min-h-screen bg-gray-100 dark:bg-gray-950 p-8">
       {/* Header */}
-      <div className="bg-white shadow rounded-lg mb-8">
+      <div className="bg-white shadow dark:bg-gray-900">
         <div className="px-6 py-4">
           <div className="flex items-center">
             <Printer className="h-8 w-8 text-blue-600 mr-2" />
@@ -143,11 +143,14 @@ export default function LayoutImpressoesPage() {
             {/* Print Preview */}
             <div className="mt-6">
               <Label>Conteúdo 1*</Label>
-              <div className="mt-2 p-4 bg-[#FFFCD6] border border-gray-200 rounded-lg min-h-[200px] font-mono text-center">
+              
+              <div className="print-preview mt-2 p-4 bg-[#FFFCD6] border border-gray-200 rounded-lg min-h-[200px] font-mono text-center">
                 {conteudo.split('\n').map((line, index) => (
                   <div key={index}>{line}</div>
                 ))}
               </div>
+
+              
               <Textarea
                 value={conteudo}
                 onChange={(e) => setConteudo(e.target.value)}

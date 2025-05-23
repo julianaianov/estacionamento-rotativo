@@ -46,9 +46,9 @@ export default function EmpresaPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-100 p-8">
+    <div className="min-h-screen bg-gray-100 dark:bg-gray-950 p-8">
       {/* Header */}
-      <div className="bg-white shadow rounded-lg mb-8">
+      <div className="bg-white shadow dark:bg-gray-900">
         <div className="px-6 py-4">
           <div className="flex items-center">
             <Building2 className="h-8 w-8 text-blue-600 mr-2" />
