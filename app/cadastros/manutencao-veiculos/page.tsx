@@ -68,8 +68,8 @@ export default function ManutencaoVeiculosPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-100">
-      <div className="bg-white rounded-lg shadow mx-4 mt-4">
+    <div className="min-h-screen bg-gray-100 dark:bg-gray-950">
+      <div className="bg-white dark:bg-gray-900 rounded shadow mx-4 mt-4">
         <div className="bg-blue-600 text-white p-3 flex justify-between items-center rounded-t-lg">
           <div className="flex items-center gap-2">
             <Car className="h-6 w-6" />

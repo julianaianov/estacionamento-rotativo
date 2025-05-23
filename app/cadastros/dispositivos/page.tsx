@@ -38,8 +38,8 @@ export default function DispositivosPage() {
   ])
 
   return (
-    <div className="min-h-screen bg-gray-100">
-      <div className="bg-white rounded-lg shadow mx-4 mt-4">
+    <div className="min-h-screen bg-gray-100 dark:bg-gray-950">
+      <div className="bg-white dark:bg-gray-900 rounded shadow mx-4 mt-4">
         <div className="bg-blue-600 text-white p-3 flex justify-between items-center rounded-t-lg">
           <div className="flex items-center gap-2">
             <Smartphone className="h-6 w-6" />
@@ -61,36 +61,38 @@ export default function DispositivosPage() {
           </div>
 
           <div className="overflow-x-auto">
-            <table className="min-w-full bg-white">
-              <thead className="bg-gray-50">
+            <table className="min-w-full bg-white dark:bg-gray-900 text-gray-900 dark:text-white">
+              <thead className="bg-gray-50 dark:bg-gray-800">
                 <tr>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Descrição</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nro serie/IMEI</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Senha</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nro. Tel.</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Device ID</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Ações</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase">ID</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase">Descrição</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase">Nro serie/IMEI</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase">Senha</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase">Nro. Tel.</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase">Device ID</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase">Status</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase">Ações</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-gray-200">
+              <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
                 {dispositivos.map((dispositivo) => (
-                  <tr key={dispositivo.id} className="hover:bg-gray-50">
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{dispositivo.id}</td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{dispositivo.descricao}</td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{dispositivo.nroSerieIMEI}</td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{dispositivo.senha}</td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{dispositivo.nroTel}</td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{dispositivo.deviceID}</td>
+                  <tr key={dispositivo.id} className="hover:bg-gray-50 dark:hover:bg-gray-800">
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">{dispositivo.id}</td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">{dispositivo.descricao}</td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">{dispositivo.nroSerieIMEI}</td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">{dispositivo.senha}</td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">{dispositivo.nroTel}</td>
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">{dispositivo.deviceID}</td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm">
                       <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
-                        dispositivo.status === "Ativo" ? "bg-green-100 text-green-800" : "bg-red-100 text-red-800"
+                        dispositivo.status === "Ativo"
+                          ? "bg-green-100 text-green-800 dark:bg-green-500 dark:text-white"
+                          : "bg-red-100 text-red-800 dark:bg-red-500 dark:text-white"
                       }`}>
                         {dispositivo.status}
                       </span>
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-white">
                       <button className="text-blue-600 hover:text-blue-900">
                         <Pencil className="h-4 w-4" />
                       </button>
@@ -99,6 +101,7 @@ export default function DispositivosPage() {
                 ))}
               </tbody>
             </table>
+
           </div>
         </div>
       </div>

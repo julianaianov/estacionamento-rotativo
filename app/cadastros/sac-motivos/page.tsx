@@ -2,35 +2,28 @@
 
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
-import { Info, Star, ArrowLeft, PenSquare } from "lucide-react"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import { Select } from "@/components/ui/select"
+import { Info, Star, ArrowLeft, ArrowRight } from "lucide-react"
 import Link from "next/link"
 
-interface Motivo {
-  id: number
-  descricao: string
-  prioridade: "Normal" | "Alta"
-  notificar: "Sim" | "Não"
-  diasParaAtendimento: number
-}
+export default function NovoMotivoPage() {
+  const [codigo, setCodigo] = useState("28")
+  const [descricao, setDescricao] = useState("")
+  const [prioridade, setPrioridade] = useState("NORMAL")
+  const [notificar, setNotificar] = useState("SIM")
+  const [diasAtendimento, setDiasAtendimento] = useState("")
 
-export default function SacMotivosPage() {
-  const [motivos] = useState<Motivo[]>([
-    { id: 15, descricao: "ATUALIZAÇÃO DE PLACA", prioridade: "Normal", notificar: "Não", diasParaAtendimento: 1 },
-    { id: 23, descricao: "COMPROVANTE DE PAGAMENTO", prioridade: "Normal", notificar: "Não", diasParaAtendimento: 0 },
-    { id: 1, descricao: "DUVIDA APP", prioridade: "Alta", notificar: "Não", diasParaAtendimento: 1 },
-    { id: 3, descricao: "DUVIDA NOTIFICACAO", prioridade: "Normal", notificar: "Não", diasParaAtendimento: 2 },
-    { id: 2, descricao: "DUVIDA SINALIZACAO", prioridade: "Normal", notificar: "Não", diasParaAtendimento: 2 },
-    { id: 6, descricao: "DUVIDAS DE UTILIZACAO", prioridade: "Alta", notificar: "Não", diasParaAtendimento: 2 },
-    { id: 24, descricao: "ELOGIO", prioridade: "Normal", notificar: "Sim", diasParaAtendimento: 2 },
-    { id: 21, descricao: "ERRO DE PLACA", prioridade: "Normal", notificar: "Não", diasParaAtendimento: 0 },
-    { id: 27, descricao: "ERRO DO AGENTE", prioridade: "Normal", notificar: "Sim", diasParaAtendimento: 0 },
-    { id: 9, descricao: "PLACA MARICA", prioridade: "Alta", notificar: "Não", diasParaAtendimento: 2 }
-  ])
+  const handleSalvar = () => {
+    // Implementar lógica de salvamento
+    console.log("Salvando motivo...")
+  }
 
   return (
-    <div className="min-h-screen bg-gray-100 p-8">
-      {/* Header */}
-      <div className="bg-white shadow rounded-lg mb-6">
+    <div className="min-h-screen bg-gray-100 dark:bg-gray-950">
+      <div className="bg-white dark:bg-gray-800 text-black dark:text-white border border-gray-300 dark:border-gray-700 rounded">
+
         <div className="bg-blue-600 text-white p-3 flex justify-between items-center rounded-t-lg">
           <div className="flex items-center gap-2">
             <Info className="h-6 w-6" />
@@ -40,70 +33,91 @@ export default function SacMotivosPage() {
             <Star className="h-6 w-6" />
           </button>
         </div>
-      </div>
 
-      {/* Add Button */}
-      <div className="mb-6">
-        <Link href="/cadastros/sac-motivos/novo">
-          <Button className="bg-blue-600 hover:bg-blue-700 text-white">
-            Adicionar novo
-          </Button>
-        </Link>
-      </div>
+        <div className="p-6">
+          <div className="space-y-6 max-w-3xl">
+            {/* Código com botões de navegação */}
+            <div className="flex items-center gap-4">
+              <div className="w-32">
+                <Label>Código</Label>
+                <Input
+                  value={codigo}
+                  onChange={(e) => setCodigo(e.target.value)}
+                  className="w-full"
+                />
+              </div>
+              <div className="flex gap-1 mt-6">
+                <Button variant="ghost" size="icon" className="text-gray-600">
+                  <ArrowLeft className="h-4 w-4" />
+                </Button>
+                <Button variant="ghost" size="icon" className="text-gray-600">
+                  <ArrowRight className="h-4 w-4" />
+                </Button>
+              </div>
+            </div>
 
-      {/* Table */}
-      <div className="bg-white shadow rounded-lg overflow-hidden">
-        <div className="overflow-x-auto">
-          <table className="w-full">
-            <thead className="bg-gray-50">
-              <tr>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  ID
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Descrição
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Prioridade
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Notificar
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Dias para atend.
-                </th>
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Ações
-                </th>
-              </tr>
-            </thead>
-            <tbody className="bg-white divide-y divide-gray-200">
-              {motivos.map((motivo) => (
-                <tr key={motivo.id} className="hover:bg-gray-50">
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                    {motivo.id}
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                    {motivo.descricao}
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                    {motivo.prioridade}
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                    {motivo.notificar}
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                    {motivo.diasParaAtendimento}
-                  </td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                    <button className="text-blue-600 hover:text-blue-800">
-                      <PenSquare className="h-4 w-4" />
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+            {/* Descrição */}
+            <div>
+              <Label>Descrição</Label>
+              <Input
+                value={descricao}
+                onChange={(e) => setDescricao(e.target.value)}
+                className="w-full"
+              />
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {/* Prioridade */}
+              <div>
+                <Label>Prioridade</Label>
+                <select
+                  value={prioridade}
+                  onChange={(e) => setPrioridade(e.target.value)}
+                  className="w-full rounded-md border border-input bg-background text-foreground p-2 transition-colors"
+                >
+
+                  <option value="NORMAL">NORMAL</option>
+                  <option value="ALTA">ALTA</option>
+                </select>
+              </div>
+
+              {/* Notificar */}
+              <div>
+                <Label>Notificar</Label>
+                <select
+                  value={notificar}
+                  onChange={(e) => setNotificar(e.target.value)}
+                  className="w-full rounded-md border border-input bg-background text-foreground p-2 transition-colors"
+                >
+                  <option value="SIM">SIM</option>
+                  <option value="NÃO">NÃO</option>
+                </select>
+              </div>
+
+              {/* Dias para atendimento */}
+              <div>
+                <Label>Dias para atendimento</Label>
+                <Input
+                  type="number"
+                  value={diasAtendimento}
+                  onChange={(e) => setDiasAtendimento(e.target.value)}
+                  className="w-full"
+                />
+              </div>
+            </div>
+
+            {/* Botões */}
+            <div className="flex justify-end gap-4 mt-6">
+              <Link href="/cadastros/sac-motivos">
+                <Button variant="outline" className="bg-[#F5A623] hover:bg-[#F5A623]/90 text-white">
+                  Cancelar
+                </Button>
+              </Link>
+              <Button onClick={handleSalvar} className="bg-blue-600 hover:bg-blue-700 text-white">
+                Salvar
+              </Button>
+            </div>
+          </div>
         </div>
       </div>
 

@@ -18,7 +18,7 @@ export default function ClientesDashboard() {
 
   return (
     <div>
-      <div className="bg-white rounded-lg shadow mx-4 mt-4">
+      <div className="bg-white dark:bg-gray-900 rounded shadow mx-4 mt-4">
         <div className="bg-blue-600 text-white p-3 flex justify-between items-center rounded-t-lg">
           <div className="flex items-center gap-2">
             <Users className="w-6 h-6" />
@@ -41,9 +41,10 @@ export default function ClientesDashboard() {
                   type="text"
                   value={buscarPlaca}
                   onChange={(e) => setBuscarPlaca(e.target.value)}
-                  className="border border-gray-300 p-2 w-full rounded"
+                  className="bg-background text-foreground border border-input p-2 w-full rounded transition-colors"
                   placeholder="Digite a placa"
                 />
+
                 <div className="flex items-center">
                   <input
                     type="checkbox"
@@ -52,7 +53,7 @@ export default function ClientesDashboard() {
                     onChange={(e) => setAddMascaraPlaca(e.target.checked)}
                     className="h-4 w-4 text-blue-600 rounded border-gray-300"
                   />
-                  <label htmlFor="mascaraPlaca" className="ml-2 text-sm text-gray-700">
+                  <label htmlFor="mascaraPlaca" className="ml-2 text-sm text-foreground">
                     Add máscara placa
                   </label>
                 </div>
@@ -66,12 +67,13 @@ export default function ClientesDashboard() {
               </label>
               <div className="space-y-2">
                 <input
-                  type="text"
-                  value={buscarDoc}
-                  onChange={(e) => setBuscarDoc(e.target.value)}
-                  className="border border-gray-300 p-2 w-full rounded"
-                  placeholder="Digite o documento"
-                />
+                    type="text"
+                    value={buscarDoc}
+                    onChange={(e) => setBuscarDoc(e.target.value)}
+                    className="bg-background text-foreground border border-input p-2 w-full rounded transition-colors"
+                    placeholder="Digite o documento"
+                  />
+
                 <div className="flex items-center space-x-4">
                   <div className="flex items-center">
                     <input

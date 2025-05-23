@@ -52,8 +52,8 @@ export default function IsentoVagaSetorPage() {
   ])
 
   return (
-    <div className="min-h-screen bg-gray-100">
-      <div className="bg-white rounded-lg shadow mx-4 mt-4">
+    <div className="min-h-screen bg-gray-100 dark:bg-gray-950">
+      <div className="bg-white dark:bg-gray-900 rounded shadow mx-4 mt-4">
         <div className="bg-blue-600 text-white p-3 flex justify-between items-center rounded-t-lg">
           <div className="flex items-center gap-2">
             <Flag className="h-6 w-6" />
@@ -77,7 +77,7 @@ export default function IsentoVagaSetorPage() {
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
-                <tr className="bg-gray-100">
+                <tr className="bg-gray-100 dark:bg-gray-950">
                   <th className="px-4 py-2 text-left">ID</th>
                   <th className="px-4 py-2 text-left">CPF</th>
                   <th className="px-4 py-2 text-left">Placa</th>
@@ -91,7 +91,7 @@ export default function IsentoVagaSetorPage() {
               </thead>
               <tbody>
                 {isentos.map((isento) => (
-                  <tr key={isento.id} className="border-b hover:bg-gray-50">
+                  <tr key={isento.id} className="border-b hover:bg-gray-400">
                     <td className="px-4 py-2">{isento.id}</td>
                     <td className="px-4 py-2">{isento.cpf}</td>
                     <td className="px-4 py-2">{isento.placa}</td>

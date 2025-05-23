@@ -1,7 +1,8 @@
 "use client"
 
+import { Input } from "@/components/ui/input"
 import Link from "next/link"
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import { CreditCard, Star, ArrowLeft } from "lucide-react"
 import { useRouter } from "next/navigation"
 
@@ -15,20 +16,6 @@ export default function IsentosPosPageDashboard() {
   const [placa, setPlaca] = useState("")
   const [totalIsentos, setTotalIsentos] = useState(832)
   const [searchResult, setSearchResult] = useState<SearchResult | null>(null)
-  const [showIsentos, setShowIsentos] = useState(false)
-  const [isentos, setIsentos] = useState<any[]>([])
-
-  useEffect(() => {
-    fetchTotalIsentos();
-  }, []);
-
-  async function fetchTotalIsentos() {
-    const response = await fetch("http://localhost:8000/api/isentos/total");
-    if (response.ok) {
-      const data = await response.json();
-      setTotalIsentos(data.total);
-    }
-  }
 
   const handleBuscarDados = () => {
     // Simulando busca no banco de dados
@@ -41,64 +28,9 @@ export default function IsentosPosPageDashboard() {
     }
   }
 
-  // Função para buscar cliente pela placa
-  async function buscarClientePorPlaca(placa: string) {
-    const response = await fetch(`http://localhost:8000/api/clientes/busca-por-placa?placa=${placa}`);
-    if (!response.ok) throw new Error("Cliente não encontrado");
-    return await response.json();
-  }
-
-  // Função para cadastrar como isento
-  async function cadastrarComoIsento(placa: string) {
-    const motivo = prompt("Digite o motivo da isenção:");
-    if (!motivo) {
-      alert("O motivo da isenção é obrigatório!");
-      return;
-    }
-    try {
-      const cliente = await buscarClientePorPlaca(placa);
-      const response = await fetch("http://localhost:8000/api/isentos", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ cliente_id: cliente.id, motivo }),
-      });
-      if (!response.ok) throw new Error("Erro ao cadastrar como isento");
-      alert("Cliente cadastrado como isento!");
-      setSearchResult({ ...searchResult!, status: "ISENTO", hasResult: true });
-      fetchTotalIsentos();
-    } catch (error: any) {
-      alert(error.message);
-    }
-  }
-
-  // Função para cadastrar como pós-pago
-  async function cadastrarComoPosPago(placa: string) {
-    try {
-      const cliente = await buscarClientePorPlaca(placa);
-      const response = await fetch("http://localhost:8000/api/pos-pagos", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ cliente_id: cliente.id }),
-      });
-      if (!response.ok) throw new Error("Erro ao cadastrar como pós-pago");
-      alert("Cliente cadastrado como pós-pago!");
-      setSearchResult({ ...searchResult!, status: "PÓS-PAGO", hasResult: true });
-    } catch (error: any) {
-      alert(error.message);
-    }
-  }
-
-  async function fetchIsentos() {
-    const response = await fetch("http://localhost:8000/api/isentos");
-    if (response.ok) {
-      const data = await response.json();
-      setIsentos(data);
-    }
-  }
-
   return (
     <div>
-      <div className="bg-white rounded-lg shadow mx-4 mt-4">
+      <div className="bg-white dark:bg-gray-900 rounded shadow mx-4 mt-4">
         <div className="bg-blue-600 text-white p-3 flex justify-between items-center rounded-t-lg">
           <div className="flex items-center gap-2">
             <CreditCard className="w-6 h-6" />
@@ -113,13 +45,13 @@ export default function IsentosPosPageDashboard() {
           {/* Formulário de Busca */}
           <div className="max-w-md space-y-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Placa:</label>
-              <input
+              <label className="block text-sm font-medium mb-1">Placa:</label>
+              <Input
                 type="text"
                 value={placa}
                 onChange={(e) => setPlaca(e.target.value.toUpperCase())}
-                className="border border-gray-300 p-2 w-full rounded"
                 placeholder="Digite a placa do veículo"
+                className="uppercase"
               />
             </div>
             <button
@@ -166,13 +98,13 @@ export default function IsentosPosPageDashboard() {
                         <div className="flex gap-4">
                           <button 
                             className="text-blue-600 hover:text-blue-800"
-                            onClick={() => cadastrarComoIsento(searchResult.placa)}
+                            onClick={() => console.log("Cadastrar como Isento")}
                           >
                             Cadastrar como Isento
                           </button>
                           <button 
                             className="text-blue-600 hover:text-blue-800"
-                            onClick={() => cadastrarComoPosPago(searchResult.placa)}
+                            onClick={() => console.log("Cadastrar como pós pago")}
                           >
                             Cadastrar como pós pago
                           </button>
@@ -186,53 +118,17 @@ export default function IsentosPosPageDashboard() {
           )}
 
           {/* Card com Total de Isentos */}
-          <div className="mt-8 bg-gray-50 p-4 rounded-lg max-w-md">
-            <h2 className="text-center text-lg font-semibold text-gray-800">TOTAL DE ISENTOS</h2>
-            <p className="text-center text-3xl font-bold text-gray-900 mt-2">{totalIsentos}</p>
+          <div className="mt-8 bg-card text-card-foreground p-4 rounded-lg max-w-md">
+            <h2 className="text-center text-lg font-semibold">TOTAL DE ISENTOS</h2>
+            <p className="text-center text-3xl font-bold mt-2">{totalIsentos}</p>
           </div>
-
-          <button
-            className="bg-blue-600 text-white px-4 py-2 rounded mb-4"
-            onClick={() => {
-              setShowIsentos(!showIsentos);
-              if (!showIsentos) fetchIsentos();
-            }}
-          >
-            Isentos
-          </button>
-          {showIsentos && (
-            <div className="mt-4 bg-white border rounded-lg p-4">
-              <h3 className="font-bold mb-2">Lista de Clientes Isentos</h3>
-              <table className="min-w-full divide-y divide-gray-200">
-                <thead>
-                  <tr>
-                    <th className="px-4 py-2">Nome</th>
-                    <th className="px-4 py-2">Documento</th>
-                    <th className="px-4 py-2">Placa</th>
-                    <th className="px-4 py-2">Motivo</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {isentos.map((item) => (
-                    <tr key={item.id}>
-                      <td className="px-4 py-2">{item.nome}</td>
-                      <td className="px-4 py-2">{item.documento}</td>
-                      <td className="px-4 py-2">{item.placa}</td>
-                      <td className="px-4 py-2">{item.motivo}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          )}
         </div>
       </div>
 
       <div className="flex justify-center mt-4 mb-4">
         <Link
           href="/cadastros"
-          className="bg-[#F5A623] hover:bg-[#F5A623]/80 text-white px-6 py-1.5 rounded text-sm font-medium inline-flex items-center"
-        >
+          className="bg-[#F5A623] hover:bg-[#F5A623]/80 text-white px-6 py-1.5 rounded text-sm font-medium inline-flex items-center">
           <ArrowLeft className="w-4 h-4 mr-1" />
           Voltar
         </Link>

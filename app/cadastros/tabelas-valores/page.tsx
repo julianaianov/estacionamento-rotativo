@@ -30,8 +30,8 @@ export default function TabelasValoresPage() {
   ])
 
   return (
-    <div className="min-h-screen bg-gray-100">
-      <div className="bg-white rounded-lg shadow mx-4 mt-4">
+    <div className="min-h-screen bg-gray-100 dark:bg-gray-950">
+      <div className="bg-white dark:bg-gray-900 rounded shadow mx-4 mt-4">
         <div className="bg-blue-600 text-white p-3 flex justify-between items-center rounded-t-lg">
           <div className="flex items-center gap-2">
             <Calculator className="h-6 w-6" />
@@ -65,16 +65,19 @@ export default function TabelasValoresPage() {
               </TableHeader>
               <TableBody>
                 {tabelas.map((tabela) => (
-                  <TableRow key={tabela.id} className="hover:bg-gray-50">
+                  <TableRow key={tabela.id} className="hover:bg-gray-300">
                     <TableCell>{tabela.id}</TableCell>
                     <TableCell>{tabela.descricao}</TableCell>
                     <TableCell>R$ {tabela.valor.toFixed(2)}</TableCell>
                     <TableCell>
                       <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
-                        tabela.status === "Ativo" ? "bg-green-100 text-green-800" : "bg-red-100 text-red-800"
+                        tabela.status === "Ativo"
+                          ? "bg-green-100 text-green-800 dark:bg-green-700 dark:text-white"
+                          : "bg-red-100 text-red-800 dark:bg-red-700 dark:text-white"
                       }`}>
                         {tabela.status}
                       </span>
+
                     </TableCell>
                     <TableCell>
                       <button className="text-blue-600 hover:text-blue-900">
