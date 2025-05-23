@@ -13,7 +13,7 @@ export const metadata = {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="pt-BR" className="scroll-smooth bg-white text-black dark:bg-[#0f172a] dark:text-white" suppressHydrationWarning>
+    <html lang="pt-BR" className="scroll-smooth bg-background text-foreground transition-colors duration-300" suppressHydrationWarning>
       <head>
         {/* Script para manter tema entre reloads */}
         <script
@@ -44,23 +44,25 @@ export default function RootLayout({ children }: { children: ReactNode }) {
             color: white;
           }
 
-
           .dark .bg-\[\#0093FF\] {
             background-color: #0f172a !important;
           }
-            
+
           /* Troca fundo da barra de "Dados de Hoje" no modo escuro */
           .dark [class*="from-\\[\\#33ACFF\\]"][class*="via-\\[\\#0093FF\\]"][class*="to-\\[\\#0070CC\\]"] {
             background: #0f172a !important;
           }
-
         `}</style>
       </head>
 
-      <body className={`${inter.className} bg-light text-black dark:bg-[#0f172a] dark:text-white`}>
+      <body className={`${inter.className} min-h-screen bg-background text-foreground transition-colors duration-300`}>
         <Navbar />
-        <main className="min-h-screen">{children}</main>
+        <main className="min-h-screen">
+          {children}
+        </main>
       </body>
+
+
     </html>
   )
 }
