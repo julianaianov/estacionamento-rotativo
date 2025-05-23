@@ -99,7 +99,7 @@ export default function MotivosBaixaAIDashboard() {
 
       {/* Back Button */}
       <div className="flex justify-center mt-6">
-        <Link href="/">
+        <Link href="/cadastros">
           <Button 
             variant="outline" 
             className="bg-[#F5A623] hover:bg-[#F5A623]/80 text-white border-none flex items-center gap-2"
