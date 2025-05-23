@@ -105,7 +105,7 @@ export default function ManutencaoPage() {
             <Link
               key={index}
               href={card.href}
-              className="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-200 p-6 flex flex-col"
+              className="bg-white dark:bg-gray-950 rounded shadow-md hover:shadow-lg transition-shadow duration-200 p-6 flex flex-col"
             >
               <div className="flex items-center mb-4">
                 <div className="bg-blue-100 rounded-full p-3">
