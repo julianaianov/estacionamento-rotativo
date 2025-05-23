@@ -127,7 +127,7 @@ export default function ClientesDashboard() {
       
       <div className="flex justify-center mt-4 mb-4">
         <Link
-          href="/"
+          href="/cadastros"
           className="bg-[#F5A623] hover:bg-[#F5A623]/80 text-white px-6 py-1.5 rounded text-sm font-medium inline-flex items-center"
         >
           <ArrowLeft className="w-4 h-4 mr-1" />
